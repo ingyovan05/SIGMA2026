@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{86F6EB73-423E-4578-A481-AE9086739857}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>FormulariosClasesBase</RootNamespace>
+    <AssemblyName>FormulariosClasesBase</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>FormulariosClasesBase.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>FormulariosClasesBase.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configurar.vb" />
+    <Compile Include="Cu_AsociarActivoFijo.Designer.vb">
+      <DependentUpon>Cu_AsociarActivoFijo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Cu_AsociarActivoFijo.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Cu_AsociarPersonaBodega.Designer.vb">
+      <DependentUpon>Cu_AsociarPersonaBodega.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Cu_AsociarPersonaBodega.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Cu_BuscarPersona.Designer.vb">
+      <DependentUpon>Cu_BuscarPersona.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Cu_BuscarPersona.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Cu_CentroCosto.Designer.vb">
+      <DependentUpon>Cu_CentroCosto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Cu_CentroCosto.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Cu_Ciudad.Designer.vb">
+      <DependentUpon>Cu_Ciudad.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Cu_Ciudad.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Cu_Asociar.Designer.vb">
+      <DependentUpon>Cu_Asociar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Cu_Asociar.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Cu_TextBoxDecimal.Designer.vb">
+      <DependentUpon>Cu_TextBoxDecimal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Cu_TextBoxDecimal.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Cu_TextBoxEntero.Designer.vb">
+      <DependentUpon>Cu_TextBoxEntero.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Cu_TextBoxEntero.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Cu_Vacuna.Designer.vb">
+      <DependentUpon>Cu_Vacuna.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Cu_Vacuna.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Fr_ActualizarContacto.Designer.vb">
+      <DependentUpon>Fr_ActualizarContacto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_ActualizarContacto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_AgregarContratista.Designer.vb">
+      <DependentUpon>Fr_AgregarContratista.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_AgregarContratista.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_AgregarPersona.Designer.vb">
+      <DependentUpon>Fr_AgregarPersona.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_AgregarPersona.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_AgregarRegistroTablaMaestra.Designer.vb">
+      <DependentUpon>Fr_AgregarRegistroTablaMaestra.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_AgregarRegistroTablaMaestra.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_ArticulosSinValorReferencia.designer.vb">
+      <DependentUpon>Fr_ArticulosSinValorReferencia.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_ArticulosSinValorReferencia.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_AsociarPersonaBodega.Designer.vb">
+      <DependentUpon>Fr_AsociarPersonaBodega.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_AsociarPersonaBodega.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_BuscarCentroCosto.Designer.vb">
+      <DependentUpon>Fr_BuscarCentroCosto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_BuscarCentroCosto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_BuscarContratista.Designer.vb">
+      <DependentUpon>Fr_BuscarContratista.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_BuscarContratista.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_BuscarEquipo.Designer.vb">
+      <DependentUpon>Fr_BuscarEquipo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_BuscarEquipo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Asociar.Designer.vb">
+      <DependentUpon>Fr_Asociar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Asociar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_BuscarPersona.Designer.vb">
+      <DependentUpon>Fr_BuscarPersona.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_BuscarPersona.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_BuscarProveedor.Designer.vb">
+      <DependentUpon>Fr_BuscarProveedor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_BuscarProveedor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Buscar_Ciudad.Designer.vb">
+      <DependentUpon>Fr_Buscar_Ciudad.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Buscar_Ciudad.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Busquedas.Designer.vb">
+      <DependentUpon>Fr_Busquedas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Busquedas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_EditarTablaMaestra.Designer.vb">
+      <DependentUpon>Fr_EditarTablaMaestra.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_EditarTablaMaestra.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_BuscarEnfermedades.Designer.vb">
+      <DependentUpon>Fr_BuscarEnfermedades.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_BuscarEnfermedades.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_GestionarActividadPrincipal.Designer.vb">
+      <DependentUpon>Fr_GestionarActividadPrincipal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_GestionarActividadPrincipal.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_MostrarFoto.Designer.vb">
+      <DependentUpon>Fr_MostrarFoto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_MostrarFoto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_TomarFoto.Designer.vb">
+      <DependentUpon>Fr_TomarFoto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_TomarFoto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_VisorRegistrosCorreo.Designer.vb">
+      <DependentUpon>Fr_VisorRegistrosCorreo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_VisorRegistrosCorreo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Cu_AsociarActivoFijo.resx">
+      <DependentUpon>Cu_AsociarActivoFijo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cu_AsociarPersonaBodega.resx">
+      <DependentUpon>Cu_AsociarPersonaBodega.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cu_BuscarPersona.resx">
+      <DependentUpon>Cu_BuscarPersona.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cu_CentroCosto.resx">
+      <DependentUpon>Cu_CentroCosto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cu_Ciudad.resx">
+      <DependentUpon>Cu_Ciudad.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cu_Asociar.resx">
+      <DependentUpon>Cu_Asociar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cu_TextBoxDecimal.resx">
+      <DependentUpon>Cu_TextBoxDecimal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cu_TextBoxEntero.resx">
+      <DependentUpon>Cu_TextBoxEntero.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cu_Vacuna.resx">
+      <DependentUpon>Cu_Vacuna.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_ActualizarContacto.resx">
+      <DependentUpon>Fr_ActualizarContacto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_AgregarContratista.resx">
+      <DependentUpon>Fr_AgregarContratista.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_AgregarPersona.resx">
+      <DependentUpon>Fr_AgregarPersona.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_AgregarRegistroTablaMaestra.resx">
+      <DependentUpon>Fr_AgregarRegistroTablaMaestra.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_ArticulosSinValorReferencia.resx">
+      <DependentUpon>Fr_ArticulosSinValorReferencia.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_AsociarPersonaBodega.resx">
+      <DependentUpon>Fr_AsociarPersonaBodega.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_BuscarCentroCosto.resx">
+      <DependentUpon>Fr_BuscarCentroCosto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_BuscarContratista.resx">
+      <DependentUpon>Fr_BuscarContratista.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_BuscarEquipo.resx">
+      <DependentUpon>Fr_BuscarEquipo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Asociar.resx">
+      <DependentUpon>Fr_Asociar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_BuscarPersona.resx">
+      <DependentUpon>Fr_BuscarPersona.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_BuscarProveedor.resx">
+      <DependentUpon>Fr_BuscarProveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Buscar_Ciudad.resx">
+      <DependentUpon>Fr_Buscar_Ciudad.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Busquedas.resx">
+      <DependentUpon>Fr_Busquedas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_EditarTablaMaestra.resx">
+      <DependentUpon>Fr_EditarTablaMaestra.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_BuscarEnfermedades.resx">
+      <DependentUpon>Fr_BuscarEnfermedades.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_GestionarActividadPrincipal.resx">
+      <DependentUpon>Fr_GestionarActividadPrincipal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_MostrarFoto.resx">
+      <DependentUpon>Fr_MostrarFoto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_TomarFoto.resx">
+      <DependentUpon>Fr_TomarFoto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_VisorRegistrosCorreo.resx">
+      <DependentUpon>Fr_VisorRegistrosCorreo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Clasesbase\Clasesbase.vbproj">
+      <Project>{6258153E-6A9F-452F-891C-A5FC040B49AB}</Project>
+      <Name>Clasesbase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosClasesBaseBuscar\DatosClasesBaseBuscar.vbproj">
+      <Project>{E9CECCD3-E563-40FA-9B1C-97D7523752A8}</Project>
+      <Name>DatosClasesBaseBuscar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosClasesBase\DatosClasesBase.vbproj">
+      <Project>{76662622-A938-4220-B193-511F624712CF}</Project>
+      <Name>DatosClasesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosProveedores\DatosProveedores.vbproj">
+      <Project>{2B5C9836-41A8-48BA-B224-CAC98DE46C5E}</Project>
+      <Name>DatosProveedores</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dscomunes\Dscomunes.vbproj">
+      <Project>{05000DB6-7E0D-4EBD-9116-5317E3C22180}</Project>
+      <Name>Dscomunes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FuncionesBase\FuncionesBase.vbproj">
+      <Project>{36C82D80-FD65-40D0-93A1-341C8A9B39A0}</Project>
+      <Name>FuncionesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VariablesBase\VariablesBase.vbproj">
+      <Project>{87CF2479-026B-4D80-A3B2-D86B3118C203}</Project>
+      <Name>VariablesBase</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

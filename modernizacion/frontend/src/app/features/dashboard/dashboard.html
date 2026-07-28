@@ -1,0 +1,65 @@
+<div class="shell">
+  <aside>
+    <div class="logo"><span>S</span><strong>SIGMA</strong></div>
+    <nav>
+      <a class="active"><span>⌂</span> Inicio</a>
+      <p>Módulos</p>
+      @for (module of modules(); track module.key) {
+        @if (module.key !== 'principal') {
+          <a [class.disabled]="module.status === 'planned'">
+            <span>□</span> {{ module.name }}
+            @if (module.status === 'planned') { <small>Próximo</small> }
+          </a>
+        }
+      }
+    </nav>
+    <div class="aside-footer">Modernización · Fase 1</div>
+  </aside>
+
+  <main>
+    <header>
+      <div><small>Sistema Integrado de Gestión</small><strong>Panel principal</strong></div>
+      <div class="user">
+        <span>{{ (auth.user()?.fullName || 'U').charAt(0) }}</span>
+        <div><strong>{{ auth.user()?.fullName }}</strong><small>{{ auth.user()?.identification }}</small></div>
+        <button (click)="auth.logout()">Salir</button>
+      </div>
+    </header>
+
+    <section class="content">
+      <div class="welcome">
+        <div>
+          <p class="eyebrow">Buen día</p>
+          <h1>{{ auth.user()?.fullName }}</h1>
+          <p>Este es el nuevo punto de entrada a los procesos de SIGMA.</p>
+        </div>
+        <div class="context">
+          @if (auth.user()?.warehouse; as warehouse) {
+            <small>Bodega actual</small><strong>{{ warehouse.abbreviation }} · {{ warehouse.name }}</strong>
+          } @else if (auth.user()?.sisControl; as sisControl) {
+            <small>Base SisControl</small><strong>{{ sisControl.baseAbbreviation }} · {{ sisControl.dependencyName }}</strong>
+          } @else {
+            <small>Contexto</small><strong>Acceso general</strong>
+          }
+        </div>
+      </div>
+
+      <div class="section-title">
+        <div><h2>Módulos</h2><p>La migración se habilitará progresivamente.</p></div>
+        <span>{{ modules().length }} registrados</span>
+      </div>
+      <div class="module-grid">
+        @for (module of modules(); track module.key; let index = $index) {
+          <article [class.available]="module.status === 'available'">
+            <div class="module-icon">{{ index + 1 }}</div>
+            <div>
+              <h3>{{ module.name }}</h3>
+              <p>{{ module.status === 'available' ? 'Disponible en la nueva plataforma' : 'Pendiente de migración' }}</p>
+            </div>
+            <span class="status">{{ module.status === 'available' ? 'Activo' : 'Próximo' }}</span>
+          </article>
+        }
+      </div>
+    </section>
+  </main>
+</div>

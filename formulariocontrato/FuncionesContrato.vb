@@ -1,0 +1,3 @@
+﻿Module FuncionesContrato
+
+End Module

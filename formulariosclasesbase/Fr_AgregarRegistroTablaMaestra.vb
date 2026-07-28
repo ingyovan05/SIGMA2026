@@ -1,0 +1,45 @@
+﻿Public Class Fr_AgregarRegistroTablaMaestra
+
+    Dim adap As SqlClient.SqlDataAdapter
+    Dim comando As New SqlClient.SqlCommand
+    Dim conexion As New SqlClient.SqlConnection
+    Dim Tabla As DataTable
+
+    Public NombreTabla As String
+
+    Private Sub Fr_AgregarRegistroTablaMaestra_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Me.Dgv_Maestra.ColumnHeadersDefaultCellStyle = VariablesBase.VariablesBase.DataGridViewCellStyle2
+        Me.Dgv_Maestra.DefaultCellStyle = VariablesBase.VariablesBase.DataGridViewCellStyle2
+        Try
+            Tabla = New DataTable(NombreTabla)
+            comando.CommandText = "SELECT * FROM " + Trim(NombreTabla)
+            adap = New SqlClient.SqlDataAdapter(comando.CommandText, VariablesBase.VariablesBase.Conexion_Remota_Sql_Server)
+            adap.Fill(Tabla)
+            Me.Dgv_Maestra.DataSource = Tabla
+            Me.Bt_Actualizar.Enabled = True
+        Catch ex As Exception
+            Me.Bt_Actualizar.Enabled = False
+            MsgBox("Se presento un problema al intentar cargar la tabla maestra", MsgBoxStyle.Critical, "Problema al cargar la tabla Maestra")
+        End Try
+    End Sub
+
+
+    Private Sub Bt_Actualizar_Click(sender As System.Object, e As System.EventArgs) Handles Bt_Actualizar.Click
+        If MsgBox("¿Seguro que desea guardar los cambios realizados?", MsgBoxStyle.YesNo, "Guardar Cambios") = MsgBoxResult.Yes Then
+            Try
+                Dim sqlcommandobuelder1 As SqlClient.SqlCommandBuilder
+                sqlcommandobuelder1 = New SqlClient.SqlCommandBuilder(adap)
+                adap.Update(Tabla)
+                MsgBox("Se actualizo la tabla correctamente")
+                Me.Close()
+            Catch ex As Exception
+                MsgBox("Ocurrio un error al intentar actualizar la tabla maestra")
+            End Try
+        End If
+    End Sub
+
+    Private Sub Bt_Cancelar_Click(sender As System.Object, e As System.EventArgs) Handles Bt_Cancelar.Click
+        Me.Close()
+    End Sub
+
+End Class

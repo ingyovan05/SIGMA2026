@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{B0D000C0-D541-46FA-918E-85D663C464B5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Facturas</RootNamespace>
+    <AssemblyName>Facturas</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>Facturas.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>Facturas.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configurar.vb" />
+    <Compile Include="Ds_Facturas.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ds_Facturas.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Ds_Facturas.vb">
+      <DependentUpon>Ds_Facturas.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_RegistrarFactura.Designer.vb">
+      <DependentUpon>Fr_RegistrarFactura.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_RegistrarFactura.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_RelacionarFacturas.Designer.vb">
+      <DependentUpon>Fr_RelacionarFacturas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_RelacionarFacturas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_RelaciónFacturas.Designer.vb">
+      <DependentUpon>Fr_RelaciónFacturas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_RelaciónFacturas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fr_RegistrarFactura.resx">
+      <DependentUpon>Fr_RegistrarFactura.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_RelacionarFacturas.resx">
+      <DependentUpon>Fr_RelacionarFacturas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_RelaciónFacturas.resx">
+      <DependentUpon>Fr_RelaciónFacturas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Ds_Facturas.xsc">
+      <DependentUpon>Ds_Facturas.xsd</DependentUpon>
+    </None>
+    <None Include="Ds_Facturas.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Ds_Facturas.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Ds_Facturas.xss">
+      <DependentUpon>Ds_Facturas.xsd</DependentUpon>
+    </None>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DatosOrdenCompra\DatosOrdenCompra.vbproj">
+      <Project>{BEB36746-B992-4C80-A67F-140A103D68D7}</Project>
+      <Name>DatosOrdenCompra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImpresiónMateriales\ImpresiónMateriales.vbproj">
+      <Project>{090A6CEE-5D3B-425D-8553-437CF9708D11}</Project>
+      <Name>ImpresiónMateriales</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OrdenCompra\OrdenCompra.vbproj">
+      <Project>{C65FC8C4-049D-415D-8A79-C02014558691}</Project>
+      <Name>OrdenCompra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VariablesBase\VariablesBase.vbproj">
+      <Project>{87CF2479-026B-4D80-A3B2-D86B3118C203}</Project>
+      <Name>VariablesBase</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

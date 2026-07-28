@@ -1,0 +1,544 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3BA66436-B684-4525-BB44-27B5A6917833}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>ADMINRECURSOSISMOCOL.My.MyApplication</StartupObject>
+    <RootNamespace>ADMINRECURSOSISMOCOL</RootNamespace>
+    <AssemblyName>ADMINRECURSOSISMOCOL</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>ADMINRECURSOSISMOCOL.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>ADMINRECURSOSISMOCOL.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>iconoismocol.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll terceros\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll terceros\Microsoft.ReportViewer.WinForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NetBarControl, Version=1.0.1.2012, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\debug\NetBarControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.IO.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ds_Configuración.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ds_Configuración.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Ds_Configuración.vb">
+      <DependentUpon>Ds_Configuración.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Acerca.Designer.vb">
+      <DependentUpon>Fr_Acerca.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Acerca.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Bienvenida.Designer.vb">
+      <DependentUpon>Fr_Bienvenida.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Bienvenida.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_ConfiguracionBase.Designer.vb">
+      <DependentUpon>Fr_ConfiguracionBase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_ConfiguracionBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Principal.designer.vb">
+      <DependentUpon>Fr_Principal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Principal.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Ingreso.Designer.vb">
+      <DependentUpon>Fr_Ingreso.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Ingreso.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fr_Acerca.resx">
+      <DependentUpon>Fr_Acerca.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Bienvenida.resx">
+      <DependentUpon>Fr_Bienvenida.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_ConfiguracionBase.resx">
+      <DependentUpon>Fr_ConfiguracionBase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Principal.resx">
+      <DependentUpon>Fr_Principal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Ingreso.resx">
+      <DependentUpon>Fr_Ingreso.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Ds_Configuración.xsc">
+      <DependentUpon>Ds_Configuración.xsd</DependentUpon>
+    </None>
+    <None Include="Ds_Configuración.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Ds_Configuración.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Ds_Configuración.xss">
+      <DependentUpon>Ds_Configuración.xsd</DependentUpon>
+    </None>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icono.ico" />
+    <Content Include="iconoismocol.ico" />
+    <Content Include="Resources\FPSisControl.png" />
+    <None Include="packages.config" />
+    <None Include="Resources\sistemas.png" />
+    <None Include="Resources\hse.png" />
+    <None Include="Resources\FPActivosFijos.png" />
+    <None Include="Resources\FPArticulos.png" />
+    <None Include="Resources\FAyuda.png" />
+    <None Include="Resources\accesoremoto.png" />
+    <Content Include="Resources\FPOrdenesTrabajo.png" />
+    <Content Include="Resources\FPPersona.png" />
+    <None Include="Resources\FPTransportes.png" />
+    <None Include="Resources\FPSubcontratistas.png" />
+    <None Include="Resources\FPReporte.png" />
+    <None Include="Resources\FPListaES.png" />
+    <None Include="Resources\FPInformes.png" />
+    <None Include="Resources\FPEquipo.png" />
+    <None Include="Resources\FPCuadrilla.png" />
+    <None Include="Resources\FPCOntrolEquipo.png" />
+    <None Include="Resources\FPContrato.png" />
+    <None Include="Resources\FPConfiguracion.png" />
+    <None Include="Resources\FPCompras.png" />
+    <None Include="Resources\FPCalendario.png" />
+    <None Include="Resources\FPBodega.png" />
+    <None Include="Resources\FPAuditoría.png" />
+    <None Include="Resources\FPalojamiento.png" />
+    <None Include="Resources\actualizar.png" />
+    <None Include="Resources\Ismocolito.jpg" />
+    <None Include="Resources\images.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ActivosFijos\ActivosFijos.vbproj">
+      <Project>{F30ACACA-0B68-435A-AB76-9FBA5D1CF4D4}</Project>
+      <Name>ActivosFijos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Articulos\Articulos.vbproj">
+      <Project>{247D92D1-71F9-40D5-8B92-8B3BDAFF9072}</Project>
+      <Name>Articulos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auditoria\Auditoria.vbproj">
+      <Project>{7D63AFF5-6E42-484D-9B5B-B97EA8DB0C75}</Project>
+      <Name>Auditoria</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bodegas\Bodegas.vbproj">
+      <Project>{7DAA16EB-60F7-450B-B574-66DCC29D53A1}</Project>
+      <Name>Bodegas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bodega\Bodega.vbproj">
+      <Project>{A2B249B8-6EEF-4AA8-88E6-5A742AA6B2A1}</Project>
+      <Name>Bodega</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Clasesbase\Clasesbase.vbproj">
+      <Project>{6258153E-6A9F-452F-891C-A5FC040B49AB}</Project>
+      <Name>Clasesbase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Compras\Compras.vbproj">
+      <Project>{1B7C4E05-851A-4AC0-8D4B-AD37E8B2E0B6}</Project>
+      <Name>Compras</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Conexión\Conexión.vbproj">
+      <Project>{C081C987-27F7-4675-83C9-9D30EF0A7F77}</Project>
+      <Name>Conexión</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\contrato\Contrato.vbproj">
+      <Project>{c391e2be-45b9-4263-bf4c-5cf7800e4246}</Project>
+      <Name>Contrato</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosActivosFijos\DatosActivosFijos.vbproj">
+      <Project>{A326C5AE-E14B-4214-9E67-5D89ABEE2DC3}</Project>
+      <Name>DatosActivosFijos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosArticulos\DatosArticulos.vbproj">
+      <Project>{64763A13-6737-4B23-A474-A0F55E45E140}</Project>
+      <Name>DatosArticulos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosAuditoria\DatosAuditoria.vbproj">
+      <Project>{60F18835-CC07-4B02-B8ED-5D77026506B7}</Project>
+      <Name>DatosAuditoria</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosBodegas\DatosBodegas.vbproj">
+      <Project>{7BC8F057-03A6-4204-B1B0-B88E2CCD7517}</Project>
+      <Name>DatosBodegas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosClasesBaseBuscar\DatosClasesBaseBuscar.vbproj">
+      <Project>{E9CECCD3-E563-40FA-9B1C-97D7523752A8}</Project>
+      <Name>DatosClasesBaseBuscar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosClasesBase\DatosClasesBase.vbproj">
+      <Project>{76662622-A938-4220-B193-511F624712CF}</Project>
+      <Name>DatosClasesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosEntradaAlmacén\DatosEntradaAlmacén.vbproj">
+      <Project>{DEF1D09E-A6E2-47A7-9BAF-1DA15D5B7276}</Project>
+      <Name>DatosEntradaAlmacén</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosImpresión\DatosImpresión.vbproj">
+      <Project>{48E3CF30-75E0-4117-8F80-2868D6DEFF5F}</Project>
+      <Name>DatosImpresión</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosOrdenCompra\DatosOrdenCompra.vbproj">
+      <Project>{BEB36746-B992-4C80-A67F-140A103D68D7}</Project>
+      <Name>DatosOrdenCompra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosPersona\DatosPersona.vbproj">
+      <Project>{90B57929-FB75-4A82-89FE-7FB3A78AF1E6}</Project>
+      <Name>DatosPersona</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosProveedores\DatosProveedores.vbproj">
+      <Project>{2B5C9836-41A8-48BA-B224-CAC98DE46C5E}</Project>
+      <Name>DatosProveedores</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosRequisición\DatosRequisición.vbproj">
+      <Project>{3EC89678-CDD4-497C-A84A-ABCAD20BBDB9}</Project>
+      <Name>DatosRequisición</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosSalidaAlmacén\DatosSalidaAlmacén.vbproj">
+      <Project>{35E1675B-A2BC-458D-BEB8-25798EC95897}</Project>
+      <Name>DatosSalidaAlmacén</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosSisControl\DatosSisControl.vbproj">
+      <Project>{BD91317F-B65E-479F-B0BC-1F8F03CF4280}</Project>
+      <Name>DatosSisControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dscomunes\Dscomunes.vbproj">
+      <Project>{05000DB6-7E0D-4EBD-9116-5317E3C22180}</Project>
+      <Name>Dscomunes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EntradaAlmacén\EntradaAlmacén.vbproj">
+      <Project>{5F349175-7852-44B4-809D-8FB525EA7C78}</Project>
+      <Name>EntradaAlmacén</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Facturas\Facturas.vbproj">
+      <Project>{B0D000C0-D541-46FA-918E-85D663C464B5}</Project>
+      <Name>Facturas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\formulariocontrato\FormularioContrato.vbproj">
+      <Project>{45feefeb-62a8-437e-a0a7-11d29257ea83}</Project>
+      <Name>FormularioContrato</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormularioLicitaciones\FormulariosLicitaciones.vbproj">
+      <Project>{1d181506-8ba6-4c89-9237-5904da1131b3}</Project>
+      <Name>FormulariosLicitaciones</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\formularioreportediario\FormularioReporteDiario.vbproj">
+      <Project>{bc9e6835-96d1-4b51-8a81-5764273cf035}</Project>
+      <Name>FormularioReporteDiario</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormulariosActivosFijos\FormulariosActivosFijos.vbproj">
+      <Project>{34A93D23-E911-480A-8706-F9B5E921629D}</Project>
+      <Name>FormulariosActivosFijos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormulariosClasesBase\FormulariosClasesBase.vbproj">
+      <Project>{86F6EB73-423E-4578-A481-AE9086739857}</Project>
+      <Name>FormulariosClasesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\formularioshse\FormulariosHse.vbproj">
+      <Project>{2fafd7d9-9bba-4db8-ab0e-ccae647b6c95}</Project>
+      <Name>FormulariosHse</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormulariosMaterialesEspeciales\FormulariosMaterialesEspeciales.vbproj">
+      <Project>{62b28b3e-5310-4ffb-9c48-ab4a7276bed9}</Project>
+      <Name>FormulariosMaterialesEspeciales</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormulariosOrdenesTrabajo\FormulariosOrdenesTrabajo.vbproj">
+      <Project>{93501a62-0f0b-43f0-8d6a-e41bcdb7c6a8}</Project>
+      <Name>FormulariosOrdenesTrabajo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormulariosSisControl\FormulariosSisControl.vbproj">
+      <Project>{EB29865F-2AAB-4F0D-BE25-02EF051E988D}</Project>
+      <Name>FormulariosSisControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\formulariossistemas\FormulariosSistemas.vbproj">
+      <Project>{85913328-5853-4e33-bb8d-2ab9d248e6c4}</Project>
+      <Name>FormulariosSistemas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FuncionesBase\FuncionesBase.vbproj">
+      <Project>{36C82D80-FD65-40D0-93A1-341C8A9B39A0}</Project>
+      <Name>FuncionesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\funcionesgoogle\FuncionesGoogle.vbproj">
+      <Project>{14326b47-ef01-40c1-9bc0-3ec40fe07058}</Project>
+      <Name>FuncionesGoogle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HSE\Hse.vbproj">
+      <Project>{cc7fe158-38ca-4828-b401-a699fae2297f}</Project>
+      <Name>Hse</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImpresiónLicitaciones\ImpresiónLicitaciones.vbproj">
+      <Project>{43ed07b2-2c0b-42a2-b677-a08fd90252b3}</Project>
+      <Name>ImpresiónLicitaciones</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImpresiónMateriales\ImpresiónMateriales.vbproj">
+      <Project>{090A6CEE-5D3B-425D-8553-437CF9708D11}</Project>
+      <Name>ImpresiónMateriales</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImpresiónSisControl\ImpresiónSisControl.vbproj">
+      <Project>{C987DA38-C5A4-404B-B1C5-D922B2687455}</Project>
+      <Name>ImpresiónSisControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Impresión\Impresión.vbproj">
+      <Project>{7F53289D-579E-40C7-869E-D863D3559B62}</Project>
+      <Name>Impresión</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImprimirControlProyecto\ImprimirControlProyecto.vbproj">
+      <Project>{6b2603ab-6f8f-4dd6-b428-8b4bb5bd49ac}</Project>
+      <Name>ImprimirControlProyecto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImprimirMasterSoldadura\ImprimirMasterSoldadura.vbproj">
+      <Project>{15daa2b7-7569-48c6-a3fc-494664b20d20}</Project>
+      <Name>ImprimirMasterSoldadura</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImprimirRecursoHumano\ImprimirRecursoHumano.vbproj">
+      <Project>{e28c159a-fc90-4aba-8270-5aef8ee41f75}</Project>
+      <Name>ImprimirRecursoHumano</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Informe\Informe.vbproj">
+      <Project>{8A34664B-13DD-4CD0-A558-3604CCCEA066}</Project>
+      <Name>Informe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Licitaciones\Licitaciones.vbproj">
+      <Project>{cc06e439-198e-47bb-8da8-3a52f05dd789}</Project>
+      <Name>Licitaciones</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MaterialesEspeciales\MaterialesEspeciales.vbproj">
+      <Project>{b11aeec7-1eb7-4f53-a429-217686964e95}</Project>
+      <Name>MaterialesEspeciales</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OrdenCompra\OrdenCompra.vbproj">
+      <Project>{C65FC8C4-049D-415D-8A79-C02014558691}</Project>
+      <Name>OrdenCompra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ordendetrabajo\OrdendeTrabajo.vbproj">
+      <Project>{9f2d8163-890e-4687-ac93-44ae35068a32}</Project>
+      <Name>OrdendeTrabajo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Persona\Persona.vbproj">
+      <Project>{14B41A64-EBF0-4BBA-8E9D-48FD4F95D46C}</Project>
+      <Name>Persona</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Proveedores\Proveedores.vbproj">
+      <Project>{80FFE72F-5B93-44E9-9AB0-9F7A04CD3B18}</Project>
+      <Name>Proveedores</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\reportediario\ReporteDiario.vbproj">
+      <Project>{4ccb6aa1-879a-447c-a1c2-3cf64c3bc549}</Project>
+      <Name>ReporteDiario</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Requisición\Requisición.vbproj">
+      <Project>{B7D90ADD-947F-4B45-9F53-B695BFDB33A4}</Project>
+      <Name>Requisición</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SalidaAlmacén\SalidaAlmacén.vbproj">
+      <Project>{ABC3C923-88C4-4AB5-9121-191A9ED6315A}</Project>
+      <Name>SalidaAlmacén</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SisControl\SisControl.vbproj">
+      <Project>{9D23EBD1-F435-4D69-A903-0869E30A9F58}</Project>
+      <Name>SisControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sistemas\Sistemas.vbproj">
+      <Project>{32547645-d219-4367-b7e6-97ed3d30698b}</Project>
+      <Name>Sistemas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VariablesBase\VariablesBase.vbproj">
+      <Project>{87CF2479-026B-4D80-A3B2-D86B3118C203}</Project>
+      <Name>VariablesBase</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

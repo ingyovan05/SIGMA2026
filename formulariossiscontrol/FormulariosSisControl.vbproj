@@ -1,0 +1,515 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{EB29865F-2AAB-4F0D-BE25-02EF051E988D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>FormulariosSisControl</RootNamespace>
+    <AssemblyName>FormulariosSisControl</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <NuGetPackageImportStamp>498c4a79</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>FormulariosSisControl.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>FormulariosSisControl.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DatosPersona">
+      <HintPath>..\DatosPersona\bin\Debug\DatosPersona.dll</HintPath>
+    </Reference>
+    <Reference Include="Documentos">
+      <HintPath>..\Documentos\bin\Debug\Documentos.dll</HintPath>
+    </Reference>
+    <Reference Include="Dscomunes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="FormularioContrato">
+      <HintPath>..\FormularioContrato\bin\Debug\FormularioContrato.dll</HintPath>
+    </Reference>
+    <Reference Include="Impresión">
+      <HintPath>..\Impresión\bin\Debug\Impresión.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NetBarControl">
+      <HintPath>..\dll Terceros\NetBarControl.dll</HintPath>
+    </Reference>
+    <Reference Include="RequerimientoPersona">
+      <HintPath>..\RequerimientoPersona\bin\Debug\RequerimientoPersona.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fr_ArchivoSS.Designer.vb">
+      <DependentUpon>Fr_ArchivoSS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_ArchivoSS.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Busqueda.Designer.vb">
+      <DependentUpon>Fr_Busqueda.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Busqueda.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configurar.vb" />
+    <Compile Include="Fr_AgregarContratista.Designer.vb">
+      <DependentUpon>Fr_AgregarContratista.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_AgregarContratista.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Aprobaciones.Designer.vb">
+      <DependentUpon>Fr_Aprobaciones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Aprobaciones.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_AsociarDependencia.Designer.vb">
+      <DependentUpon>Fr_AsociarDependencia.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_AsociarDependencia.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_BaseDependencia.Designer.vb">
+      <DependentUpon>Fr_BaseDependencia.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_BaseDependencia.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_BoletaSalida.Designer.vb">
+      <DependentUpon>Fr_BoletaSalida.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_BoletaSalida.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_BuscarContratista.Designer.vb">
+      <DependentUpon>Fr_BuscarContratista.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_BuscarContratista.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_BuscarEmpTrasmporte.Designer.vb">
+      <DependentUpon>Fr_BuscarEmpTrasmporte.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_BuscarEmpTrasmporte.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_BuscarSticker.Designer.vb">
+      <DependentUpon>Fr_BuscarSticker.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_BuscarSticker.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_BusquedaSisControl.Designer.vb">
+      <DependentUpon>Fr_BusquedaSisControl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_BusquedaSisControl.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_CambiarDependencia.Designer.vb">
+      <DependentUpon>Fr_CambiarDependencia.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_CambiarDependencia.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Contratos.Designer.vb">
+      <DependentUpon>Fr_Contratos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Contratos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Correspondencia.Designer.vb">
+      <DependentUpon>Fr_Correspondencia.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Correspondencia.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_CorrespondenciaRecibida.Designer.vb">
+      <DependentUpon>Fr_CorrespondenciaRecibida.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_CorrespondenciaRecibida.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_CuentaCobro.Designer.vb">
+      <DependentUpon>Fr_CuentaCobro.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_CuentaCobro.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_DocumentoEquivalente.Designer.vb">
+      <DependentUpon>Fr_DocumentoEquivalente.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_DocumentoEquivalente.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_EnviarCorreosNomina.Designer.vb">
+      <DependentUpon>Fr_EnviarCorreosNomina.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_EnviarCorreosNomina.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_EnviarDocsATercero.Designer.vb">
+      <DependentUpon>Fr_EnviarDocsATercero.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_EnviarDocsATercero.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_FacturaElectronica.Designer.vb">
+      <DependentUpon>Fr_FacturaElectronica.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_FacturaElectronica.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_GenerarStickers.Designer.vb">
+      <DependentUpon>Fr_GenerarStickers.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_GenerarStickers.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_ImprimirStickers.Designer.vb">
+      <DependentUpon>Fr_ImprimirStickers.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_ImprimirStickers.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_GestionarUsuarioCorrespondencia.Designer.vb">
+      <DependentUpon>Fr_GestionarUsuarioCorrespondencia.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_GestionarUsuarioCorrespondencia.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Listado.Designer.vb">
+      <DependentUpon>Fr_Listado.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Listado.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_NumeroAprobacion.Designer.vb">
+      <DependentUpon>Fr_NumeroAprobacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_NumeroAprobacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_OrdenServicio.Designer.vb">
+      <DependentUpon>Fr_OrdenServicio.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_OrdenServicio.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_RadicacionFacturasPrincipal.Designer.vb">
+      <DependentUpon>Fr_RadicacionFacturasPrincipal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_RadicacionFacturasPrincipal.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_RecibirStickers.Designer.vb">
+      <DependentUpon>Fr_RecibirStickers.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_RecibirStickers.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_EnviarDocsDependencias.Designer.vb">
+      <DependentUpon>Fr_EnviarDocsDependencias.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_EnviarDocsDependencias.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Sobres.Designer.vb">
+      <DependentUpon>Fr_Sobres.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Sobres.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_SubirArchivosFacturaElectronica.Designer.vb">
+      <DependentUpon>Fr_SubirArchivosFacturaElectronica.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_SubirArchivosFacturaElectronica.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_UsuariosDependencias.Designer.vb">
+      <DependentUpon>Fr_UsuariosDependencias.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_UsuariosDependencias.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Visitante.Designer.vb">
+      <DependentUpon>Fr_Visitante.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Visitante.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fr_ArchivoSS.resx">
+      <DependentUpon>Fr_ArchivoSS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Busqueda.resx">
+      <DependentUpon>Fr_Busqueda.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_AgregarContratista.resx">
+      <DependentUpon>Fr_AgregarContratista.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Aprobaciones.resx">
+      <DependentUpon>Fr_Aprobaciones.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_AsociarDependencia.resx">
+      <DependentUpon>Fr_AsociarDependencia.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_BaseDependencia.resx">
+      <DependentUpon>Fr_BaseDependencia.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_BoletaSalida.resx">
+      <DependentUpon>Fr_BoletaSalida.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_BuscarContratista.resx">
+      <DependentUpon>Fr_BuscarContratista.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_BuscarEmpTrasmporte.resx">
+      <DependentUpon>Fr_BuscarEmpTrasmporte.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_BuscarSticker.resx">
+      <DependentUpon>Fr_BuscarSticker.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_BusquedaSisControl.resx">
+      <DependentUpon>Fr_BusquedaSisControl.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_CambiarDependencia.resx">
+      <DependentUpon>Fr_CambiarDependencia.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Contratos.resx">
+      <DependentUpon>Fr_Contratos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Correspondencia.resx">
+      <DependentUpon>Fr_Correspondencia.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_CorrespondenciaRecibida.resx">
+      <DependentUpon>Fr_CorrespondenciaRecibida.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_CuentaCobro.resx">
+      <DependentUpon>Fr_CuentaCobro.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_DocumentoEquivalente.resx">
+      <DependentUpon>Fr_DocumentoEquivalente.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_EnviarCorreosNomina.resx">
+      <DependentUpon>Fr_EnviarCorreosNomina.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_EnviarDocsATercero.resx">
+      <DependentUpon>Fr_EnviarDocsATercero.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_FacturaElectronica.resx">
+      <DependentUpon>Fr_FacturaElectronica.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_GenerarStickers.resx">
+      <DependentUpon>Fr_GenerarStickers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_ImprimirStickers.resx">
+      <DependentUpon>Fr_ImprimirStickers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_GestionarUsuarioCorrespondencia.resx">
+      <DependentUpon>Fr_GestionarUsuarioCorrespondencia.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Listado.resx">
+      <DependentUpon>Fr_Listado.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_NumeroAprobacion.resx">
+      <DependentUpon>Fr_NumeroAprobacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_OrdenServicio.resx">
+      <DependentUpon>Fr_OrdenServicio.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_RadicacionFacturasPrincipal.resx">
+      <DependentUpon>Fr_RadicacionFacturasPrincipal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_RecibirStickers.resx">
+      <DependentUpon>Fr_RecibirStickers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_EnviarDocsDependencias.resx">
+      <DependentUpon>Fr_EnviarDocsDependencias.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Sobres.resx">
+      <DependentUpon>Fr_Sobres.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_SubirArchivosFacturaElectronica.resx">
+      <DependentUpon>Fr_SubirArchivosFacturaElectronica.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_UsuariosDependencias.resx">
+      <DependentUpon>Fr_UsuariosDependencias.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Visitante.resx">
+      <DependentUpon>Fr_Visitante.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DatosClasesBaseBuscar\DatosClasesBaseBuscar.vbproj">
+      <Project>{E9CECCD3-E563-40FA-9B1C-97D7523752A8}</Project>
+      <Name>DatosClasesBaseBuscar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosOrdenCompra\DatosOrdenCompra.vbproj">
+      <Project>{BEB36746-B992-4C80-A67F-140A103D68D7}</Project>
+      <Name>DatosOrdenCompra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosSisControl\DatosSisControl.vbproj">
+      <Project>{BD91317F-B65E-479F-B0BC-1F8F03CF4280}</Project>
+      <Name>DatosSisControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormulariosClasesBase\FormulariosClasesBase.vbproj">
+      <Project>{86F6EB73-423E-4578-A481-AE9086739857}</Project>
+      <Name>FormulariosClasesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FuncionesBase\FuncionesBase.vbproj">
+      <Project>{36C82D80-FD65-40D0-93A1-341C8A9B39A0}</Project>
+      <Name>FuncionesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\funcionesgoogle\FuncionesGoogle.vbproj">
+      <Project>{14326b47-ef01-40c1-9bc0-3ec40fe07058}</Project>
+      <Name>FuncionesGoogle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImpresiónSisControl\ImpresiónSisControl.vbproj">
+      <Project>{C987DA38-C5A4-404B-B1C5-D922B2687455}</Project>
+      <Name>ImpresiónSisControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OrdenCompra\OrdenCompra.vbproj">
+      <Project>{C65FC8C4-049D-415D-8A79-C02014558691}</Project>
+      <Name>OrdenCompra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\persona\Persona.vbproj">
+      <Project>{14B41A64-EBF0-4BBA-8E9D-48FD4F95D46C}</Project>
+      <Name>Persona</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VariablesBase\VariablesBase.vbproj">
+      <Project>{87CF2479-026B-4D80-A3B2-D86B3118C203}</Project>
+      <Name>VariablesBase</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Habilite la restauración del paquete NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

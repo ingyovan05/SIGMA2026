@@ -1,0 +1,395 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{14B41A64-EBF0-4BBA-8E9D-48FD4F95D46C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Persona</RootNamespace>
+    <AssemblyName>Persona</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <NuGetPackageImportStamp>c2781c6a</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>Persona.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>Persona.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NetBarControl, Version=1.0.1.2012, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll Terceros\NetBarControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configurar.vb" />
+    <Compile Include="Cu_Persona.Designer.vb">
+      <DependentUpon>Cu_Persona.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Cu_Persona.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dg_CambiarDatosContacto.Designer.vb">
+      <DependentUpon>Dg_CambiarDatosContacto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dg_CambiarDatosContacto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_AgregarEstado.Designer.vb">
+      <DependentUpon>Fr_AgregarEstado.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_AgregarEstado.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_EvaluacionDesempeño.Designer.vb">
+      <DependentUpon>Fr_EvaluacionDesempeño.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_EvaluacionDesempeño.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_ExamenesPendientesConcepto.Designer.vb">
+      <DependentUpon>Fr_ExamenesPendientesConcepto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_ExamenesPendientesConcepto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_GestionarVacunas.Designer.vb">
+      <DependentUpon>Fr_GestionarVacunas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_GestionarVacunas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_PersonaSeguridad.Designer.vb">
+      <DependentUpon>Fr_PersonaSeguridad.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_PersonaSeguridad.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_RegistrarTemperatura.Designer.vb">
+      <DependentUpon>Fr_RegistrarTemperatura.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_RegistrarTemperatura.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_AgregarCalificación.Designer.vb">
+      <DependentUpon>Fr_AgregarCalificación.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_AgregarCalificación.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_AutorizarIngresoMultiple.Designer.vb">
+      <DependentUpon>Fr_AutorizarIngresoMultiple.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_AutorizarIngresoMultiple.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Encuesta.Designer.vb">
+      <DependentUpon>Fr_Encuesta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Encuesta.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_GestionarCalificaciones.Designer.vb">
+      <DependentUpon>Fr_GestionarCalificaciones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_GestionarCalificaciones.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_ImprimirExamenes.Designer.vb">
+      <DependentUpon>Fr_ImprimirExamenes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_ImprimirExamenes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Persona.Designer.vb">
+      <DependentUpon>Fr_Persona.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Persona.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_PersonaBasico.Designer.vb">
+      <DependentUpon>Fr_PersonaBasico.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_PersonaBasico.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_ProgramarCapacitaciones.Designer.vb">
+      <DependentUpon>Fr_ProgramarCapacitaciones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_ProgramarCapacitaciones.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Cu_Persona.resx">
+      <DependentUpon>Cu_Persona.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dg_CambiarDatosContacto.resx">
+      <DependentUpon>Dg_CambiarDatosContacto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_AgregarEstado.resx">
+      <DependentUpon>Fr_AgregarEstado.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_EvaluacionDesempeño.resx">
+      <DependentUpon>Fr_EvaluacionDesempeño.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_ExamenesPendientesConcepto.resx">
+      <DependentUpon>Fr_ExamenesPendientesConcepto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_GestionarVacunas.resx">
+      <DependentUpon>Fr_GestionarVacunas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_PersonaSeguridad.resx">
+      <DependentUpon>Fr_PersonaSeguridad.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_RegistrarTemperatura.resx">
+      <DependentUpon>Fr_RegistrarTemperatura.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_AgregarCalificación.resx">
+      <DependentUpon>Fr_AgregarCalificación.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_AutorizarIngresoMultiple.resx">
+      <DependentUpon>Fr_AutorizarIngresoMultiple.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Encuesta.resx">
+      <DependentUpon>Fr_Encuesta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_GestionarCalificaciones.resx">
+      <DependentUpon>Fr_GestionarCalificaciones.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_ImprimirExamenes.resx">
+      <DependentUpon>Fr_ImprimirExamenes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Persona.resx">
+      <DependentUpon>Fr_Persona.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_PersonaBasico.resx">
+      <DependentUpon>Fr_PersonaBasico.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_ProgramarCapacitaciones.resx">
+      <DependentUpon>Fr_ProgramarCapacitaciones.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Clasesbase\Clasesbase.vbproj">
+      <Project>{6258153E-6A9F-452F-891C-A5FC040B49AB}</Project>
+      <Name>Clasesbase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosClasesBase\DatosClasesBase.vbproj">
+      <Project>{76662622-A938-4220-B193-511F624712CF}</Project>
+      <Name>DatosClasesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosPersona\DatosPersona.vbproj">
+      <Project>{90B57929-FB75-4A82-89FE-7FB3A78AF1E6}</Project>
+      <Name>DatosPersona</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dscomunes\Dscomunes.vbproj">
+      <Project>{05000DB6-7E0D-4EBD-9116-5317E3C22180}</Project>
+      <Name>Dscomunes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\formulariocontrato\FormularioContrato.vbproj">
+      <Project>{45feefeb-62a8-437e-a0a7-11d29257ea83}</Project>
+      <Name>FormularioContrato</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormulariosClasesBase\FormulariosClasesBase.vbproj">
+      <Project>{86F6EB73-423E-4578-A481-AE9086739857}</Project>
+      <Name>FormulariosClasesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FuncionesBase\FuncionesBase.vbproj">
+      <Project>{36C82D80-FD65-40D0-93A1-341C8A9B39A0}</Project>
+      <Name>FuncionesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\funcionesgoogle\FuncionesGoogle.vbproj">
+      <Project>{14326b47-ef01-40c1-9bc0-3ec40fe07058}</Project>
+      <Name>FuncionesGoogle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImprimirRecursoHumano\ImprimirRecursoHumano.vbproj">
+      <Project>{e28c159a-fc90-4aba-8270-5aef8ee41f75}</Project>
+      <Name>ImprimirRecursoHumano</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VariablesBase\VariablesBase.vbproj">
+      <Project>{87CF2479-026B-4D80-A3B2-D86B3118C203}</Project>
+      <Name>VariablesBase</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Resources\Printer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filtrar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FPersona.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FNuevoPersona.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FEditarPersona.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FContrato.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FNuevoContrato.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FDesactivarPersona.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FRequicinRolMensual.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FRequicinRolDiario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FRequerimientoPersonal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FImprimirFormatos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FVerPersona.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Buscar.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Habilite la restauración del paquete NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

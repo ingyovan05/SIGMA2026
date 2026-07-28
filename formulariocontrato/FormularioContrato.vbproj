@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{45FEEFEB-62A8-437E-A0A7-11D29257EA83}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>FormularioContrato</RootNamespace>
+    <AssemblyName>FormularioContrato</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>FormularioContrato.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>FormularioContrato.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configurar.vb" />
+    <Compile Include="Dg_Formatos.Designer.vb">
+      <DependentUpon>Dg_Formatos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dg_Formatos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dia_ProrrogarContrato.Designer.vb">
+      <DependentUpon>Dia_ProrrogarContrato.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dia_ProrrogarContrato.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Contratar.Designer.vb">
+      <DependentUpon>Fr_Contratar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Contratar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_GestionarProrrogas.Designer.vb">
+      <DependentUpon>Fr_GestionarProrrogas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_GestionarProrrogas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_HistorialCambios.Designer.vb">
+      <DependentUpon>Fr_HistorialCambios.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_HistorialCambios.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_OtrosiContrato.Designer.vb">
+      <DependentUpon>Fr_OtrosiContrato.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_OtrosiContrato.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_ReclasificarContrato.Designer.vb">
+      <DependentUpon>Fr_ReclasificarContrato.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_ReclasificarContrato.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FuncionesContrato.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Dg_Formatos.resx">
+      <DependentUpon>Dg_Formatos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dia_ProrrogarContrato.resx">
+      <DependentUpon>Dia_ProrrogarContrato.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Contratar.resx">
+      <DependentUpon>Fr_Contratar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_GestionarProrrogas.resx">
+      <DependentUpon>Fr_GestionarProrrogas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_HistorialCambios.resx">
+      <DependentUpon>Fr_HistorialCambios.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_OtrosiContrato.resx">
+      <DependentUpon>Fr_OtrosiContrato.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_ReclasificarContrato.resx">
+      <DependentUpon>Fr_ReclasificarContrato.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Clasesbase\Clasesbase.vbproj">
+      <Project>{6258153E-6A9F-452F-891C-A5FC040B49AB}</Project>
+      <Name>Clasesbase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosClasesBaseBuscar\DatosClasesBaseBuscar.vbproj">
+      <Project>{E9CECCD3-E563-40FA-9B1C-97D7523752A8}</Project>
+      <Name>DatosClasesBaseBuscar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosClasesBase\DatosClasesBase.vbproj">
+      <Project>{76662622-A938-4220-B193-511F624712CF}</Project>
+      <Name>DatosClasesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosImpresión\DatosImpresión.vbproj">
+      <Project>{48E3CF30-75E0-4117-8F80-2868D6DEFF5F}</Project>
+      <Name>DatosImpresión</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dscomunes\Dscomunes.vbproj">
+      <Project>{05000DB6-7E0D-4EBD-9116-5317E3C22180}</Project>
+      <Name>Dscomunes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormulariosClasesBase\FormulariosClasesBase.vbproj">
+      <Project>{86f6eb73-423e-4578-a481-ae9086739857}</Project>
+      <Name>FormulariosClasesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FuncionesBase\FuncionesBase.vbproj">
+      <Project>{36C82D80-FD65-40D0-93A1-341C8A9B39A0}</Project>
+      <Name>FuncionesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImprimirRecursoHumano\ImprimirRecursoHumano.vbproj">
+      <Project>{e28c159a-fc90-4aba-8270-5aef8ee41f75}</Project>
+      <Name>ImprimirRecursoHumano</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VariablesBase\VariablesBase.vbproj">
+      <Project>{87CF2479-026B-4D80-A3B2-D86B3118C203}</Project>
+      <Name>VariablesBase</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

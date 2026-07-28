@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1D181506-8BA6-4C89-9237-5904DA1131B3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <StartupObject>
+    </StartupObject>
+    <RootNamespace>FormularioLicitaciones</RootNamespace>
+    <AssemblyName>FormularioLicitaciones</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>2b4525b9</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>FormularioLicitaciones.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>FormularioLicitaciones.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+      <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configurar.vb" />
+    <Compile Include="FormulariosLicitaciones.vb" />
+    <Compile Include="Fr_APU.Designer.vb">
+      <DependentUpon>Fr_APU.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_APU.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_AsignarPermisosLicitacion.Designer.vb">
+      <DependentUpon>Fr_AsignarPermisosLicitacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_AsignarPermisosLicitacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_BuscarRecurso.Designer.vb">
+      <DependentUpon>Fr_BuscarRecurso.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_BuscarRecurso.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_ImportarEstructura.Designer.vb">
+      <DependentUpon>Fr_ImportarEstructura.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_ImportarEstructura.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Licitacion.Designer.vb">
+      <DependentUpon>Fr_Licitacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Licitacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_ManoDeObra.Designer.vb">
+      <DependentUpon>Fr_ManoDeObra.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_ManoDeObra.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_MaquinariaEquipo.Designer.vb">
+      <DependentUpon>Fr_MaquinariaEquipo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_MaquinariaEquipo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Material.Designer.vb">
+      <DependentUpon>Fr_Material.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Material.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_OpcionesImpresionLicitacion.Designer.vb">
+      <DependentUpon>Fr_OpcionesImpresionLicitacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_OpcionesImpresionLicitacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Recursos.Designer.vb">
+      <DependentUpon>Fr_Recursos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Recursos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_SeleccionarItems.Designer.vb">
+      <DependentUpon>Fr_SeleccionarItems.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_SeleccionarItems.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMOCOLPRODUCCIONDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ISMOCOLPRODUCCIONDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ISMOCOLPRODUCCIONDataSet1.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ISMOCOLPRODUCCIONDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ISMOCOLPRODUCCIONDataSet2.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ISMOCOLPRODUCCIONDataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fr_APU.resx">
+      <DependentUpon>Fr_APU.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_AsignarPermisosLicitacion.resx">
+      <DependentUpon>Fr_AsignarPermisosLicitacion.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_BuscarRecurso.resx">
+      <DependentUpon>Fr_BuscarRecurso.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_ImportarEstructura.resx">
+      <DependentUpon>Fr_ImportarEstructura.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Licitacion.resx">
+      <DependentUpon>Fr_Licitacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_ManoDeObra.resx">
+      <DependentUpon>Fr_ManoDeObra.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_MaquinariaEquipo.resx">
+      <DependentUpon>Fr_MaquinariaEquipo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Material.resx">
+      <DependentUpon>Fr_Material.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_OpcionesImpresionLicitacion.resx">
+      <DependentUpon>Fr_OpcionesImpresionLicitacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Recursos.resx">
+      <DependentUpon>Fr_Recursos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_SeleccionarItems.resx">
+      <DependentUpon>Fr_SeleccionarItems.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ISMOCOLPRODUCCIONDataSet.xsc">
+      <DependentUpon>ISMOCOLPRODUCCIONDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ISMOCOLPRODUCCIONDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ISMOCOLPRODUCCIONDataSet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ISMOCOLPRODUCCIONDataSet.xss">
+      <DependentUpon>ISMOCOLPRODUCCIONDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ISMOCOLPRODUCCIONDataSet1.xsc">
+      <DependentUpon>ISMOCOLPRODUCCIONDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="ISMOCOLPRODUCCIONDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ISMOCOLPRODUCCIONDataSet1.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ISMOCOLPRODUCCIONDataSet1.xss">
+      <DependentUpon>ISMOCOLPRODUCCIONDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="ISMOCOLPRODUCCIONDataSet2.xsc">
+      <DependentUpon>ISMOCOLPRODUCCIONDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="ISMOCOLPRODUCCIONDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ISMOCOLPRODUCCIONDataSet2.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ISMOCOLPRODUCCIONDataSet2.xss">
+      <DependentUpon>ISMOCOLPRODUCCIONDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Articulos\Articulos.vbproj">
+      <Project>{247d92d1-71f9-40d5-8b92-8b3bdaff9072}</Project>
+      <Name>Articulos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Clasesbase\Clasesbase.vbproj">
+      <Project>{6258153e-6a9f-452f-891c-a5fc040b49ab}</Project>
+      <Name>Clasesbase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosClasesBaseBuscar\DatosClasesBaseBuscar.vbproj">
+      <Project>{e9ceccd3-e563-40fa-9b1c-97d7523752a8}</Project>
+      <Name>DatosClasesBaseBuscar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosClasesBase\DatosClasesBase.vbproj">
+      <Project>{76662622-a938-4220-b193-511f624712cf}</Project>
+      <Name>DatosClasesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormulariosClasesBase\FormulariosClasesBase.vbproj">
+      <Project>{86f6eb73-423e-4578-a481-ae9086739857}</Project>
+      <Name>FormulariosClasesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FuncionesBase\FuncionesBase.vbproj">
+      <Project>{36c82d80-fd65-40d0-93a1-341c8a9b39a0}</Project>
+      <Name>FuncionesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImpresiónLicitaciones\ImpresiónLicitaciones.vbproj">
+      <Project>{43ed07b2-2c0b-42a2-b677-a08fd90252b3}</Project>
+      <Name>ImpresiónLicitaciones</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Impresión\Impresión.vbproj">
+      <Project>{7F53289D-579E-40C7-869E-D863D3559B62}</Project>
+      <Name>Impresión</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VariablesBase\VariablesBase.vbproj">
+      <Project>{87cf2479-026b-4d80-a3b2-d86b3118c203}</Project>
+      <Name>VariablesBase</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Habilite la restauración del paquete NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

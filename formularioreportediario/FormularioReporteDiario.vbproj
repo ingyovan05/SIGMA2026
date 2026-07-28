@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{BC9E6835-96D1-4B51-8A81-5764273CF035}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>FormularioReporteDiario</RootNamespace>
+    <AssemblyName>FormularioReporteDiario</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <NuGetPackageImportStamp>0834ba6b</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>FormularioReporteDiario.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>FormularioReporteDiario.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configurar.vb" />
+    <Compile Include="Dg_Novedad.Designer.vb">
+      <DependentUpon>Dg_Novedad.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dg_Novedad.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dg_NovedadEquipo.Designer.vb">
+      <DependentUpon>Dg_NovedadEquipo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dg_NovedadEquipo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_BuscarServicioOTSAP.Designer.vb">
+      <DependentUpon>Fr_BuscarServicioOTSAP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_BuscarServicioOTSAP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_Búsqueda.Designer.vb">
+      <DependentUpon>Fr_Búsqueda.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_Búsqueda.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_CrearReportesDiario.Designer.vb">
+      <DependentUpon>Fr_CrearReportesDiario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_CrearReportesDiario.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_GestiónCuadrillas.Designer.vb">
+      <DependentUpon>Fr_GestiónCuadrillas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_GestiónCuadrillas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_ModificarReporte.Designer.vb">
+      <DependentUpon>Fr_ModificarReporte.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_ModificarReporte.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_NovedadesEquipos.Designer.vb">
+      <DependentUpon>Fr_NovedadesEquipos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_NovedadesEquipos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fr_NovedadesPersona.Designer.vb">
+      <DependentUpon>Fr_NovedadesPersona.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fr_NovedadesPersona.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Dg_Novedad.resx">
+      <DependentUpon>Dg_Novedad.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dg_NovedadEquipo.resx">
+      <DependentUpon>Dg_NovedadEquipo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_BuscarServicioOTSAP.resx">
+      <DependentUpon>Fr_BuscarServicioOTSAP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_Búsqueda.resx">
+      <DependentUpon>Fr_Búsqueda.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_CrearReportesDiario.resx">
+      <DependentUpon>Fr_CrearReportesDiario.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_GestiónCuadrillas.resx">
+      <DependentUpon>Fr_GestiónCuadrillas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_ModificarReporte.resx">
+      <DependentUpon>Fr_ModificarReporte.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_NovedadesEquipos.resx">
+      <DependentUpon>Fr_NovedadesEquipos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fr_NovedadesPersona.resx">
+      <DependentUpon>Fr_NovedadesPersona.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Articulos\Articulos.vbproj">
+      <Project>{247d92d1-71f9-40d5-8b92-8b3bdaff9072}</Project>
+      <Name>Articulos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosImpresión\DatosImpresión.vbproj">
+      <Project>{48E3CF30-75E0-4117-8F80-2868D6DEFF5F}</Project>
+      <Name>DatosImpresión</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatosReporteDiario\DatosReporteDiario.vbproj">
+      <Project>{08DC572F-72F3-4D2C-ACAA-7C231380B743}</Project>
+      <Name>DatosReporteDiario</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dscomunes\Dscomunes.vbproj">
+      <Project>{05000DB6-7E0D-4EBD-9116-5317E3C22180}</Project>
+      <Name>Dscomunes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormulariosClasesBase\FormulariosClasesBase.vbproj">
+      <Project>{86F6EB73-423E-4578-A481-AE9086739857}</Project>
+      <Name>FormulariosClasesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FuncionesBase\FuncionesBase.vbproj">
+      <Project>{36C82D80-FD65-40D0-93A1-341C8A9B39A0}</Project>
+      <Name>FuncionesBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Impresión\Impresión.vbproj">
+      <Project>{7F53289D-579E-40C7-869E-D863D3559B62}</Project>
+      <Name>Impresión</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VariablesBase\VariablesBase.vbproj">
+      <Project>{87CF2479-026B-4D80-A3B2-D86B3118C203}</Project>
+      <Name>VariablesBase</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Habilite la restauración del paquete NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
