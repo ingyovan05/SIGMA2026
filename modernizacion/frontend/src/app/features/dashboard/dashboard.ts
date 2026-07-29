@@ -48,6 +48,11 @@ export class Dashboard implements OnInit {
   readonly processCategory = signal('');
   readonly pageSize = 15;
   readonly cities = signal<LookupItem[]>([]);
+  readonly cityCatalogOpen = signal(false);
+  readonly cityCatalog = signal<MasterCity[]>([]);
+  readonly cityCatalogSearch = signal('');
+  readonly cityCatalogLoading = signal(false);
+  readonly cityCatalogTarget = signal<CityTarget>('birth');
   readonly configurationPeople = signal<PersonSummary[]>([]);
   readonly configuration = signal<BaseConfiguration>(emptyConfiguration());
   readonly configurationMessage = signal('');
@@ -64,7 +69,7 @@ export class Dashboard implements OnInit {
   ];
   readonly personnelGroups: PersonnelGroup[] = [
     { key: 'personas', name: 'Persona', actions: [
-      ['cargar', 'Cargar personas', 560], ['ver', 'Ver persona', 209],
+      ['cargar', 'Cargar personas', 560],
       ['registrar', 'Registrar persona', 39], ['registrar-basico', 'Registrar persona básico', 39],
       ['desactivar', 'Desactivar', 41], ['buscar', 'Buscar persona', 555],
       ['formatos', 'Imprimir formatos', 45], ['contrato', 'Registrar contrato', 42],
@@ -210,6 +215,45 @@ export class Dashboard implements OnInit {
   }
 
   closePersonRegistration(): void { this.personRegistrationOpen.set(false); }
+
+  openCityCatalog(target: CityTarget): void {
+    this.cityCatalogTarget.set(target);
+    this.cityCatalogOpen.set(true);
+    this.searchCityCatalog('');
+  }
+
+  closeCityCatalog(): void { this.cityCatalogOpen.set(false); }
+
+  searchCityCatalog(search: string): void {
+    this.cityCatalogSearch.set(search);
+    this.cityCatalogLoading.set(true);
+    this.http.get<PagedResult<MasterCity>>(`${environment.apiUrl}/base-configuration/cities/master`,
+      { params: { search, page: 1, pageSize: this.pageSize } })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: result => {
+          this.cityCatalog.set(result.items);
+          this.cityCatalogLoading.set(false);
+        },
+        error: () => this.cityCatalogLoading.set(false)
+      });
+  }
+
+  useCity(city: MasterCity): void {
+    this.http.post<LookupItem>(`${environment.apiUrl}/base-configuration/cities`, { code: city.code })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(selected => {
+        if (!this.cities().some(item => item.code === selected.code)) {
+          this.cities.update(items => [...items, selected].sort((a, b) => a.name.localeCompare(b.name)));
+        }
+        const target = this.cityCatalogTarget();
+        if (target === 'issue') this.newPerson().issueCityCode = selected.code;
+        if (target === 'birth') this.newPerson().birthCityCode = selected.code;
+        if (target === 'residence') this.newPerson().residenceCityCode = selected.code;
+        if (target === 'configuration') this.configuration().cityCode = selected.code;
+        this.closeCityCatalog();
+      });
+  }
 
   nextPersonStep(): void {
     const person = this.newPerson();
@@ -359,6 +403,10 @@ interface PersonDetail extends PersonSummary {
   birthCityCode: string | null; residenceCityCode: string | null;
 }
 interface LookupItem { code: string; name: string; }
+interface MasterCity extends LookupItem {
+  departmentCode: string; department: string; countryCode: string; country: string; isUsed: boolean;
+}
+type CityTarget = 'issue' | 'birth' | 'residence' | 'configuration';
 interface ContactInfo {
   personId: number; fullName: string; personalEmail: string; personalMobile: string;
   corporateEmail: string; corporateMobile: string;

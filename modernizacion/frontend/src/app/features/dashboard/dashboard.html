@@ -110,7 +110,6 @@
                       <span>{{ person.identification }}</span><strong>{{ person.fullName }}</strong>
                       <span>{{ person.mobile || '—' }}</span><span>{{ person.email || '—' }}</span>
                       <span class="row-actions">
-                        <button type="button" (click)="openPerson(person.id)">Ver</button>
                         <button type="button" (click)="editPerson(person.id)">Editar</button>
                       </span>
                     </div>
@@ -212,7 +211,7 @@
                           <label><span>Tipo de identificación *</span><select [(ngModel)]="newPerson().identificationType"><option value="CC">Cédula de ciudadanía</option><option value="CE">Cédula de extranjería</option><option value="PA">Pasaporte</option><option value="TI">Tarjeta de identidad</option></select></label>
                           <label><span>Número de identificación *</span><input [(ngModel)]="newPerson().identification" inputmode="numeric" placeholder="Sin puntos ni espacios"></label>
                           <label><span>Fecha de expedición</span><input [(ngModel)]="newPerson().issueDate" type="date"></label>
-                          <label><span>Ciudad de expedición</span><select [(ngModel)]="newPerson().issueCityCode"><option [ngValue]="null">Seleccione</option>@for (city of cities(); track city.code) {<option [value]="city.code">{{ city.name }}</option>}</select></label>
+                          <label><span>Ciudad de expedición</span><div class="city-field"><select [(ngModel)]="newPerson().issueCityCode"><option [ngValue]="null">Seleccione</option>@for (city of cities(); track city.code) {<option [value]="city.code">{{ city.code }} · {{ city.name }}</option>}</select><button type="button" title="Agregar desde el maestro" (click)="openCityCatalog('issue')">+</button></div></label>
                         </div>
                       </div>
                       <div class="form-section">
@@ -223,7 +222,7 @@
                           <label><span>Primer apellido *</span><input [(ngModel)]="newPerson().lastName" autocomplete="family-name"></label>
                           <label><span>Segundo apellido</span><input [(ngModel)]="newPerson().secondLastName"></label>
                           <label><span>Fecha de nacimiento</span><input [(ngModel)]="newPerson().birthDate" type="date"></label>
-                          <label><span>Ciudad de nacimiento *</span><select [(ngModel)]="newPerson().birthCityCode"><option [ngValue]="null">Seleccione</option>@for (city of cities(); track city.code) {<option [value]="city.code">{{ city.name }}</option>}</select></label>
+                          <label><span>Ciudad de nacimiento *</span><div class="city-field"><select [(ngModel)]="newPerson().birthCityCode"><option [ngValue]="null">Seleccione</option>@for (city of cities(); track city.code) {<option [value]="city.code">{{ city.code }} · {{ city.name }}</option>}</select><button type="button" title="Agregar desde el maestro" (click)="openCityCatalog('birth')">+</button></div></label>
                           <label><span>Género</span><select [(ngModel)]="newPerson().gender"><option value="">Seleccione</option><option value="F">Femenino</option><option value="M">Masculino</option></select></label>
                           <label><span>Grupo sanguíneo</span><select [(ngModel)]="newPerson().bloodType"><option>SIN</option><option>O+</option><option>O-</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option></select></label>
                         </div>
@@ -232,7 +231,7 @@
                       <div class="form-section">
                         <div class="form-section-title"><h3>Residencia y contacto</h3><p>Información utilizada por Personal y CU_Contacto.</p></div>
                         <div class="registration-grid">
-                          <label><span>Ciudad de residencia *</span><select [(ngModel)]="newPerson().residenceCityCode"><option [ngValue]="null">Seleccione</option>@for (city of cities(); track city.code) {<option [value]="city.code">{{ city.name }}</option>}</select></label>
+                          <label><span>Ciudad de residencia *</span><div class="city-field"><select [(ngModel)]="newPerson().residenceCityCode"><option [ngValue]="null">Seleccione</option>@for (city of cities(); track city.code) {<option [value]="city.code">{{ city.code }} · {{ city.name }}</option>}</select><button type="button" title="Agregar desde el maestro" (click)="openCityCatalog('residence')">+</button></div></label>
                           <label class="span-two"><span>Dirección</span><input [(ngModel)]="newPerson().address" autocomplete="street-address"></label>
                           <label><span>Teléfono móvil</span><input [(ngModel)]="newPerson().mobile" inputmode="tel"></label>
                           <label><span>Teléfono fijo</span><input [(ngModel)]="newPerson().phone" inputmode="tel"></label>
@@ -292,10 +291,10 @@
               </div>
               <div class="form-grid">
                 <label><span>Código del contrato</span><input [(ngModel)]="configuration().contractCode" type="text"></label>
-                <label><span>Ciudad de contratación *</span><select [(ngModel)]="configuration().cityCode">
+                <label><span>Ciudad de contratación *</span><div class="city-field"><select [(ngModel)]="configuration().cityCode">
                   <option [ngValue]="null">Seleccione una ciudad</option>
-                  @for (city of cities(); track city.code) { <option [value]="city.code">{{ city.name }}</option> }
-                </select></label>
+                  @for (city of cities(); track city.code) { <option [value]="city.code">{{ city.code }} · {{ city.name }}</option> }
+                </select><button type="button" title="Agregar desde el maestro" (click)="openCityCatalog('configuration')">+</button></div></label>
                 <label class="full"><span>Lugar de entrega de dotación</span><input [(ngModel)]="configuration().workwearDeliveryPlace" type="text"></label>
                 <label><span>Coordinador QA/QC</span><select [(ngModel)]="configuration().qaqcCoordinatorId"><option [ngValue]="null">Sin asignar</option>@for (person of configurationPeople(); track person.id) {<option [ngValue]="person.id">{{ person.fullName }}</option>}</select></label>
                 <label><span>Coordinador HSE</span><select [(ngModel)]="configuration().hseCoordinatorId"><option [ngValue]="null">Sin asignar</option>@for (person of configurationPeople(); track person.id) {<option [ngValue]="person.id">{{ person.fullName }}</option>}</select></label>
@@ -343,5 +342,31 @@
         }
       }
     </section>
+    @if (cityCatalogOpen()) {
+      <div class="modal-backdrop city-catalog-backdrop" (click)="closeCityCatalog()">
+        <section class="city-catalog-modal" role="dialog" aria-modal="true" aria-labelledby="city-catalog-title" (click)="$event.stopPropagation()">
+          <header class="modal-header">
+            <div class="modal-mark">CI</div>
+            <div><p class="eyebrow">MA_POBLACIONMAESTRA</p><h2 id="city-catalog-title">Agregar ciudad a las usadas</h2></div>
+            <button class="modal-close" type="button" aria-label="Cerrar" (click)="closeCityCatalog()">×</button>
+          </header>
+          <div class="city-catalog-search">
+            <label><span>Buscar por código, municipio, departamento o país</span><input #citySearch type="search" [value]="cityCatalogSearch()" (keyup.enter)="searchCityCatalog(citySearch.value)"></label>
+            <button class="primary" type="button" (click)="searchCityCatalog(citySearch.value)">Buscar</button>
+          </div>
+          <div class="city-catalog-list">
+            @for (city of cityCatalog(); track city.countryCode + city.departmentCode + city.code) {
+              <div class="city-catalog-row">
+                <code>{{ city.code }}</code>
+                <span><strong>{{ city.name }}</strong><small>{{ city.department }} · {{ city.country }}</small></span>
+                <button type="button" [disabled]="city.isUsed" (click)="useCity(city)">{{ city.isUsed ? 'Ya está usada' : 'Agregar y seleccionar' }}</button>
+              </div>
+            } @empty {
+              <div class="table-empty">{{ cityCatalogLoading() ? 'Buscando ciudades...' : 'No se encontraron ciudades.' }}</div>
+            }
+          </div>
+        </section>
+      </div>
+    }
   </main>
 </div>

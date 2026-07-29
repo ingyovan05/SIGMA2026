@@ -33,14 +33,80 @@ public sealed class BaseConfigurationController(ISqlConnectionFactory connection
     public async Task<IActionResult> Cities([FromQuery] string? search)
     {
         const string sql = """
-            SELECT TOP (100) LTRIM(RTRIM(CODIGOPOBLACION)) AS Code,
+            SELECT LTRIM(RTRIM(CODIGOPOBLACION)) AS Code,
                 LTRIM(RTRIM(NOMBREPOBLACION)) AS Name
             FROM dbo.MA_POBLACION
-            WHERE (@Search = '' OR NOMBREPOBLACION LIKE '%' + @Search + '%')
+            WHERE (@Search = '' OR CODIGOPOBLACION LIKE '%' + @Search + '%'
+                OR NOMBREPOBLACION LIKE '%' + @Search + '%')
             ORDER BY NOMBREPOBLACION;
             """;
         await using var connection = connectionFactory.Create();
         return Ok(await connection.QueryAsync<LookupItem>(sql, new { Search = search?.Trim() ?? string.Empty }));
+    }
+
+    [HttpGet("cities/master")]
+    public async Task<IActionResult> MasterCities([FromQuery] string? search, [FromQuery] int page = 1, [FromQuery] int pageSize = 15)
+    {
+        page = Math.Max(1, page);
+        pageSize = Math.Clamp(pageSize, 1, 50);
+        const string sql = """
+            SELECT LTRIM(RTRIM(CODIGOMUNICIPIO)) AS Code,
+                LTRIM(RTRIM(NOMBREMUNICIPIO)) AS Name,
+                LTRIM(RTRIM(CODIGODEPARTAMENTO)) AS DepartmentCode,
+                LTRIM(RTRIM(NOMBREDEPARTAMENTO)) AS Department,
+                LTRIM(RTRIM(CODIGOPAIS)) AS CountryCode,
+                LTRIM(RTRIM(NOMBREPAIS)) AS Country,
+                CAST(CASE WHEN EXISTS (
+                    SELECT 1 FROM dbo.MA_POBLACION p
+                    WHERE p.CODIGOPOBLACION = m.CODIGOMUNICIPIO
+                ) THEN 1 ELSE 0 END AS bit) AS IsUsed
+            FROM dbo.MA_POBLACIONMAESTRA m
+            WHERE (@Search = '' OR CODIGOMUNICIPIO LIKE '%' + @Search + '%'
+                OR NOMBREMUNICIPIO LIKE '%' + @Search + '%'
+                OR NOMBREDEPARTAMENTO LIKE '%' + @Search + '%'
+                OR NOMBREPAIS LIKE '%' + @Search + '%')
+            ORDER BY NOMBREPAIS, NOMBREDEPARTAMENTO, NOMBREMUNICIPIO
+            OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;
+
+            SELECT COUNT(1) FROM dbo.MA_POBLACIONMAESTRA
+            WHERE (@Search = '' OR CODIGOMUNICIPIO LIKE '%' + @Search + '%'
+                OR NOMBREMUNICIPIO LIKE '%' + @Search + '%'
+                OR NOMBREDEPARTAMENTO LIKE '%' + @Search + '%'
+                OR NOMBREPAIS LIKE '%' + @Search + '%');
+            """;
+        await using var connection = connectionFactory.Create();
+        using var result = await connection.QueryMultipleAsync(sql, new
+        {
+            Search = search?.Trim() ?? string.Empty,
+            Offset = (page - 1) * pageSize,
+            PageSize = pageSize
+        });
+        var items = (await result.ReadAsync<MasterCity>()).ToArray();
+        var total = await result.ReadSingleAsync<int>();
+        return Ok(new { items, total, page, pageSize });
+    }
+
+    [HttpPost("cities")]
+    public async Task<IActionResult> AddCity([FromBody] AddCityRequest request)
+    {
+        var code = request.Code?.Trim();
+        if (string.IsNullOrWhiteSpace(code))
+            return BadRequest(new { error = "Seleccione una ciudad del maestro." });
+
+        const string sql = """
+            DECLARE @Name nvarchar(30);
+            SELECT TOP (1) @Name = LTRIM(RTRIM(NOMBREMUNICIPIO))
+            FROM dbo.MA_POBLACIONMAESTRA WHERE CODIGOMUNICIPIO = @Code;
+            IF @Name IS NULL
+                THROW 50001, 'La ciudad no existe en MA_POBLACIONMAESTRA.', 1;
+            IF NOT EXISTS (SELECT 1 FROM dbo.MA_POBLACION WHERE CODIGOPOBLACION = @Code)
+                INSERT INTO dbo.MA_POBLACION
+                    (CODIGOPOBLACIONNOMGEN, CODIGOPOBLACION, NOMBREPOBLACION)
+                VALUES (NULL, @Code, @Name);
+            SELECT @Code AS Code, @Name AS Name;
+            """;
+        await using var connection = connectionFactory.Create();
+        return Ok(await connection.QuerySingleAsync<LookupItem>(sql, new { Code = code }));
     }
 
     [HttpPut("{baseId:int}")]
@@ -73,6 +139,10 @@ public sealed class BaseConfigurationController(ISqlConnectionFactory connection
     }
 
     public sealed record LookupItem(string Code, string Name);
+    public sealed record MasterCity(
+        string Code, string Name, string DepartmentCode, string Department,
+        string CountryCode, string Country, bool IsUsed);
+    public sealed record AddCityRequest(string? Code);
     public sealed record SaveBaseConfiguration(
         string? ContractCode, int? CostCenterId, string CityCode, int? QaqcCoordinatorId,
         int? HseCoordinatorId, int? DoctorId, int? ResidentId, int? PeopleManagerId,
