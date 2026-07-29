@@ -112,6 +112,14 @@
                       <div class="table-empty">{{ peopleLoading() ? 'Cargando personas...' : 'No se encontraron registros.' }}</div>
                     }
                   </div>
+                  <div class="pagination">
+                    <span>{{ peopleTotal() ? ((peoplePage() - 1) * pageSize + 1) : 0 }}–{{ pageEnd(peoplePage(), peopleTotal()) }} de {{ peopleTotal() }}</span>
+                    <div>
+                      <button type="button" [disabled]="peoplePage() === 1" (click)="changePeoplePage(peoplePage() - 1)">Anterior</button>
+                      <b>Página {{ peoplePage() }} de {{ totalPages(peopleTotal()) }}</b>
+                      <button type="button" [disabled]="peoplePage() >= totalPages(peopleTotal())" (click)="changePeoplePage(peoplePage() + 1)">Siguiente</button>
+                    </div>
+                  </div>
                 } @else {
                   <div class="process-heading">
                     <div><p class="eyebrow">Personal</p><h2>{{ personnelGroupName() }}</h2></div>
@@ -130,6 +138,14 @@
                     } @else {
                       <div class="table-empty">{{ processLoading() ? 'Cargando información...' : (processError() || 'No existen registros para esta consulta.') }}</div>
                     }
+                  </div>
+                  <div class="pagination">
+                    <span>{{ processTotal() ? ((processPage() - 1) * pageSize + 1) : 0 }}–{{ pageEnd(processPage(), processTotal()) }} de {{ processTotal() }}</span>
+                    <div>
+                      <button type="button" [disabled]="processPage() === 1" (click)="changeProcessPage(processPage() - 1)">Anterior</button>
+                      <b>Página {{ processPage() }} de {{ totalPages(processTotal()) }}</b>
+                      <button type="button" [disabled]="processPage() >= totalPages(processTotal())" (click)="changeProcessPage(processPage() + 1)">Siguiente</button>
+                    </div>
                   </div>
                 }
               </div>

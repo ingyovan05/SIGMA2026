@@ -41,6 +41,10 @@ app-dashboard {
   .process-row{display:grid;grid-template-columns:repeat(8,minmax(9rem,1fr));min-width:72rem;border-bottom:1px solid #e7e7e7}
   .process-row span{padding:.65rem .75rem;font-size:.68rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .process-head{background:var(--ismocol-slate);color:white;font-weight:750;text-transform:uppercase}
+  .pagination{display:flex;align-items:center;justify-content:space-between;padding:.8rem .2rem;color:var(--ismocol-gray);font-size:.68rem}
+  .pagination div{display:flex;align-items:center;gap:.6rem}.pagination b{color:var(--ismocol-ink)}
+  .pagination button{border:1px solid var(--ismocol-border);background:white;color:var(--ismocol-slate);border-radius:.4rem;padding:.42rem .65rem;font-size:.66rem;font-weight:700}
+  .pagination button:disabled{opacity:.42;cursor:not-allowed}
   .detail-overlay{position:fixed;inset:0;background:rgba(22,40,54,.48);z-index:10;display:flex;justify-content:flex-end}
   .person-detail{width:min(34rem,100%);height:100%;overflow:auto;background:white;padding:2rem;box-shadow:-12px 0 30px rgba(0,0,0,.16);position:relative}
   .person-detail .close{position:absolute;right:1rem;top:1rem;border:0;background:#eee;border-radius:50%;width:2rem;height:2rem;font-size:1.2rem}

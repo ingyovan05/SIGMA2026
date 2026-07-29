@@ -26,6 +26,9 @@ export class Dashboard implements OnInit {
   readonly people = signal<PersonSummary[]>([]);
   readonly selectedPerson = signal<PersonDetail | null>(null);
   readonly peopleLoading = signal(false);
+  readonly peoplePage = signal(1);
+  readonly peopleTotal = signal(0);
+  readonly peopleSearch = signal('');
   readonly personnelSection = signal('personas');
   readonly personnelAction = signal('cargar');
   readonly contact = signal<ContactInfo | null>(null);
@@ -34,6 +37,10 @@ export class Dashboard implements OnInit {
   readonly processColumns = signal<string[]>([]);
   readonly processLoading = signal(false);
   readonly processError = signal('');
+  readonly processPage = signal(1);
+  readonly processTotal = signal(0);
+  readonly processCategory = signal('');
+  readonly pageSize = 20;
   readonly cities = signal<LookupItem[]>([]);
   readonly configurationPeople = signal<PersonSummary[]>([]);
   readonly configuration = signal<BaseConfiguration>(emptyConfiguration());
@@ -108,15 +115,34 @@ export class Dashboard implements OnInit {
       });
   }
 
-  searchPeople(value: string): void {
+  searchPeople(value: string, page = 1): void {
+    this.peopleSearch.set(value);
+    this.peoplePage.set(page);
     this.peopleLoading.set(true);
-    this.http.get<PersonSummary[]>(`${environment.apiUrl}/people`, { params: { search: value, take: 100 } })
+    this.http.get<PagedResult<PersonSummary>>(`${environment.apiUrl}/people`,
+      { params: { search: value, page, pageSize: this.pageSize } })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: people => { this.people.set(people); this.peopleLoading.set(false); },
+        next: result => {
+          this.people.set(result.items);
+          this.peopleTotal.set(result.total);
+          this.peoplePage.set(result.page);
+          this.peopleLoading.set(false);
+        },
         error: () => this.peopleLoading.set(false)
       });
   }
+
+  changePeoplePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages(this.peopleTotal())) this.searchPeople(this.peopleSearch(), page);
+  }
+
+  changeProcessPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages(this.processTotal())) this.loadProcess(this.processCategory(), page);
+  }
+
+  totalPages(total: number): number { return Math.max(1, Math.ceil(total / this.pageSize)); }
+  pageEnd(page: number, total: number): number { return Math.min(page * this.pageSize, total); }
 
   openPerson(id: number): void {
     this.http.get<PersonDetail>(`${environment.apiUrl}/people/${id}`)
@@ -141,7 +167,7 @@ export class Dashboard implements OnInit {
       calificacion: 'qualifications',
       evaluacion: 'performance-evaluations'
     };
-    if (category[group]) this.loadProcess(category[group]);
+    if (category[group]) this.loadProcess(category[group], 1);
   }
 
   displayValue(value: unknown): string {
@@ -188,17 +214,22 @@ export class Dashboard implements OnInit {
     if (this.selectedKey() === 'configuracion') this.loadConfiguration();
   }
 
-  private loadProcess(category: string): void {
+  private loadProcess(category: string, page = 1): void {
+    if (!category) return;
+    this.processCategory.set(category);
+    this.processPage.set(page);
     this.processLoading.set(true);
     this.processError.set('');
     const baseId = this.auth.user()?.sisControl?.baseId ?? 0;
-    this.http.get<Record<string, unknown>[]>(`${environment.apiUrl}/personnel/processes/${category}`,
-      { params: { baseId, take: 100 } })
+    this.http.get<PagedResult<Record<string, unknown>>>(`${environment.apiUrl}/personnel/processes/${category}`,
+      { params: { baseId, page, pageSize: this.pageSize } })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: records => {
-          this.processRecords.set(records);
-          this.processColumns.set(records.length ? Object.keys(records[0]).slice(0, 8) : []);
+        next: result => {
+          this.processRecords.set(result.items);
+          this.processTotal.set(result.total);
+          this.processPage.set(result.page);
+          this.processColumns.set(result.items.length ? Object.keys(result.items[0]).slice(0, 8) : []);
           this.processLoading.set(false);
         },
         error: () => {
@@ -218,8 +249,8 @@ export class Dashboard implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => this.configuration.set(value));
     this.http.get<LookupItem[]>(`${environment.apiUrl}/base-configuration/cities`)
       .pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => this.cities.set(value));
-    this.http.get<PersonSummary[]>(`${environment.apiUrl}/people`, { params: { take: 200 } })
-      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => this.configurationPeople.set(value));
+    this.http.get<PagedResult<PersonSummary>>(`${environment.apiUrl}/people`, { params: { page: 1, pageSize: 200 } })
+      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => this.configurationPeople.set(value.items));
   }
 
   visibleReports(): typeof this.reports {
@@ -246,6 +277,7 @@ interface ContactInfo {
   corporateEmail: string; corporateMobile: string;
 }
 interface PersonnelGroup { key: string; name: string; actions: [string, string, number][]; }
+interface PagedResult<T> { items: T[]; total: number; page: number; pageSize: number; }
 interface BaseConfiguration {
   baseId: number; contractCode: string | null; costCenterId: number | null; cityCode: string | null;
   qaqcCoordinatorId: number | null; hseCoordinatorId: number | null; doctorId: number | null;
