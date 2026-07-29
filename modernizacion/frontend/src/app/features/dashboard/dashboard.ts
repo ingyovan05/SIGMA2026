@@ -34,6 +34,10 @@ export class Dashboard implements OnInit {
   readonly personRegistrationMode = signal<'create' | 'edit'>('create');
   readonly editingPersonId = signal<number | null>(null);
   readonly personRegistrationStep = signal(1);
+  readonly personRegistrationTab = signal<PersonRegistrationTab>('contact');
+  readonly personVaccines = signal<PersonVaccineForm[]>([]);
+  readonly personRelatives = signal<PersonRelativeForm[]>([]);
+  readonly personPhoto = signal<string | null>(null);
   readonly personRegistrationMessage = signal('');
   readonly newPerson = signal<NewPersonForm>(emptyPersonForm());
   readonly personnelSection = signal('personas');
@@ -186,6 +190,10 @@ export class Dashboard implements OnInit {
     this.editingPersonId.set(null);
     this.newPerson.set(emptyPersonForm());
     this.personRegistrationStep.set(1);
+    this.personRegistrationTab.set('contact');
+    this.personVaccines.set([]);
+    this.personRelatives.set([]);
+    this.personPhoto.set(null);
     this.personRegistrationMessage.set('');
     this.personRegistrationOpen.set(true);
     if (this.cities().length === 0) {
@@ -218,6 +226,10 @@ export class Dashboard implements OnInit {
           email: person.email ?? ''
         });
         this.personRegistrationStep.set(1);
+        this.personRegistrationTab.set('contact');
+        this.personVaccines.set([]);
+        this.personRelatives.set([]);
+        this.personPhoto.set(null);
         this.personRegistrationMessage.set('');
         this.personRegistrationOpen.set(true);
         if (this.cities().length === 0) {
@@ -229,6 +241,33 @@ export class Dashboard implements OnInit {
   }
 
   closePersonRegistration(): void { this.personRegistrationOpen.set(false); }
+
+  addPersonVaccine(): void {
+    this.personVaccines.update(items => [...items, { vaccine: '', date: '', creationModule: 'H' }]);
+  }
+
+  removePersonVaccine(index: number): void {
+    this.personVaccines.update(items => items.filter((_, itemIndex) => itemIndex !== index));
+  }
+
+  addPersonRelative(): void {
+    this.personRelatives.update(items => [...items, {
+      relationship: '', firstName: '', middleName: '', lastName: '', secondLastName: '',
+      birthDate: '', identification: '', contactNumber: '', occupation: '', nationality: ''
+    }]);
+  }
+
+  removePersonRelative(index: number): void {
+    this.personRelatives.update(items => items.filter((_, itemIndex) => itemIndex !== index));
+  }
+
+  loadPersonPhoto(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = () => this.personPhoto.set(String(reader.result));
+    reader.readAsDataURL(file);
+  }
 
   openCityCatalog(target: CityTarget): void {
     this.cityCatalogTarget.set(target);
@@ -433,14 +472,45 @@ interface NewPersonForm {
   birthDate: string; birthCityCode: string | null; gender: string;
   residenceCityCode: string | null; address: string; mobile: string; phone: string;
   email: string; bloodType: string; employee: boolean; client: boolean; contractor: boolean;
+  civilStatus: string; militaryCard: string; militaryDistrict: string; militaryClass: string;
+  driverLicense: string; licenseCategory: string; licenseExpiry: string;
+  shirtSize: string; trouserSize: string; shoeSize: string; weightKg: number | null;
+  ethnicity: string; observation: string; housingType: string; stratum: string; contactNumber: string;
+  educationLevel: string; profession: string; educationalInstitution: string;
+  graduationDate: string; professionalCard: string; inductionCourse: boolean;
+  driverCourse: boolean; operatorCourse: boolean; liftingCourse: boolean;
+  heightsCourse: boolean; confinedSpacesCourse: boolean; additionalCourses: string;
+  eps: string; epsDate: string; afp: string; afpDate: string; afc: string; afcDate: string;
+  epv: string; epvDate: string; contributed50Weeks: boolean; lastContributionDate: string;
+  totalContributionWeeks: number | null; yellowFever: boolean; tetanus1: boolean;
+  tetanus2: boolean; tetanus3: boolean; tetanus4: boolean; tetanus5: boolean;
+  headOfHousehold: boolean; disabled: boolean; dependents: number; children: number;
 }
 function emptyPersonForm(): NewPersonForm {
   return {
     identificationType: 'CC', identification: '', issueDate: '', issueCityCode: null,
     firstName: '', middleName: '', lastName: '', secondLastName: '', birthDate: '',
     birthCityCode: null, gender: '', residenceCityCode: null, address: '', mobile: '',
-    phone: '', email: '', bloodType: 'SIN', employee: false, client: false, contractor: false
+    phone: '', email: '', bloodType: 'SIN', employee: false, client: false, contractor: false,
+    civilStatus: '', militaryCard: '', militaryDistrict: '', militaryClass: '',
+    driverLicense: '', licenseCategory: '', licenseExpiry: '', shirtSize: '', trouserSize: '',
+    shoeSize: '', weightKg: null, ethnicity: '', observation: '', housingType: '', stratum: '',
+    contactNumber: '', educationLevel: '', profession: '', educationalInstitution: '',
+    graduationDate: '', professionalCard: '', inductionCourse: false, driverCourse: false,
+    operatorCourse: false, liftingCourse: false, heightsCourse: false, confinedSpacesCourse: false,
+    additionalCourses: '', eps: '', epsDate: '', afp: '', afpDate: '', afc: '', afcDate: '',
+    epv: '', epvDate: '', contributed50Weeks: false, lastContributionDate: '',
+    totalContributionWeeks: null, yellowFever: false, tetanus1: false, tetanus2: false,
+    tetanus3: false, tetanus4: false, tetanus5: false, headOfHousehold: false,
+    disabled: false, dependents: 0, children: 0
   };
+}
+type PersonRegistrationTab = 'contact' | 'competencies' | 'social-security' | 'vaccines' | 'family';
+interface PersonVaccineForm { vaccine: string; date: string; creationModule: string; }
+interface PersonRelativeForm {
+  relationship: string; firstName: string; middleName: string; lastName: string;
+  secondLastName: string; birthDate: string; identification: string; contactNumber: string;
+  occupation: string; nationality: string;
 }
 interface BaseConfiguration {
   baseId: number; contractCode: string | null; costCenterId: number | null; cityCode: string | null;

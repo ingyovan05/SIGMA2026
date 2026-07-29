@@ -232,7 +232,42 @@
                           <label><span>Grupo sanguíneo</span><select [(ngModel)]="newPerson().bloodType"><option>SIN</option><option>O+</option><option>O-</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option></select></label>
                         </div>
                       </div>
+                      <div class="form-section">
+                        <div class="form-section-title"><h3>Información complementaria</h3><p>Datos civiles, licencias, dotación y clasificación.</p></div>
+                        <div class="registration-grid">
+                          <label><span>Estado civil</span><select [(ngModel)]="newPerson().civilStatus"><option value="">Sin identificar</option><option>Soltero</option><option>Casado</option><option>Unión libre</option><option>Separado</option><option>Viudo</option></select></label>
+                          <label><span>Etnia</span><input [(ngModel)]="newPerson().ethnicity" placeholder="No aplica"></label>
+                          <label><span>Libreta militar</span><input [(ngModel)]="newPerson().militaryCard"></label>
+                          <label><span>Distrito militar</span><input [(ngModel)]="newPerson().militaryDistrict" placeholder="No aplica"></label>
+                          <label><span>Clase</span><input [(ngModel)]="newPerson().militaryClass" placeholder="No aplica"></label>
+                          <label><span>Licencia de conducción</span><input [(ngModel)]="newPerson().driverLicense"></label>
+                          <label><span>Categoría</span><input [(ngModel)]="newPerson().licenseCategory" placeholder="No aplica"></label>
+                          <label><span>Vigencia licencia</span><input [(ngModel)]="newPerson().licenseExpiry" type="date"></label>
+                          <label><span>Talla camisa</span><input [(ngModel)]="newPerson().shirtSize"></label>
+                          <label><span>Talla pantalón</span><input [(ngModel)]="newPerson().trouserSize"></label>
+                          <label><span>Número calzado</span><input [(ngModel)]="newPerson().shoeSize"></label>
+                          <label><span>Peso en kg</span><input [(ngModel)]="newPerson().weightKg" type="number" min="0"></label>
+                          <label class="span-two"><span>Observación</span><textarea [(ngModel)]="newPerson().observation" rows="3"></textarea></label>
+                        </div>
+                        <div class="classification-options compact">
+                          <label><input [(ngModel)]="newPerson().employee" type="checkbox"><span><b>Empleado</b></span></label>
+                          <label><input [(ngModel)]="newPerson().client" type="checkbox"><span><b>Cliente</b></span></label>
+                          <label><input [(ngModel)]="newPerson().contractor" type="checkbox"><span><b>Contratista/proveedor</b></span></label>
+                        </div>
+                        <div class="photo-field">
+                          <div class="photo-preview">@if (personPhoto()) {<img [src]="personPhoto()" alt="Foto de la persona">} @else {<span>Sin imagen</span>}</div>
+                          <label class="secondary photo-load">Cargar foto<input type="file" accept="image/*" (change)="loadPersonPhoto($event)"></label>
+                        </div>
+                      </div>
                     } @else {
+                      <div class="person-tabs" role="tablist">
+                        <button type="button" [class.active]="personRegistrationTab() === 'contact'" (click)="personRegistrationTab.set('contact')">Contacto</button>
+                        <button type="button" [class.active]="personRegistrationTab() === 'competencies'" (click)="personRegistrationTab.set('competencies')">Competencias</button>
+                        <button type="button" [class.active]="personRegistrationTab() === 'social-security'" (click)="personRegistrationTab.set('social-security')">Seguridad social</button>
+                        <button type="button" [class.active]="personRegistrationTab() === 'vaccines'" (click)="personRegistrationTab.set('vaccines')">Vacunas</button>
+                        <button type="button" [class.active]="personRegistrationTab() === 'family'" (click)="personRegistrationTab.set('family')">Núcleo familiar</button>
+                      </div>
+                      @if (personRegistrationTab() === 'contact') {
                       <div class="form-section">
                         <div class="form-section-title"><h3>Residencia y contacto</h3><p>Información utilizada por Personal y CU_Contacto.</p></div>
                         <div class="registration-grid">
@@ -240,7 +275,10 @@
                           <label class="span-two"><span>Dirección</span><input [(ngModel)]="newPerson().address" autocomplete="street-address"></label>
                           <label><span>Teléfono móvil</span><input [(ngModel)]="newPerson().mobile" inputmode="tel"></label>
                           <label><span>Teléfono fijo</span><input [(ngModel)]="newPerson().phone" inputmode="tel"></label>
+                          <label><span>Número de contacto</span><input [(ngModel)]="newPerson().contactNumber" inputmode="tel"></label>
                           <label class="span-two"><span>Correo electrónico</span><input [(ngModel)]="newPerson().email" type="email" autocomplete="email"></label>
+                          <label><span>Tipo de vivienda</span><select [(ngModel)]="newPerson().housingType"><option value="">No aplica</option><option>Propia</option><option>Arrendada</option><option>Familiar</option></select></label>
+                          <label><span>Estrato</span><select [(ngModel)]="newPerson().stratum"><option value="">No aplica</option>@for (level of [1,2,3,4,5,6]; track level) {<option [value]="level">{{ level }}</option>}</select></label>
                         </div>
                       </div>
                       <div class="form-section">
@@ -251,6 +289,79 @@
                           <label><input [(ngModel)]="newPerson().contractor" type="checkbox"><span><b>Contratista o proveedor</b><small>Tercero relacionado comercialmente</small></span></label>
                         </div>
                       </div>
+                      } @else if (personRegistrationTab() === 'competencies') {
+                        <div class="form-section">
+                          <div class="form-section-title"><h3>Información académica</h3></div>
+                          <div class="registration-grid">
+                            <label><span>Nivel educativo</span><input [(ngModel)]="newPerson().educationLevel" placeholder="Sin estudios"></label>
+                            <label><span>Profesión u oficio</span><input [(ngModel)]="newPerson().profession"></label>
+                            <label><span>Entidad educativa</span><input [(ngModel)]="newPerson().educationalInstitution"></label>
+                            <label><span>Fecha graduación</span><input [(ngModel)]="newPerson().graduationDate" type="date"></label>
+                            <label><span>Tarjeta profesional</span><input [(ngModel)]="newPerson().professionalCard"></label>
+                          </div>
+                          <div class="check-grid">
+                            <label><input [(ngModel)]="newPerson().inductionCourse" type="checkbox"> Curso inducción</label>
+                            <label><input [(ngModel)]="newPerson().driverCourse" type="checkbox"> Curso conductor</label>
+                            <label><input [(ngModel)]="newPerson().operatorCourse" type="checkbox"> Curso operador</label>
+                            <label><input [(ngModel)]="newPerson().liftingCourse" type="checkbox"> Izaje de cargas</label>
+                            <label><input [(ngModel)]="newPerson().heightsCourse" type="checkbox"> Trabajo en alturas</label>
+                            <label><input [(ngModel)]="newPerson().confinedSpacesCourse" type="checkbox"> Espacios confinados</label>
+                          </div>
+                          <label><span>Cursos adicionales</span><input [(ngModel)]="newPerson().additionalCourses"></label>
+                        </div>
+                      } @else if (personRegistrationTab() === 'social-security') {
+                        <div class="form-section">
+                          <div class="form-section-title"><h3>Afiliaciones de seguridad social</h3></div>
+                          <div class="affiliation-grid">
+                            <b>Entidad</b><b>Nombre</b><b>Fecha afiliación</b>
+                            <span>EPS</span><input [(ngModel)]="newPerson().eps"><input [(ngModel)]="newPerson().epsDate" type="date">
+                            <span>AFP</span><input [(ngModel)]="newPerson().afp"><input [(ngModel)]="newPerson().afpDate" type="date">
+                            <span>AFC</span><input [(ngModel)]="newPerson().afc"><input [(ngModel)]="newPerson().afcDate" type="date">
+                            <span>EPV</span><input [(ngModel)]="newPerson().epv"><input [(ngModel)]="newPerson().epvDate" type="date">
+                          </div>
+                          <div class="registration-grid social-summary">
+                            <label><span>¿Cotizó 50 semanas en los últimos tres años?</span><select [(ngModel)]="newPerson().contributed50Weeks"><option [ngValue]="true">Sí</option><option [ngValue]="false">No</option></select></label>
+                            <label><span>Fecha última cotización</span><input [(ngModel)]="newPerson().lastContributionDate" type="date"></label>
+                            <label><span>Total semanas cotizadas AFP</span><input [(ngModel)]="newPerson().totalContributionWeeks" type="number" min="0" max="2500"></label>
+                          </div>
+                        </div>
+                      } @else if (personRegistrationTab() === 'vaccines') {
+                        <div class="form-section">
+                          <div class="form-section-title inline-title"><div><h3>Información de vacunación</h3><p>Registros que serán enviados en TIP_VACUNAXPERSONA.</p></div><button class="secondary" type="button" (click)="addPersonVaccine()">Agregar</button></div>
+                          <div class="check-grid vaccine-grid">
+                            <label><input [(ngModel)]="newPerson().yellowFever" type="checkbox"> Fiebre amarilla</label>
+                            <label><input [(ngModel)]="newPerson().tetanus1" type="checkbox"> Tétano 1</label>
+                            <label><input [(ngModel)]="newPerson().tetanus2" type="checkbox"> Tétano 2</label>
+                            <label><input [(ngModel)]="newPerson().tetanus3" type="checkbox"> Tétano 3</label>
+                            <label><input [(ngModel)]="newPerson().tetanus4" type="checkbox"> Tétano 4</label>
+                            <label><input [(ngModel)]="newPerson().tetanus5" type="checkbox"> Tétano 5</label>
+                          </div>
+                          <div class="inline-table vaccine-table">
+                            <div class="inline-head"><span>Vacuna</span><span>Fecha vacuna</span><span>Módulo</span><span></span></div>
+                            @for (vaccine of personVaccines(); track $index) {
+                              <div><input [(ngModel)]="vaccine.vaccine" placeholder="Nombre de vacuna"><input [(ngModel)]="vaccine.date" type="date"><select [(ngModel)]="vaccine.creationModule"><option value="H">Hoja de vida</option><option value="C">Contrato</option></select><button type="button" (click)="removePersonVaccine($index)">×</button></div>
+                            } @empty {<p class="table-empty">No hay vacunas adicionales registradas.</p>}
+                          </div>
+                        </div>
+                      } @else {
+                        <div class="form-section">
+                          <div class="form-section-title inline-title"><div><h3>Información del núcleo familiar</h3><p>Registros que serán enviados en TIP_PARIENTEPERSONA.</p></div><button class="secondary" type="button" (click)="addPersonRelative()">Agregar</button></div>
+                          <div class="inline-table family-table">
+                            <div class="inline-head"><span>Parentesco</span><span>Nombre</span><span>Apellido</span><span>Identificación</span><span>Contacto</span><span></span></div>
+                            @for (relative of personRelatives(); track $index) {
+                              <div><input [(ngModel)]="relative.relationship" placeholder="Parentesco"><input [(ngModel)]="relative.firstName" placeholder="Primer nombre"><input [(ngModel)]="relative.lastName" placeholder="Primer apellido"><input [(ngModel)]="relative.identification"><input [(ngModel)]="relative.contactNumber"><button type="button" (click)="removePersonRelative($index)">×</button></div>
+                            } @empty {<p class="table-empty">No hay integrantes registrados.</p>}
+                          </div>
+                          <div class="classification-options">
+                            <label><input [(ngModel)]="newPerson().headOfHousehold" type="checkbox"><span><b>Cabeza de hogar</b></span></label>
+                            <label><input [(ngModel)]="newPerson().disabled" type="checkbox"><span><b>Con discapacidad</b></span></label>
+                          </div>
+                          <div class="registration-grid">
+                            <label><span>Personas a cargo</span><input [(ngModel)]="newPerson().dependents" type="number" min="0"></label>
+                            <label><span>Número de hijos</span><input [(ngModel)]="newPerson().children" type="number" min="0"></label>
+                          </div>
+                        </div>
+                      }
                     }
                   </div>
 
