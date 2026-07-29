@@ -44,7 +44,9 @@ public sealed class PersonnelProcessesController(ISqlConnectionFactory connectio
         var command = new CommandDefinition(
             definition.Procedure, definition.Parameters, commandType: CommandType.StoredProcedure,
             cancellationToken: cancellationToken);
-        var rows = await connection.QueryAsync(command);
+        using var grid = await connection.QueryMultipleAsync(command);
+        var firstResult = (await grid.ReadAsync()).AsList();
+        var rows = grid.IsConsumed ? firstResult : (await grid.ReadAsync()).AsList();
         return Ok(rows.Select(row => (IDictionary<string, object?>)row));
     }
 
