@@ -70,7 +70,7 @@
           }
         </div>
       } @else {
-        @if (selectedKey() !== 'personal') {
+        @if (selectedKey() !== 'personal' && selectedKey() !== 'articulos') {
           <div class="page-heading">
             <div class="heading-icon">{{ selectedModule()?.shortName }}</div>
             <div><p class="eyebrow">Módulo</p><h1>{{ selectedModule()?.name }}</h1><p>{{ selectedModule()?.description }}</p></div>

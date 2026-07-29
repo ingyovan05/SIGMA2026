@@ -55,11 +55,16 @@ public sealed class ArticlesController(ISqlConnectionFactory connectionFactory) 
         page = Math.Max(1, page);
         pageSize = Math.Clamp(pageSize, 1, 100);
         const string filteredSql = """
-            FROM dbo.ListarArticulos(0)
-            WHERE (@TreeCode = '' OR CODIGOARBOL LIKE @TreeCode + '%')
-              AND (@Search = '' OR CAST(ID AS varchar(20)) LIKE '%' + @Search + '%'
-                OR NOMBRE LIKE '%' + @Search + '%' OR DESCRIPCION LIKE '%' + @Search + '%'
-                OR CODIGOBARRAS LIKE '%' + @Search + '%' OR REFERENCIA LIKE '%' + @Search + '%')
+            FROM dbo.ARTICULO AR
+            INNER JOIN dbo.CATEGORIAMATERIALES CA ON AR.CODIGOCATEGORIA = CA.CODIGOCATEGORIA
+            INNER JOIN dbo.MA_FAMILIAMATERIAL FA ON CA.IDFAMILIAMATERIAL = FA.IDFAMILIAMATERIAL
+            INNER JOIN dbo.MA_GRUPOMATERIAL GR ON CA.IDGRUPOMATERIAL = GR.IDGRUPOMATERIAL
+            INNER JOIN dbo.MA_CLASEMATERIAL CL ON CA.IDCLASEMATERIAL = CL.IDCLASEMATERIAL
+            LEFT JOIN dbo.MA_TIPOUNIDAD UN ON AR.CODIGOTIPOUNIDAD = UN.CODIGOTIPOUNIDAD
+            WHERE (@TreeCode = '' OR CA.CODIGOARBOL LIKE @TreeCode + '%')
+              AND (@Search = '' OR CAST(AR.IDARTICULO AS varchar(20)) LIKE '%' + @Search + '%'
+                OR AR.NOMBRE LIKE '%' + @Search + '%' OR AR.NOMBREDESCRIPTIVO LIKE '%' + @Search + '%'
+                OR AR.CODIGOBARRAISMOCOL LIKE '%' + @Search + '%' OR AR.CODIGOACCESS LIKE '%' + @Search + '%')
             """;
         var parameters = new
         {
@@ -72,13 +77,13 @@ public sealed class ArticlesController(ISqlConnectionFactory connectionFactory) 
         var total = await connection.ExecuteScalarAsync<long>($"SELECT COUNT_BIG(1) {filteredSql}", parameters);
         var items = (await connection.QueryAsync<ArticleSummary>(
             $"""
-             SELECT ID AS Id, LTRIM(RTRIM(CODIGOARBOL)) AS TreeCode,
-                 LTRIM(RTRIM(NOMBRE)) AS Name, LTRIM(RTRIM(DESCRIPCION)) AS Description,
-                 LTRIM(RTRIM(UND)) AS Unit, LTRIM(RTRIM(FAMILIA)) AS Family,
-                 LTRIM(RTRIM(GRUPO)) AS [Group], LTRIM(RTRIM(CLASE)) AS Class,
-                 LTRIM(RTRIM(CODIGOBARRAS)) AS Barcode, LTRIM(RTRIM(REFERENCIA)) AS Reference
+             SELECT AR.IDARTICULO AS Id, LTRIM(RTRIM(CA.CODIGOARBOL)) AS TreeCode,
+                 LTRIM(RTRIM(AR.NOMBRE)) AS Name, LTRIM(RTRIM(AR.NOMBREDESCRIPTIVO)) AS Description,
+                 LTRIM(RTRIM(UN.ABREVIATURA)) AS Unit, LTRIM(RTRIM(FA.NOMBREFAMILIAMATERIAL)) AS Family,
+                 LTRIM(RTRIM(GR.NOMBREGRUPOMATERIAL)) AS [Group], LTRIM(RTRIM(CL.NOMBRECLASEMATERIAL)) AS Class,
+                 LTRIM(RTRIM(AR.CODIGOBARRAISMOCOL)) AS Barcode, LTRIM(RTRIM(AR.CODIGOACCESS)) AS Reference
              {filteredSql}
-             ORDER BY NOMBRE OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;
+             ORDER BY AR.NOMBRE OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;
              """, parameters)).AsList();
         return Ok(new { items, total, page, pageSize });
     }
