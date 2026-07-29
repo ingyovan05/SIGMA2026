@@ -26,6 +26,10 @@ export class Dashboard implements OnInit {
   readonly people = signal<PersonSummary[]>([]);
   readonly selectedPerson = signal<PersonDetail | null>(null);
   readonly peopleLoading = signal(false);
+  readonly personnelSection = signal('personas');
+  readonly personnelAction = signal('cargar');
+  readonly contact = signal<ContactInfo | null>(null);
+  readonly contactMessage = signal('');
   readonly cities = signal<LookupItem[]>([]);
   readonly configurationPeople = signal<PersonSummary[]>([]);
   readonly configuration = signal<BaseConfiguration>(emptyConfiguration());
@@ -40,6 +44,45 @@ export class Dashboard implements OnInit {
     { group: 'Bodega', name: 'Existencias y movimientos', description: 'Saldos, entradas, salidas y transferencias de inventario.' },
     { group: 'SSTA', name: 'Indicadores SSTA', description: 'Resumen de indicadores de seguridad, salud y ambiente.' },
     { group: 'Activos', name: 'Inventario de activos fijos', description: 'Ubicación, responsable y estado de activos.' }
+  ];
+  readonly personnelGroups: PersonnelGroup[] = [
+    { key: 'personas', name: 'Persona', actions: [
+      ['cargar', 'Cargar personas', 560], ['ver', 'Ver persona', 209],
+      ['registrar', 'Registrar persona', 39], ['registrar-basico', 'Registrar persona básico', 39],
+      ['editar', 'Editar persona', 40], ['editar-basico', 'Editar persona básico', 40],
+      ['desactivar', 'Desactivar', 41], ['buscar', 'Buscar persona', 555],
+      ['formatos', 'Imprimir formatos', 45], ['contrato', 'Registrar contrato', 42],
+      ['subir-hv', 'Subir validación hoja de vida', 883], ['ver-hv', 'Ver validación hoja de vida', 884]
+    ]},
+    { key: 'estado', name: 'Verificar estado', actions: [
+      ['registrar-estado', 'Registrar estado', 867], ['consultar-estado', 'Consultar estado', 868],
+      ['resumen', 'Ver resumen', 869], ['historial', 'Historial de consultas', 870],
+      ['agregar-seguridad', 'Agregar persona', 885]
+    ]},
+    { key: 'examenes', name: 'Exámenes médicos', actions: [
+      ['listar-examenes', 'Cargar listado', 704], ['enviar-examenes', 'Enviar a exámenes', 703],
+      ['habilitar-examen', 'Habilitar edición', 881], ['editar-examen', 'Editar examen', 882],
+      ['concepto', 'Agregar concepto', 707], ['ver-examen', 'Ver examen', 706],
+      ['buscar-examen', 'Buscar', 705], ['imprimir-examen', 'Reimpresión de exámenes', 702],
+      ['vacunas', 'Agregar vacunas', 954]
+    ]},
+    { key: 'covid', name: 'COVID-19', actions: [
+      ['listar-encuestas', 'Cargar encuestas', 774], ['crear-encuesta', 'Crear encuesta', 775],
+      ['editar-encuesta', 'Editar encuesta', 776], ['buscar-encuesta', 'Buscar encuesta', 777],
+      ['cancelar-encuesta', 'Cancelar encuesta', 778], ['imprimir-encuesta', 'Imprimir encuesta', 779],
+      ['autorizar-ingreso', 'Autorizar ingreso', 781], ['temperatura', 'Registrar temperatura', 781]
+    ]},
+    { key: 'calificacion', name: 'Programa calificación', actions: [
+      ['calificaciones', 'Cargar calificaciones', 718], ['agregar-calificacion', 'Agregar calificación', 719],
+      ['gestionar-calificacion', 'Gestionar calificaciones', 720], ['capacitaciones', 'Programar capacitaciones', 772],
+      ['carnet', 'Imprimir carnet', 721]
+    ]},
+    { key: 'evaluacion', name: 'Evaluación desempeño', actions: [
+      ['listar-evaluacion', 'Listar', 859], ['crear-evaluacion', 'Crear', 860],
+      ['ver-evaluacion', 'Ver', 861], ['editar-evaluacion', 'Editar', 862],
+      ['buscar-evaluacion', 'Buscar', 863], ['correo-evaluacion', 'Enviar correos', 864],
+      ['correo-bloque', 'Enviar correos en bloque', 865]
+    ]}
   ];
 
   ngOnInit(): void {
@@ -74,10 +117,33 @@ export class Dashboard implements OnInit {
   openPerson(id: number): void {
     this.http.get<PersonDetail>(`${environment.apiUrl}/people/${id}`)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(person => this.selectedPerson.set(person));
+      .subscribe(person => {
+        this.selectedPerson.set(person);
+        this.http.get<ContactInfo>(`${environment.apiUrl}/class-base/contacts/${id}`)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe(contact => this.contact.set(contact));
+      });
   }
 
-  closePerson(): void { this.selectedPerson.set(null); }
+  closePerson(): void { this.selectedPerson.set(null); this.contact.set(null); }
+
+  selectPersonnelAction(group: string, action: string): void {
+    this.personnelSection.set(group);
+    this.personnelAction.set(action);
+    if (action === 'cargar' || action === 'buscar') this.searchPeople('');
+  }
+
+  updateContact(): void {
+    const value = this.contact();
+    if (!value) return;
+    this.contactMessage.set('Guardando...');
+    this.http.put<void>(`${environment.apiUrl}/class-base/contacts/${value.personId}`, value)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => this.contactMessage.set('Contacto actualizado correctamente.'),
+        error: error => this.contactMessage.set(error.error?.error ?? 'No fue posible actualizar el contacto.')
+      });
+  }
 
   saveConfiguration(): void {
     const baseId = this.auth.user()?.sisControl?.baseId;
@@ -133,6 +199,11 @@ interface PersonDetail extends PersonSummary {
   phone: string | null; birthCity: string | null; residenceCity: string | null;
 }
 interface LookupItem { code: string; name: string; }
+interface ContactInfo {
+  personId: number; fullName: string; personalEmail: string; personalMobile: string;
+  corporateEmail: string; corporateMobile: string;
+}
+interface PersonnelGroup { key: string; name: string; actions: [string, string, number][]; }
 interface BaseConfiguration {
   baseId: number; contractCode: string | null; costCenterId: number | null; cityCode: string | null;
   qaqcCoordinatorId: number | null; hseCoordinatorId: number | null; doctorId: number | null;

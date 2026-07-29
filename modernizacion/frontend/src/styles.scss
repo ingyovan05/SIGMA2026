@@ -18,6 +18,13 @@ body { font-family: 'Manrope', Arial, sans-serif; background: #f5f5f5; color: va
 button, input { font: inherit; }
 
 app-dashboard {
+  .personnel-workspace{display:grid;grid-template-columns:14rem minmax(0,1fr);gap:1rem;align-items:start}
+  .personnel-nav{background:#eef5ff;color:var(--ismocol-ink);border:1px solid #9bc6ff;border-radius:.55rem;padding:.35rem;min-height:34rem}
+  .group-button{display:flex;justify-content:space-between;width:100%;border:0;border-bottom:1px solid #9bc6ff;background:linear-gradient(#eef7ff,#cbe3ff);padding:.65rem .75rem;text-align:left;font-size:.75rem}
+  .group-button.active{background:linear-gradient(#ffdf9c,#ffad39);font-weight:750}
+  .group-actions{display:grid;padding:.35rem 0 .7rem}
+  .group-actions button{border:0;background:transparent;padding:.38rem .75rem;text-align:left;font-size:.68rem;border-radius:.3rem}
+  .group-actions button:hover,.group-actions button.active{background:#9dd1ff}
   .people-toolbar{display:flex;align-items:end;gap:.7rem;background:white;border:1px solid var(--ismocol-border);border-radius:.8rem;padding:1rem;margin-bottom:1rem}
   .people-toolbar label{flex:1}.people-toolbar button{margin:0}
   .secondary{border:1px solid var(--ismocol-border);background:white;border-radius:.55rem;padding:.72rem 1rem;font-weight:700;font-size:.75rem}
@@ -33,6 +40,7 @@ app-dashboard {
   .person-avatar{display:grid;place-items:center;width:4rem;height:4rem;border-radius:1rem;background:#fde9e2;color:var(--ismocol-orange);font-size:1.5rem;font-weight:800;margin-bottom:1rem}
   .person-detail h2{margin:.3rem 0;font-size:1.35rem}.identity{color:var(--ismocol-gray);font-size:.78rem}
   .person-detail dl{margin-top:1.5rem}.person-detail dl div{grid-template-columns:10rem 1fr}
+  .contact-editor{margin-top:1.5rem;border-top:1px solid #eee;padding-top:1.2rem}.contact-editor h3{font-size:.9rem;margin:0 0 1rem}
   .configuration-form{max-width:68rem}.configuration-title{display:flex;justify-content:space-between;align-items:start;border-bottom:1px solid #eee;margin-bottom:1.2rem}
   .configuration-title span{background:#fde9e2;color:var(--ismocol-orange-dark);padding:.35rem .6rem;border-radius:1rem;font-size:.62rem}
   .configuration-form select{min-height:2.65rem}.form-actions{display:flex;justify-content:flex-end;align-items:center;gap:1rem;margin-top:1rem}
@@ -44,6 +52,8 @@ app-dashboard {
   app-dashboard .logo strong,app-dashboard nav a b,app-dashboard nav a small,app-dashboard nav p,app-dashboard .aside-footer{display:none}
   app-dashboard .module-grid,app-dashboard .report-grid{grid-template-columns:repeat(2,1fr)}
   app-dashboard .support-layout,app-dashboard .settings-grid{grid-template-columns:1fr}
+  app-dashboard .personnel-workspace{grid-template-columns:1fr}
+  app-dashboard .personnel-nav{min-height:0}
 }
 @media(max-width:650px) {
   app-dashboard header{padding:0 1rem}

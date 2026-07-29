@@ -77,23 +77,41 @@
 
         @switch (selectedKey()) {
           @case ('personal') {
-            <div class="people-toolbar">
-              <label><span>Buscar persona</span><input #peopleSearch type="search"
-                placeholder="Identificación, nombre o apellido"
-                (keyup.enter)="searchPeople(peopleSearch.value)"></label>
-              <button class="primary" type="button" (click)="searchPeople(peopleSearch.value)">Buscar</button>
-              <button class="secondary" type="button">Registrar persona</button>
-            </div>
-            <div class="people-table">
-              <div class="table-head"><span>Identificación</span><span>Nombre</span><span>Celular</span><span>Correo</span><span></span></div>
-              @for (person of people(); track person.id) {
-                <button class="person-row" type="button" (click)="openPerson(person.id)">
-                  <span>{{ person.identification }}</span><strong>{{ person.fullName }}</strong>
-                  <span>{{ person.mobile || '—' }}</span><span>{{ person.email || '—' }}</span><b>Ver →</b>
-                </button>
-              } @empty {
-                <div class="table-empty">{{ peopleLoading() ? 'Cargando personas...' : 'No se encontraron registros.' }}</div>
-              }
+            <div class="personnel-workspace">
+              <aside class="personnel-nav">
+                @for (group of personnelGroups; track group.key) {
+                  <button class="group-button" [class.active]="personnelSection() === group.key"
+                    type="button" (click)="personnelSection.set(group.key)">{{ group.name }} <span>›</span></button>
+                  @if (personnelSection() === group.key) {
+                    <div class="group-actions">
+                      @for (action of group.actions; track action[0]) {
+                        <button type="button" [class.active]="personnelAction() === action[0]"
+                          (click)="selectPersonnelAction(group.key, action[0])">{{ action[1] }}</button>
+                      }
+                    </div>
+                  }
+                }
+              </aside>
+              <div class="personnel-content">
+                <div class="people-toolbar">
+                  <label><span>Buscar persona</span><input #peopleSearch type="search"
+                    placeholder="Identificación, nombre o apellido"
+                    (keyup.enter)="searchPeople(peopleSearch.value)"></label>
+                  <button class="primary" type="button" (click)="searchPeople(peopleSearch.value)">Buscar</button>
+                  <button class="secondary" type="button" (click)="selectPersonnelAction('personas','registrar')">Registrar persona</button>
+                </div>
+                <div class="people-table">
+                  <div class="table-head"><span>Identificación</span><span>Nombre</span><span>Celular</span><span>Correo</span><span></span></div>
+                  @for (person of people(); track person.id) {
+                    <button class="person-row" type="button" (click)="openPerson(person.id)">
+                      <span>{{ person.identification }}</span><strong>{{ person.fullName }}</strong>
+                      <span>{{ person.mobile || '—' }}</span><span>{{ person.email || '—' }}</span><b>Ver →</b>
+                    </button>
+                  } @empty {
+                    <div class="table-empty">{{ peopleLoading() ? 'Cargando personas...' : 'No se encontraron registros.' }}</div>
+                  }
+                </div>
+              </div>
             </div>
             @if (selectedPerson(); as person) {
               <div class="detail-overlay" (click)="closePerson()">
@@ -113,6 +131,18 @@
                     <div><dt>Teléfono</dt><dd>{{ person.phone || 'Sin información' }}</dd></div>
                     <div><dt>Correo</dt><dd>{{ person.email || 'Sin información' }}</dd></div>
                   </dl>
+                  @if (contact(); as contactInfo) {
+                    <div class="contact-editor">
+                      <h3>Contacto · ClasesBase</h3>
+                      <div class="form-grid">
+                        <label><span>Celular personal</span><input [(ngModel)]="contactInfo.personalMobile"></label>
+                        <label><span>Correo personal</span><input type="email" [(ngModel)]="contactInfo.personalEmail"></label>
+                        <label><span>Celular corporativo</span><input [(ngModel)]="contactInfo.corporateMobile"></label>
+                        <label><span>Correo corporativo</span><input type="email" [(ngModel)]="contactInfo.corporateEmail"></label>
+                      </div>
+                      <div class="form-actions"><span>{{ contactMessage() }}</span><button class="primary" type="button" (click)="updateContact()">Actualizar contacto</button></div>
+                    </div>
+                  }
                 </section>
               </div>
             }
