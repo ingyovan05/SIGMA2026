@@ -110,6 +110,7 @@
                       <span>{{ person.identification }}</span><strong>{{ person.fullName }}</strong>
                       <span>{{ person.mobile || '—' }}</span><span>{{ person.email || '—' }}</span>
                       <span class="row-actions">
+                        <button type="button" (click)="openPerson(person.id)">Ver</button>
                         <button type="button" (click)="editPerson(person.id)">Editar</button>
                       </span>
                     </div>
