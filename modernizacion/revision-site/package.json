@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "preview": "opennextjs-cloudflare build"
+    "preview": "opennextjs-cloudflare build && node scripts/prepare-static-worker.mjs"
   },
   "dependencies": {
     "next": "15.5.22",
