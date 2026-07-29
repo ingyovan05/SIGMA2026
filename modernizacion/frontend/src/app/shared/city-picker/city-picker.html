@@ -1,0 +1,19 @@
+<div class="city-picker">
+  <div class="city-input">
+    <input type="search" autocomplete="off" [required]="required" [placeholder]="placeholder"
+      [value]="query()" (input)="search($any($event.target).value)" (focus)="show()" (blur)="hide()">
+    <button type="button" title="Agregar desde el maestro" aria-label="Agregar ciudad desde el maestro"
+      (click)="addRequested.emit()">+</button>
+  </div>
+  @if (open()) {
+    <div class="city-options">
+      @for (city of filteredCities(); track city.code) {
+        <button type="button" (mousedown)="$event.preventDefault()" (click)="select(city)">
+          <code>{{ city.code }}</code><span>{{ city.name }}</span>
+        </button>
+      } @empty {
+        <p>No hay ciudades usadas con ese código o nombre.</p>
+      }
+    </div>
+  }
+</div>

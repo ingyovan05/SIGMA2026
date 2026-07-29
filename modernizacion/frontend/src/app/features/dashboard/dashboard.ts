@@ -6,10 +6,11 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { SystemModule } from '../../core/auth.models';
 import { AuthService } from '../../core/auth.service';
+import { CityPicker } from '../../shared/city-picker/city-picker';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, CityPicker],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })
