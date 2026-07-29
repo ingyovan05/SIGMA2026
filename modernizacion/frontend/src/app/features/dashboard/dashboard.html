@@ -76,6 +76,47 @@
         </div>
 
         @switch (selectedKey()) {
+          @case ('personal') {
+            <div class="people-toolbar">
+              <label><span>Buscar persona</span><input #peopleSearch type="search"
+                placeholder="Identificación, nombre o apellido"
+                (keyup.enter)="searchPeople(peopleSearch.value)"></label>
+              <button class="primary" type="button" (click)="searchPeople(peopleSearch.value)">Buscar</button>
+              <button class="secondary" type="button">Registrar persona</button>
+            </div>
+            <div class="people-table">
+              <div class="table-head"><span>Identificación</span><span>Nombre</span><span>Celular</span><span>Correo</span><span></span></div>
+              @for (person of people(); track person.id) {
+                <button class="person-row" type="button" (click)="openPerson(person.id)">
+                  <span>{{ person.identification }}</span><strong>{{ person.fullName }}</strong>
+                  <span>{{ person.mobile || '—' }}</span><span>{{ person.email || '—' }}</span><b>Ver →</b>
+                </button>
+              } @empty {
+                <div class="table-empty">{{ peopleLoading() ? 'Cargando personas...' : 'No se encontraron registros.' }}</div>
+              }
+            </div>
+            @if (selectedPerson(); as person) {
+              <div class="detail-overlay" (click)="closePerson()">
+                <section class="person-detail" (click)="$event.stopPropagation()">
+                  <button class="close" type="button" (click)="closePerson()">×</button>
+                  <div class="person-avatar">{{ (person.firstName || 'P').charAt(0) }}</div>
+                  <p class="eyebrow">Ficha de persona</p>
+                  <h2>{{ person.firstName }} {{ person.middleName }} {{ person.lastName }} {{ person.secondLastName }}</h2>
+                  <span class="identity">{{ person.identification }}</span>
+                  <dl>
+                    <div><dt>Fecha de nacimiento</dt><dd>{{ person.birthDate ? person.birthDate.slice(0, 10) : 'Sin información' }}</dd></div>
+                    <div><dt>Género</dt><dd>{{ person.gender || 'Sin información' }}</dd></div>
+                    <div><dt>Ciudad de nacimiento</dt><dd>{{ person.birthCity || 'Sin información' }}</dd></div>
+                    <div><dt>Ciudad de residencia</dt><dd>{{ person.residenceCity || 'Sin información' }}</dd></div>
+                    <div><dt>Dirección</dt><dd>{{ person.address || 'Sin información' }}</dd></div>
+                    <div><dt>Celular</dt><dd>{{ person.mobile || 'Sin información' }}</dd></div>
+                    <div><dt>Teléfono</dt><dd>{{ person.phone || 'Sin información' }}</dd></div>
+                    <div><dt>Correo</dt><dd>{{ person.email || 'Sin información' }}</dd></div>
+                  </dl>
+                </section>
+              </div>
+            }
+          }
           @case ('informes') {
             <div class="toolbar">
               <label><span>Buscar informe</span><input #search type="search" placeholder="Nombre, área o descripción"
@@ -95,23 +136,28 @@
             </div>
           }
           @case ('configuracion') {
-            <div class="settings-grid">
-              <section class="panel">
-                <h2>Contexto de trabajo</h2><p>Información asignada al usuario desde la base de datos.</p>
-                <dl>
-                  <div><dt>Usuario</dt><dd>{{ auth.user()?.fullName }}</dd></div>
-                  <div><dt>Identificación</dt><dd>{{ auth.user()?.identification }}</dd></div>
-                  <div><dt>Base</dt><dd>{{ auth.user()?.sisControl?.baseAbbreviation || 'Sin base asignada' }}</dd></div>
-                  <div><dt>Dependencia</dt><dd>{{ auth.user()?.sisControl?.dependencyName || 'Sin dependencia asignada' }}</dd></div>
-                </dl>
-              </section>
-              <section class="panel">
-                <h2>Preferencias</h2><p>Ajustes de experiencia para esta estación.</p>
-                <label class="toggle-row"><span><b>Menú compacto</b><small>Reduce el ancho del menú lateral</small></span><input type="checkbox"></label>
-                <label class="toggle-row"><span><b>Avisos del sistema</b><small>Mostrar novedades al iniciar sesión</small></span><input type="checkbox" checked></label>
-                <button class="primary" type="button">Guardar preferencias</button>
-              </section>
-            </div>
+            <section class="panel configuration-form">
+              <div class="configuration-title">
+                <div><h2>Configuración de la base</h2><p>{{ auth.user()?.sisControl?.baseName }} · {{ auth.user()?.sisControl?.dependencyName }}</p></div>
+                <span>Datos existentes de Personas y Ciudades</span>
+              </div>
+              <div class="form-grid">
+                <label><span>Código del contrato</span><input [(ngModel)]="configuration().contractCode" type="text"></label>
+                <label><span>Ciudad de contratación *</span><select [(ngModel)]="configuration().cityCode">
+                  <option [ngValue]="null">Seleccione una ciudad</option>
+                  @for (city of cities(); track city.code) { <option [value]="city.code">{{ city.name }}</option> }
+                </select></label>
+                <label class="full"><span>Lugar de entrega de dotación</span><input [(ngModel)]="configuration().workwearDeliveryPlace" type="text"></label>
+                <label><span>Coordinador QA/QC</span><select [(ngModel)]="configuration().qaqcCoordinatorId"><option [ngValue]="null">Sin asignar</option>@for (person of configurationPeople(); track person.id) {<option [ngValue]="person.id">{{ person.fullName }}</option>}</select></label>
+                <label><span>Coordinador HSE</span><select [(ngModel)]="configuration().hseCoordinatorId"><option [ngValue]="null">Sin asignar</option>@for (person of configurationPeople(); track person.id) {<option [ngValue]="person.id">{{ person.fullName }}</option>}</select></label>
+                <label><span>Médico de la base</span><select [(ngModel)]="configuration().doctorId"><option [ngValue]="null">Sin asignar</option>@for (person of configurationPeople(); track person.id) {<option [ngValue]="person.id">{{ person.fullName }}</option>}</select></label>
+                <label><span>Residente</span><select [(ngModel)]="configuration().residentId"><option [ngValue]="null">Sin asignar</option>@for (person of configurationPeople(); track person.id) {<option [ngValue]="person.id">{{ person.fullName }}</option>}</select></label>
+                <label><span>Jefe de Personal</span><select [(ngModel)]="configuration().peopleManagerId"><option [ngValue]="null">Sin asignar</option>@for (person of configurationPeople(); track person.id) {<option [ngValue]="person.id">{{ person.fullName }}</option>}</select></label>
+                <label><span>Administrador</span><select [(ngModel)]="configuration().administratorId"><option [ngValue]="null">Sin asignar</option>@for (person of configurationPeople(); track person.id) {<option [ngValue]="person.id">{{ person.fullName }}</option>}</select></label>
+                <label><span>Jefe de Bodega</span><select [(ngModel)]="configuration().warehouseManagerId"><option [ngValue]="null">Sin asignar</option>@for (person of configurationPeople(); track person.id) {<option [ngValue]="person.id">{{ person.fullName }}</option>}</select></label>
+              </div>
+              <div class="form-actions"><span>{{ configurationMessage() }}</span><button class="primary" type="button" (click)="saveConfiguration()">Guardar configuración</button></div>
+            </section>
           }
           @case ('soporte') {
             <div class="support-layout">

@@ -17,6 +17,28 @@ html, body { margin: 0; min-height: 100%; }
 body { font-family: 'Manrope', Arial, sans-serif; background: #f5f5f5; color: var(--ismocol-ink); }
 button, input { font: inherit; }
 
+app-dashboard {
+  .people-toolbar{display:flex;align-items:end;gap:.7rem;background:white;border:1px solid var(--ismocol-border);border-radius:.8rem;padding:1rem;margin-bottom:1rem}
+  .people-toolbar label{flex:1}.people-toolbar button{margin:0}
+  .secondary{border:1px solid var(--ismocol-border);background:white;border-radius:.55rem;padding:.72rem 1rem;font-weight:700;font-size:.75rem}
+  .people-table{background:white;border:1px solid var(--ismocol-border);border-radius:.8rem;overflow:hidden}
+  .table-head,.person-row{display:grid;grid-template-columns:8rem 1.4fr .8fr 1.2fr 3rem;gap:1rem;align-items:center;padding:.8rem 1rem;text-align:left}
+  .table-head{background:var(--ismocol-slate);color:white;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em}
+  .person-row{width:100%;border:0;border-bottom:1px solid #eee;background:white;color:var(--ismocol-ink);font-size:.72rem;cursor:pointer}
+  .person-row:hover{background:#fff8f5}.person-row strong{font-size:.76rem}.person-row b{color:var(--ismocol-orange)}
+  .table-empty{text-align:center;color:var(--ismocol-gray);padding:3rem}
+  .detail-overlay{position:fixed;inset:0;background:rgba(22,40,54,.48);z-index:10;display:flex;justify-content:flex-end}
+  .person-detail{width:min(34rem,100%);height:100%;overflow:auto;background:white;padding:2rem;box-shadow:-12px 0 30px rgba(0,0,0,.16);position:relative}
+  .person-detail .close{position:absolute;right:1rem;top:1rem;border:0;background:#eee;border-radius:50%;width:2rem;height:2rem;font-size:1.2rem}
+  .person-avatar{display:grid;place-items:center;width:4rem;height:4rem;border-radius:1rem;background:#fde9e2;color:var(--ismocol-orange);font-size:1.5rem;font-weight:800;margin-bottom:1rem}
+  .person-detail h2{margin:.3rem 0;font-size:1.35rem}.identity{color:var(--ismocol-gray);font-size:.78rem}
+  .person-detail dl{margin-top:1.5rem}.person-detail dl div{grid-template-columns:10rem 1fr}
+  .configuration-form{max-width:68rem}.configuration-title{display:flex;justify-content:space-between;align-items:start;border-bottom:1px solid #eee;margin-bottom:1.2rem}
+  .configuration-title span{background:#fde9e2;color:var(--ismocol-orange-dark);padding:.35rem .6rem;border-radius:1rem;font-size:.62rem}
+  .configuration-form select{min-height:2.65rem}.form-actions{display:flex;justify-content:flex-end;align-items:center;gap:1rem;margin-top:1rem}
+  .form-actions span{color:var(--ismocol-gray);font-size:.72rem}.form-actions .primary{margin:0}
+}
+
 @media(max-width:900px) {
   app-dashboard .shell{grid-template-columns:4.5rem 1fr}
   app-dashboard .logo strong,app-dashboard nav a b,app-dashboard nav a small,app-dashboard nav p,app-dashboard .aside-footer{display:none}
@@ -29,4 +51,7 @@ button, input { font: inherit; }
   app-dashboard .content{padding:1rem}
   app-dashboard .welcome{flex-direction:column}
   app-dashboard .module-grid,app-dashboard .report-grid,app-dashboard .toolbar,app-dashboard .form-grid,app-dashboard .remote-card{grid-template-columns:1fr}
+  app-dashboard .people-toolbar{align-items:stretch;flex-direction:column}
+  app-dashboard .table-head{display:none}
+  app-dashboard .person-row{grid-template-columns:1fr;gap:.3rem}
 }

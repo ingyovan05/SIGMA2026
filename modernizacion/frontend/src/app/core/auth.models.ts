@@ -16,7 +16,9 @@ export interface UserSession {
   warehouse: { id: number; abbreviation: string | null; name: string | null } | null;
   sisControl: {
     dependencyId: number;
+    baseId: number | null;
     baseAbbreviation: string | null;
+    baseName: string | null;
     dependencyName: string | null;
   } | null;
   permissions: UserPermission[];

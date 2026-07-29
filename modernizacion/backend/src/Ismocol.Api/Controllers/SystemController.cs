@@ -16,7 +16,7 @@ public sealed class SystemController : ControllerBase
     public IActionResult Modules() => Ok(new[]
     {
         new { key = "principal", name = "Inicio", shortName = "IN", status = "available", description = "Panel principal de SIGMA" },
-        new { key = "personal", name = "Personal", shortName = "PE", status = "planned", description = "Gestión de personal" },
+        new { key = "personal", name = "Personal", shortName = "PE", status = "available", description = "Gestión de personal" },
         new { key = "contrato", name = "Contrato", shortName = "CO", status = "planned", description = "Administración contractual" },
         new { key = "ssta", name = "SSTA", shortName = "SS", status = "planned", description = "Seguridad, salud y ambiente" },
         new { key = "ordenes-trabajo", name = "Órdenes de trabajo", shortName = "OT", status = "planned", description = "Planeación y control de órdenes" },
