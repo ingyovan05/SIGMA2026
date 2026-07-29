@@ -94,5 +94,5 @@ export default function Home() {
 }
 
 function Logo() {
-  return <div className="logo"><span>S</span><div><strong>SIGMA</strong><small>Sistema integrado de gestión</small></div></div>;
+  return <div className="logo"><span>I</span><div><strong>SIGMA</strong><small>Sistema integrado de gestión</small></div></div>;
 }
