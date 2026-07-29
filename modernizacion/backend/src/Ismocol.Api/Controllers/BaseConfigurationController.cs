@@ -50,6 +50,19 @@ public sealed class BaseConfigurationController(ISqlConnectionFactory connection
         page = Math.Max(1, page);
         pageSize = Math.Clamp(pageSize, 1, 50);
         const string sql = """
+            WITH FilteredCities AS (
+                SELECT CODIGOMUNICIPIO, CODIGODEPARTAMENTO,
+                    MAX(NOMBREMUNICIPIO) AS NOMBREMUNICIPIO,
+                    MAX(NOMBREDEPARTAMENTO) AS NOMBREDEPARTAMENTO,
+                    MAX(CODIGOPAIS) AS CODIGOPAIS,
+                    MAX(NOMBREPAIS) AS NOMBREPAIS
+                FROM dbo.MA_POBLACIONMAESTRA
+                WHERE (@Search = '' OR CODIGOMUNICIPIO LIKE '%' + @Search + '%'
+                    OR NOMBREMUNICIPIO LIKE '%' + @Search + '%'
+                    OR NOMBREDEPARTAMENTO LIKE '%' + @Search + '%'
+                    OR NOMBREPAIS LIKE '%' + @Search + '%')
+                GROUP BY CODIGOMUNICIPIO, CODIGODEPARTAMENTO
+            )
             SELECT LTRIM(RTRIM(CODIGOMUNICIPIO)) AS Code,
                 LTRIM(RTRIM(NOMBREMUNICIPIO)) AS Name,
                 LTRIM(RTRIM(CODIGODEPARTAMENTO)) AS DepartmentCode,
@@ -58,21 +71,22 @@ public sealed class BaseConfigurationController(ISqlConnectionFactory connection
                 LTRIM(RTRIM(NOMBREPAIS)) AS Country,
                 CAST(CASE WHEN EXISTS (
                     SELECT 1 FROM dbo.MA_POBLACION p
-                    WHERE p.CODIGOPOBLACION = m.CODIGOMUNICIPIO
+                    WHERE p.CODIGOPOBLACION = FilteredCities.CODIGOMUNICIPIO
                 ) THEN 1 ELSE 0 END AS bit) AS IsUsed
-            FROM dbo.MA_POBLACIONMAESTRA m
-            WHERE (@Search = '' OR CODIGOMUNICIPIO LIKE '%' + @Search + '%'
-                OR NOMBREMUNICIPIO LIKE '%' + @Search + '%'
-                OR NOMBREDEPARTAMENTO LIKE '%' + @Search + '%'
-                OR NOMBREPAIS LIKE '%' + @Search + '%')
+            FROM FilteredCities
             ORDER BY NOMBREPAIS, NOMBREDEPARTAMENTO, NOMBREMUNICIPIO
             OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;
 
-            SELECT COUNT(1) FROM dbo.MA_POBLACIONMAESTRA
-            WHERE (@Search = '' OR CODIGOMUNICIPIO LIKE '%' + @Search + '%'
-                OR NOMBREMUNICIPIO LIKE '%' + @Search + '%'
-                OR NOMBREDEPARTAMENTO LIKE '%' + @Search + '%'
-                OR NOMBREPAIS LIKE '%' + @Search + '%');
+            SELECT COUNT(1)
+            FROM (
+                SELECT CODIGOMUNICIPIO, CODIGODEPARTAMENTO
+                FROM dbo.MA_POBLACIONMAESTRA
+                WHERE (@Search = '' OR CODIGOMUNICIPIO LIKE '%' + @Search + '%'
+                    OR NOMBREMUNICIPIO LIKE '%' + @Search + '%'
+                    OR NOMBREDEPARTAMENTO LIKE '%' + @Search + '%'
+                    OR NOMBREPAIS LIKE '%' + @Search + '%')
+                GROUP BY CODIGOMUNICIPIO, CODIGODEPARTAMENTO
+            ) GroupedCities;
             """;
         await using var connection = connectionFactory.Create();
         using var result = await connection.QueryMultipleAsync(sql, new
