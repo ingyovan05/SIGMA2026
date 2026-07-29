@@ -30,7 +30,8 @@ public sealed class PeopleController(ISqlConnectionFactory connectionFactory) : 
                 LTRIM(RTRIM(CONCAT(P.PRIMERNOMBRE, ' ', P.SEGUNDONOMBRE, ' ', P.PRIMERAPELLIDO, ' ', P.SEGUNDOAPELLIDO))) AS FullName,
                 LTRIM(RTRIM(P.TELEFONOMOVIL)) AS Mobile,
                 LTRIM(RTRIM(P.CORREOELECTRONICO)) AS Email,
-                P.FECHANACIMIENTO AS BirthDate
+                P.FECHANACIMIENTO AS BirthDate,
+                CAST(CASE WHEN P.ESTADOPERSONA = 'A' THEN 1 ELSE 0 END AS bit) AS IsActive
             FROM dbo.PERSONA P
             WHERE (@Search = ''
                 OR P.IDENTIFICACION LIKE '%' + @Search + '%'
@@ -83,7 +84,23 @@ public sealed class PeopleController(ISqlConnectionFactory connectionFactory) : 
         return person is null ? NotFound() : Ok(person);
     }
 
-    public sealed record PersonSummary(int Id, string Identification, string FullName, string? Mobile, string? Email, DateTime? BirthDate);
+    [HttpPut("{id:int}/status")]
+    public async Task<IActionResult> ChangeStatus(int id, [FromBody] ChangePersonStatus request)
+    {
+        const string sql = """
+            UPDATE dbo.PERSONA
+            SET ESTADOPERSONA = CASE WHEN @IsActive = 1 THEN 'A' ELSE 'I' END
+            WHERE IDPERSONA = @Id;
+            """;
+        await using var connection = connectionFactory.Create();
+        var affected = await connection.ExecuteAsync(sql, new { Id = id, request.IsActive });
+        return affected == 0 ? NotFound() : NoContent();
+    }
+
+    public sealed record PersonSummary(
+        int Id, string Identification, string FullName, string? Mobile, string? Email,
+        DateTime? BirthDate, bool IsActive);
+    public sealed record ChangePersonStatus(bool IsActive);
     public sealed record PagedResult<T>(IReadOnlyList<T> Items, long Total, int Page, int PageSize);
     public sealed record PersonDetail(
         int Id, string Identification, string? FirstName, string? MiddleName, string? LastName,

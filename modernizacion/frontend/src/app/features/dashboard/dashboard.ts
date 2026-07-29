@@ -148,6 +148,19 @@ export class Dashboard implements OnInit {
     if (page >= 1 && page <= this.totalPages(this.peopleTotal())) this.searchPeople(this.peopleSearch(), page);
   }
 
+  changePersonStatus(person: PersonSummary): void {
+    const nextStatus = !person.isActive;
+    const action = nextStatus ? 'activar' : 'desactivar';
+    if (!window.confirm(`¿Confirma que desea ${action} a ${person.fullName}?`)) return;
+    this.http.put<void>(`${environment.apiUrl}/people/${person.id}/status`, { isActive: nextStatus })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => this.people.update(items =>
+          items.map(item => item.id === person.id ? { ...item, isActive: nextStatus } : item)),
+        error: () => window.alert(`No fue posible ${action} a la persona.`)
+      });
+  }
+
   changeProcessPage(page: number): void {
     if (page >= 1 && page <= this.totalPages(this.processTotal())) this.loadProcess(this.processCategory(), page);
   }
@@ -395,7 +408,7 @@ export class Dashboard implements OnInit {
 
 interface PersonSummary {
   id: number; identification: string; fullName: string; mobile: string | null;
-  email: string | null; birthDate: string | null;
+  email: string | null; birthDate: string | null; isActive: boolean;
 }
 interface PersonDetail extends PersonSummary {
   firstName: string | null; middleName: string | null; lastName: string | null;

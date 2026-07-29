@@ -104,11 +104,15 @@
                     <button class="secondary" type="button" (click)="openPersonRegistration()">Registrar persona</button>
                   </div>
                   <div class="people-table">
-                    <div class="table-head"><span>Identificación</span><span>Nombre</span><span>Celular</span><span>Correo</span><span></span></div>
+                    <div class="table-head"><span>Identificación</span><span>Nombre</span><span>Celular</span><span>Correo</span><span>Estado</span><span></span></div>
                     @for (person of people(); track person.id) {
                     <div class="person-row">
                       <span>{{ person.identification }}</span><strong>{{ person.fullName }}</strong>
                       <span>{{ person.mobile || '—' }}</span><span>{{ person.email || '—' }}</span>
+                      <button class="status-control" type="button" [class.inactive]="!person.isActive"
+                        (click)="changePersonStatus(person)">
+                        <i></i>{{ person.isActive ? 'Activo' : 'Inactivo' }}
+                      </button>
                       <span class="row-actions">
                         <button type="button" (click)="openPerson(person.id)">Ver</button>
                         <button type="button" (click)="editPerson(person.id)">Editar</button>
