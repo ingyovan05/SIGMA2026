@@ -14,7 +14,7 @@ public sealed class PeopleController(ISqlConnectionFactory connectionFactory) : 
     public async Task<IActionResult> List(
         [FromQuery] string? search,
         [FromQuery] int page = 1,
-        [FromQuery] int pageSize = 20)
+        [FromQuery] int pageSize = 15)
     {
         const string countSql = """
             SELECT COUNT_BIG(1)

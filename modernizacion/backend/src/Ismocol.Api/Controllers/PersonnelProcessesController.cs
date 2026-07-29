@@ -17,7 +17,7 @@ public sealed class PersonnelProcessesController(ISqlConnectionFactory connectio
         string category,
         [FromQuery] int baseId,
         [FromQuery] int page = 1,
-        [FromQuery] int pageSize = 20,
+        [FromQuery] int pageSize = 15,
         CancellationToken cancellationToken = default)
     {
         var personId = CurrentPersonId();

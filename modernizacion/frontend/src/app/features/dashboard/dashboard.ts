@@ -44,7 +44,7 @@ export class Dashboard implements OnInit {
   readonly processPage = signal(1);
   readonly processTotal = signal(0);
   readonly processCategory = signal('');
-  readonly pageSize = 20;
+  readonly pageSize = 15;
   readonly cities = signal<LookupItem[]>([]);
   readonly configurationPeople = signal<PersonSummary[]>([]);
   readonly configuration = signal<BaseConfiguration>(emptyConfiguration());
