@@ -1,3 +1,4 @@
+using Microsoft.VisualBasic;
 using System.Text;
 
 namespace Ismocol.Api.Auth;
@@ -8,6 +9,13 @@ namespace Ismocol.Api.Auth;
 /// </summary>
 public static class LegacyCredentialCipher
 {
+    static LegacyCredentialCipher()
+    {
+        // Chr/Asc del runtime de Visual Basic dependen de la página ANSI.
+        // .NET moderno no la habilita de forma predeterminada.
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+    }
+
     public static string Encrypt(string value)
     {
         var input = value.Trim();
@@ -15,7 +23,10 @@ public static class LegacyCredentialCipher
 
         for (var index = 0; index < input.Length; index++)
         {
-            encrypted[index] = (char)(input[index] + index + 1 + input.Length);
+            // VB.NET Chr/Asc usa la página ANSI del sistema para los valores
+            // entre 128 y 255. Un cast directo a char produce Unicode distinto.
+            encrypted[index] = Strings.Chr(
+                Strings.Asc(input[index]) + index + 1 + input.Length);
         }
 
         Array.Reverse(encrypted);

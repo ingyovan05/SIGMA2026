@@ -9,6 +9,7 @@ public sealed class LegacyCredentialCipherTests
     [InlineData("a", "c")]
     [InlineData("abc", "ige")]
     [InlineData(" test ", "|zky")]
+    [InlineData("usuarioyas", "‡t‹€yo‚€")]
     public void Encrypt_MatchesLegacyVbAlgorithm(string value, string expected)
     {
         Assert.Equal(expected, LegacyCredentialCipher.Encrypt(value));
