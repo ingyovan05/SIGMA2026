@@ -8,7 +8,7 @@ public sealed class LegacyCredentialCipherTests
     [InlineData("", "")]
     [InlineData("a", "c")]
     [InlineData("abc", "ige")]
-    [InlineData(" test ", "|zky")]
+    [InlineData(" test ", "{lz%")]
     [InlineData("usuarioyas", "‡t‹€yo‚€")]
     public void Encrypt_MatchesLegacyVbAlgorithm(string value, string expected)
     {

@@ -18,15 +18,17 @@ public static class LegacyCredentialCipher
 
     public static string Encrypt(string value)
     {
-        var input = value.Trim();
-        var encrypted = new char[input.Length];
+        // La rutina original usa Len(Trim(Clave)) para el largo, pero Mid(Clave)
+        // sobre el valor sin recortar. Conservamos deliberadamente ese matiz.
+        var legacyLength = value.Trim().Length;
+        var encrypted = new char[legacyLength];
 
-        for (var index = 0; index < input.Length; index++)
+        for (var index = 0; index < legacyLength; index++)
         {
             // VB.NET Chr/Asc usa la página ANSI del sistema para los valores
             // entre 128 y 255. Un cast directo a char produce Unicode distinto.
             encrypted[index] = Strings.Chr(
-                Strings.Asc(input[index]) + index + 1 + input.Length);
+                Strings.Asc(value[index]) + index + 1 + legacyLength);
         }
 
         Array.Reverse(encrypted);
