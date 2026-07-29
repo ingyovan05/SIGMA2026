@@ -72,7 +72,7 @@ export class Dashboard implements OnInit {
     { key: 'personas', name: 'Persona', actions: [
       ['cargar', 'Cargar personas', 560],
       ['registrar', 'Registrar persona', 39], ['registrar-basico', 'Registrar persona básico', 39],
-      ['desactivar', 'Desactivar', 41], ['buscar', 'Buscar persona', 555],
+      ['buscar', 'Buscar persona', 555],
       ['formatos', 'Imprimir formatos', 45], ['contrato', 'Registrar contrato', 42],
       ['subir-hv', 'Subir validación hoja de vida', 883], ['ver-hv', 'Ver validación hoja de vida', 884]
     ]},
