@@ -30,6 +30,8 @@ export class Dashboard implements OnInit {
   readonly peopleTotal = signal(0);
   readonly peopleSearch = signal('');
   readonly personRegistrationOpen = signal(false);
+  readonly personRegistrationMode = signal<'create' | 'edit'>('create');
+  readonly editingPersonId = signal<number | null>(null);
   readonly personRegistrationStep = signal(1);
   readonly personRegistrationMessage = signal('');
   readonly newPerson = signal<NewPersonForm>(emptyPersonForm());
@@ -64,7 +66,6 @@ export class Dashboard implements OnInit {
     { key: 'personas', name: 'Persona', actions: [
       ['cargar', 'Cargar personas', 560], ['ver', 'Ver persona', 209],
       ['registrar', 'Registrar persona', 39], ['registrar-basico', 'Registrar persona básico', 39],
-      ['editar', 'Editar persona', 40], ['editar-basico', 'Editar persona básico', 40],
       ['desactivar', 'Desactivar', 41], ['buscar', 'Buscar persona', 555],
       ['formatos', 'Imprimir formatos', 45], ['contrato', 'Registrar contrato', 42],
       ['subir-hv', 'Subir validación hoja de vida', 883], ['ver-hv', 'Ver validación hoja de vida', 884]
@@ -162,6 +163,8 @@ export class Dashboard implements OnInit {
   closePerson(): void { this.selectedPerson.set(null); this.contact.set(null); }
 
   openPersonRegistration(): void {
+    this.personRegistrationMode.set('create');
+    this.editingPersonId.set(null);
     this.newPerson.set(emptyPersonForm());
     this.personRegistrationStep.set(1);
     this.personRegistrationMessage.set('');
@@ -171,6 +174,39 @@ export class Dashboard implements OnInit {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(value => this.cities.set(value));
     }
+  }
+
+  editPerson(id: number): void {
+    this.http.get<PersonDetail>(`${environment.apiUrl}/people/${id}`)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(person => {
+        this.personRegistrationMode.set('edit');
+        this.editingPersonId.set(id);
+        this.newPerson.set({
+          ...emptyPersonForm(),
+          identification: person.identification,
+          firstName: person.firstName ?? '',
+          middleName: person.middleName ?? '',
+          lastName: person.lastName ?? '',
+          secondLastName: person.secondLastName ?? '',
+          birthDate: person.birthDate?.slice(0, 10) ?? '',
+          birthCityCode: person.birthCityCode,
+          gender: person.gender ?? '',
+          residenceCityCode: person.residenceCityCode,
+          address: person.address ?? '',
+          mobile: person.mobile ?? '',
+          phone: person.phone ?? '',
+          email: person.email ?? ''
+        });
+        this.personRegistrationStep.set(1);
+        this.personRegistrationMessage.set('');
+        this.personRegistrationOpen.set(true);
+        if (this.cities().length === 0) {
+          this.http.get<LookupItem[]>(`${environment.apiUrl}/base-configuration/cities`)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(value => this.cities.set(value));
+        }
+      });
   }
 
   closePersonRegistration(): void { this.personRegistrationOpen.set(false); }
@@ -200,7 +236,10 @@ export class Dashboard implements OnInit {
       this.personRegistrationMessage.set('El correo electrónico no tiene un formato válido.');
       return;
     }
-    this.personRegistrationMessage.set('Formulario validado. El registro está listo para enviarse al procedimiento de Personas.');
+    this.personRegistrationMessage.set(
+      this.personRegistrationMode() === 'edit'
+        ? 'Cambios validados y listos para enviarse al procedimiento de Personas.'
+        : 'Formulario validado. El registro está listo para enviarse al procedimiento de Personas.');
   }
 
   selectPersonnelAction(group: string, action: string): void {
@@ -317,6 +356,7 @@ interface PersonDetail extends PersonSummary {
   firstName: string | null; middleName: string | null; lastName: string | null;
   secondLastName: string | null; gender: string | null; address: string | null;
   phone: string | null; birthCity: string | null; residenceCity: string | null;
+  birthCityCode: string | null; residenceCityCode: string | null;
 }
 interface LookupItem { code: string; name: string; }
 interface ContactInfo {
