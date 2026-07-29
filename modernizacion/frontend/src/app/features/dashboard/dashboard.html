@@ -1,65 +1,152 @@
 <div class="shell">
   <aside>
-    <div class="logo"><span>I</span><strong>SIGMA</strong></div>
+    <a class="logo" routerLink="/"><span>I</span><strong>SIGMA</strong></a>
     <nav>
-      <a class="active"><span>⌂</span> Inicio</a>
+      <a routerLink="/" [class.active]="selectedKey() === 'principal'"><span class="nav-icon">IN</span><b>Inicio</b></a>
       <p>Módulos</p>
       @for (module of modules(); track module.key) {
         @if (module.key !== 'principal') {
-          <a [class.disabled]="module.status === 'planned'">
-            <span>□</span> {{ module.name }}
+          <a
+            [routerLink]="module.status === 'available' ? ['/modulo', module.key] : null"
+            [class.active]="selectedKey() === module.key"
+            [class.disabled]="module.status === 'planned'"
+            [attr.aria-disabled]="module.status === 'planned'">
+            <span class="nav-icon">{{ module.shortName }}</span>
+            <b>{{ module.name }}</b>
             @if (module.status === 'planned') { <small>Próximo</small> }
           </a>
         }
       }
     </nav>
-    <div class="aside-footer">Modernización · Fase 1</div>
+    <div class="aside-footer">SIGMA 2026 · Modernización</div>
   </aside>
 
   <main>
     <header>
-      <div><small>Sistema Integrado de Gestión</small><strong>Panel principal</strong></div>
+      <div>
+        <small>Sistema Integrado de Gestión</small>
+        <strong>{{ selectedModule()?.name || 'Panel principal' }}</strong>
+      </div>
       <div class="user">
         <span>{{ (auth.user()?.fullName || 'U').charAt(0) }}</span>
         <div><strong>{{ auth.user()?.fullName }}</strong><small>{{ auth.user()?.identification }}</small></div>
-        <button (click)="auth.logout()">Salir</button>
+        <button type="button" (click)="auth.logout()">Salir</button>
       </div>
     </header>
 
     <section class="content">
-      <div class="welcome">
-        <div>
-          <p class="eyebrow">Buen día</p>
-          <h1>{{ auth.user()?.fullName }}</h1>
-          <p>Este es el nuevo punto de entrada a los procesos de SIGMA.</p>
+      @if (selectedKey() === 'principal') {
+        <div class="welcome">
+          <div>
+            <p class="eyebrow">Buen día</p>
+            <h1>{{ auth.user()?.fullName }}</h1>
+            <p>Acceda a los procesos habilitados de SIGMA desde un solo lugar.</p>
+          </div>
+          <div class="context">
+            @if (auth.user()?.warehouse; as warehouse) {
+              <small>Bodega actual</small><strong>{{ warehouse.abbreviation }} · {{ warehouse.name }}</strong>
+            } @else if (auth.user()?.sisControl; as sisControl) {
+              <small>Base SisControl</small><strong>{{ sisControl.baseAbbreviation }} · {{ sisControl.dependencyName }}</strong>
+            } @else {
+              <small>Contexto</small><strong>Acceso general</strong>
+            }
+          </div>
         </div>
-        <div class="context">
-          @if (auth.user()?.warehouse; as warehouse) {
-            <small>Bodega actual</small><strong>{{ warehouse.abbreviation }} · {{ warehouse.name }}</strong>
-          } @else if (auth.user()?.sisControl; as sisControl) {
-            <small>Base SisControl</small><strong>{{ sisControl.baseAbbreviation }} · {{ sisControl.dependencyName }}</strong>
-          } @else {
-            <small>Contexto</small><strong>Acceso general</strong>
+
+        <div class="section-title">
+          <div><h2>Módulos del sistema</h2><p>Se conservaron todos los accesos de la aplicación original.</p></div>
+          <span>{{ modules().length - 1 }} módulos</span>
+        </div>
+        <div class="module-grid">
+          @for (module of modules(); track module.key) {
+            @if (module.key !== 'principal') {
+              <a class="module-card" [class.available]="module.status === 'available'"
+                [routerLink]="module.status === 'available' ? ['/modulo', module.key] : null">
+                <span class="module-icon">{{ module.shortName }}</span>
+                <span class="module-copy"><strong>{{ module.name }}</strong><small>{{ module.description }}</small></span>
+                <span class="status">{{ module.status === 'available' ? 'Abrir' : 'En migración' }}</span>
+              </a>
+            }
           }
         </div>
-      </div>
+      } @else {
+        <div class="page-heading">
+          <div class="heading-icon">{{ selectedModule()?.shortName }}</div>
+          <div><p class="eyebrow">Módulo</p><h1>{{ selectedModule()?.name }}</h1><p>{{ selectedModule()?.description }}</p></div>
+        </div>
 
-      <div class="section-title">
-        <div><h2>Módulos</h2><p>La migración se habilitará progresivamente.</p></div>
-        <span>{{ modules().length }} registrados</span>
-      </div>
-      <div class="module-grid">
-        @for (module of modules(); track module.key; let index = $index) {
-          <article [class.available]="module.status === 'available'">
-            <div class="module-icon">{{ index + 1 }}</div>
-            <div>
-              <h3>{{ module.name }}</h3>
-              <p>{{ module.status === 'available' ? 'Disponible en la nueva plataforma' : 'Pendiente de migración' }}</p>
+        @switch (selectedKey()) {
+          @case ('informes') {
+            <div class="toolbar">
+              <label><span>Buscar informe</span><input #search type="search" placeholder="Nombre, área o descripción"
+                (input)="reportSearch.set(search.value)"></label>
+              <label><span>Periodo</span><select><option>Mes actual</option><option>Mes anterior</option><option>Año actual</option></select></label>
             </div>
-            <span class="status">{{ module.status === 'available' ? 'Activo' : 'Próximo' }}</span>
-          </article>
+            <div class="report-grid">
+              @for (report of visibleReports(); track report.name) {
+                <article class="report-card">
+                  <span class="tag">{{ report.group }}</span>
+                  <h3>{{ report.name }}</h3><p>{{ report.description }}</p>
+                  <button type="button">Preparar informe <span>→</span></button>
+                </article>
+              } @empty {
+                <div class="empty-state">No se encontraron informes con ese criterio.</div>
+              }
+            </div>
+          }
+          @case ('configuracion') {
+            <div class="settings-grid">
+              <section class="panel">
+                <h2>Contexto de trabajo</h2><p>Información asignada al usuario desde la base de datos.</p>
+                <dl>
+                  <div><dt>Usuario</dt><dd>{{ auth.user()?.fullName }}</dd></div>
+                  <div><dt>Identificación</dt><dd>{{ auth.user()?.identification }}</dd></div>
+                  <div><dt>Base</dt><dd>{{ auth.user()?.sisControl?.baseAbbreviation || 'Sin base asignada' }}</dd></div>
+                  <div><dt>Dependencia</dt><dd>{{ auth.user()?.sisControl?.dependencyName || 'Sin dependencia asignada' }}</dd></div>
+                </dl>
+              </section>
+              <section class="panel">
+                <h2>Preferencias</h2><p>Ajustes de experiencia para esta estación.</p>
+                <label class="toggle-row"><span><b>Menú compacto</b><small>Reduce el ancho del menú lateral</small></span><input type="checkbox"></label>
+                <label class="toggle-row"><span><b>Avisos del sistema</b><small>Mostrar novedades al iniciar sesión</small></span><input type="checkbox" checked></label>
+                <button class="primary" type="button">Guardar preferencias</button>
+              </section>
+            </div>
+          }
+          @case ('soporte') {
+            <div class="support-layout">
+              <section class="panel">
+                <h2>Solicitar soporte</h2><p>Describa el inconveniente para facilitar el diagnóstico.</p>
+                <div class="form-grid">
+                  <label><span>Área</span><select><option>Aplicación SIGMA</option><option>Acceso y contraseña</option><option>Informes</option><option>Datos</option></select></label>
+                  <label><span>Prioridad</span><select><option>Normal</option><option>Alta</option><option>Crítica</option></select></label>
+                  <label class="full"><span>Asunto</span><input type="text" placeholder="Resumen del inconveniente"></label>
+                  <label class="full"><span>Descripción</span><textarea rows="6" placeholder="Indique qué estaba haciendo y qué mensaje apareció"></textarea></label>
+                </div>
+                <button class="primary" type="button">Preparar solicitud</button>
+              </section>
+              <aside class="help-card">
+                <span class="help-icon">?</span><h2>Centro de ayuda</h2>
+                <p>Incluya capturas, el módulo afectado y la hora aproximada del evento.</p>
+                <div><small>Contacto</small><strong>Soporte de aplicaciones ISMOCOL</strong></div>
+                <div><small>Usuario actual</small><strong>{{ auth.user()?.identification }}</strong></div>
+              </aside>
+            </div>
+          }
+          @case ('acceso-remoto') {
+            <div class="remote-card">
+              <div class="remote-illustration">RM</div>
+              <div>
+                <p class="eyebrow">Asistencia segura</p><h2>Acceso remoto acompañado</h2>
+                <p>Inicie una sesión únicamente cuando un integrante autorizado de soporte se lo solicite. No comparta códigos de acceso por canales no verificados.</p>
+                <ol><li>Comuníquese primero con soporte.</li><li>Abra la herramienta remota instalada en el equipo.</li><li>Informe el código temporal al técnico asignado.</li><li>Cierre la sesión al terminar la asistencia.</li></ol>
+                <div class="notice"><strong>Importante:</strong> SIGMA nunca solicitará su contraseña personal durante una sesión remota.</div>
+                <button class="primary" type="button">Verificar herramienta instalada</button>
+              </div>
+            </div>
+          }
         }
-      </div>
+      }
     </section>
   </main>
 </div>

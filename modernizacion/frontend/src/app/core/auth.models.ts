@@ -31,5 +31,7 @@ export interface LoginResponse {
 export interface SystemModule {
   key: string;
   name: string;
+  shortName: string;
+  description: string;
   status: 'available' | 'planned';
 }
