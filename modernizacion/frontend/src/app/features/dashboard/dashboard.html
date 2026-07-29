@@ -407,7 +407,14 @@
                   <div><small>Clasificación seleccionada</small><strong>{{ selectedArticleNode() ? selectedArticleNode()!.treeCode + ' · ' + selectedArticleNode()!.name : 'Todos los artículos' }}</strong></div>
                   <span>{{ articlesTotal() }} registros</span>
                 </div>
-                <div class="articles-table">
+                <div class="articles-table" [class.loading]="articlesLoading()" [attr.aria-busy]="articlesLoading()">
+                  @if (articlesLoading()) {
+                    <div class="articles-loading" role="status" aria-live="polite">
+                      <span class="loading-spinner"></span>
+                      <strong>Cargando artículos...</strong>
+                      <small>Consultando la clasificación seleccionada</small>
+                    </div>
+                  }
                   <div class="article-head"><span>ID</span><span>Código árbol</span><span>Artículo</span><span>Unidad</span><span>Referencia</span></div>
                   @for (article of articles(); track article.id) {
                     <div class="article-row">
