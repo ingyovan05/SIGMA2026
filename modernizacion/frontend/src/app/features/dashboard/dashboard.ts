@@ -71,6 +71,16 @@ export class Dashboard implements OnInit {
   readonly articlesPage = signal(1);
   readonly articlesTotal = signal(0);
   readonly articlesLoading = signal(false);
+  readonly reportTypes = signal<SpecialReportType[]>([]);
+  readonly reportQueries = signal<SpecialReportQuery[]>([]);
+  readonly selectedReportTypeId = signal<number | null>(null);
+  readonly selectedReportQuery = signal<SpecialReportQuery | null>(null);
+  readonly specialReportParameters = signal<Record<string, string>>({});
+  readonly specialReportColumns = signal<string[]>([]);
+  readonly specialReportRows = signal<Record<string, unknown>[]>([]);
+  readonly specialReportLoading = signal(false);
+  readonly specialReportMessage = signal('');
+  readonly specialReportPage = signal(1);
   readonly selectedModule = computed(() =>
     this.modules().find(module => module.key === this.selectedKey()));
 
@@ -233,6 +243,79 @@ export class Dashboard implements OnInit {
 
   changeArticlesPage(page: number): void {
     if (page >= 1 && page <= this.totalPages(this.articlesTotal())) this.loadArticles(this.articlesSearch(), page);
+  }
+
+  selectReportType(value: string): void {
+    const typeId = Number(value);
+    this.selectedReportTypeId.set(typeId || null);
+    this.selectedReportQuery.set(null);
+    this.reportQueries.set([]);
+    this.specialReportRows.set([]);
+    if (!typeId) return;
+    this.http.get<SpecialReportQuery[]>(`${environment.apiUrl}/special-reports/queries`, { params: { typeId } })
+      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+        next: queries => this.reportQueries.set(queries),
+        error: () => this.specialReportMessage.set('No fue posible cargar las consultas de este tipo.')
+      });
+  }
+
+  selectReportQuery(value: string): void {
+    const query = this.reportQueries().find(item => item.id === Number(value)) ?? null;
+    this.selectedReportQuery.set(query);
+    this.specialReportRows.set([]);
+    this.specialReportColumns.set([]);
+    this.specialReportMessage.set('');
+    const today = new Date().toISOString().slice(0, 10);
+    const user = this.auth.user();
+    const context: Record<string, string> = {
+      IDBODEGA: String(user?.warehouse?.id ?? ''),
+      IDBASESISCONTROL: String(user?.sisControl?.baseId ?? ''),
+      IDDEPENDENCIA: String(user?.sisControl?.dependencyId ?? ''),
+      FECHAI: today,
+      FECHAF: today
+    };
+    this.specialReportParameters.set(Object.fromEntries(
+      (query?.parameters ?? []).map(parameter => [parameter.name, context[parameter.name] ?? ''])));
+  }
+
+  setReportParameter(name: string, value: string): void {
+    this.specialReportParameters.update(parameters => ({ ...parameters, [name]: value }));
+  }
+
+  executeSpecialReport(): void {
+    const query = this.selectedReportQuery();
+    if (!query) return;
+    const missing = query.parameters.find(parameter => !this.specialReportParameters()[parameter.name]?.trim());
+    if (missing) {
+      this.specialReportMessage.set(`Complete el parámetro ${missing.label}.`);
+      return;
+    }
+    this.specialReportLoading.set(true);
+    this.specialReportMessage.set('');
+    this.http.post<SpecialReportResult>(`${environment.apiUrl}/special-reports/${query.id}/execute`,
+      { parameters: this.specialReportParameters() })
+      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+        next: result => {
+          this.specialReportColumns.set(result.columns);
+          this.specialReportRows.set(result.rows);
+          this.specialReportPage.set(1);
+          this.specialReportLoading.set(false);
+          this.specialReportMessage.set(result.limited ? 'Se muestran los primeros 500 registros.' : `${result.rows.length} registros encontrados.`);
+        },
+        error: error => {
+          this.specialReportLoading.set(false);
+          this.specialReportMessage.set(error.error?.error ?? 'No fue posible ejecutar la consulta.');
+        }
+      });
+  }
+
+  specialReportPageRows(): Record<string, unknown>[] {
+    const start = (this.specialReportPage() - 1) * this.pageSize;
+    return this.specialReportRows().slice(start, start + this.pageSize);
+  }
+
+  changeSpecialReportPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages(this.specialReportRows().length)) this.specialReportPage.set(page);
   }
 
   totalPages(total: number): number { return Math.max(1, Math.ceil(total / this.pageSize)); }
@@ -465,6 +548,13 @@ export class Dashboard implements OnInit {
       this.articles.set([]);
       this.articlesTotal.set(0);
     }
+    if (this.selectedKey() === 'informes' && this.reportTypes().length === 0) {
+      this.http.get<SpecialReportType[]>(`${environment.apiUrl}/special-reports/types`)
+        .pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+          next: types => this.reportTypes.set(types),
+          error: () => this.specialReportMessage.set('No fue posible cargar los tipos de consulta.')
+        });
+    }
     if (this.selectedKey() === 'configuracion') this.loadConfiguration();
   }
 
@@ -546,6 +636,10 @@ interface ArticleSummary {
   unit: string | null; family: string | null; group: string | null; class: string | null;
   barcode: string | null; reference: string | null;
 }
+interface SpecialReportType { id: number; name: string; }
+interface SpecialReportParameter { name: string; label: string; type: 'date' | 'number' | 'text'; }
+interface SpecialReportQuery { id: number; name: string; parameters: SpecialReportParameter[]; }
+interface SpecialReportResult { columns: string[]; rows: Record<string, unknown>[]; limited: boolean; }
 interface NewPersonForm {
   identificationType: string; identification: string; issueDate: string; issueCityCode: string | null;
   firstName: string; middleName: string; lastName: string; secondLastName: string;

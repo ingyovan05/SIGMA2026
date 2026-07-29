@@ -440,22 +440,52 @@
             </div>
           }
           @case ('informes') {
-            <div class="toolbar">
-              <label><span>Buscar informe</span><input #search type="search" placeholder="Nombre, área o descripción"
-                (input)="reportSearch.set(search.value)"></label>
-              <label><span>Periodo</span><select><option>Mes actual</option><option>Mes anterior</option><option>Año actual</option></select></label>
-            </div>
-            <div class="report-grid">
-              @for (report of visibleReports(); track report.name) {
-                <article class="report-card">
-                  <span class="tag">{{ report.group }}</span>
-                  <h3>{{ report.name }}</h3><p>{{ report.description }}</p>
-                  <button type="button">Preparar informe <span>→</span></button>
-                </article>
-              } @empty {
-                <div class="empty-state">No se encontraron informes con ese criterio.</div>
-              }
-            </div>
+            <section class="special-reports">
+              <div class="report-selector panel">
+                <div class="form-section-title"><h2>Consultas especiales</h2><p>Seleccione el tipo y la descripción del informe.</p></div>
+                <div class="report-selection-grid">
+                  <label><span>Tipo de consulta</span><select #reportType (change)="selectReportType(reportType.value)">
+                    <option value="">Seleccione un tipo</option>
+                    @for (type of reportTypes(); track type.id) {<option [value]="type.id">{{ type.name }}</option>}
+                  </select></label>
+                  <label><span>Descripción</span><select #reportQuery [disabled]="!selectedReportTypeId()" (change)="selectReportQuery(reportQuery.value)">
+                    <option value="">Seleccione una consulta</option>
+                    @for (query of reportQueries(); track query.id) {<option [value]="query.id">{{ query.name }}</option>}
+                  </select></label>
+                </div>
+                @if (selectedReportQuery(); as query) {
+                  @if (query.parameters.length) {
+                    <div class="dynamic-parameters">
+                      @for (parameter of query.parameters; track parameter.name) {
+                        <label><span>{{ parameter.label }}</span><input [type]="parameter.type" [value]="specialReportParameters()[parameter.name] || ''" (input)="setReportParameter(parameter.name, $any($event.target).value)"></label>
+                      }
+                    </div>
+                  } @else {
+                    <div class="no-parameters">Esta consulta no requiere parámetros.</div>
+                  }
+                  <div class="report-actions"><span>{{ specialReportMessage() }}</span><button class="primary" type="button" [disabled]="specialReportLoading()" (click)="executeSpecialReport()">{{ specialReportLoading() ? 'Consultando...' : 'Cargar informe' }}</button></div>
+                } @else if (specialReportMessage()) {
+                  <div class="form-message">{{ specialReportMessage() }}</div>
+                }
+              </div>
+
+              <div class="special-report-results panel" [attr.aria-busy]="specialReportLoading()">
+                @if (specialReportLoading()) {
+                  <div class="articles-loading"><span class="loading-spinner"></span><strong>Ejecutando consulta...</strong><small>El tiempo depende del volumen de información.</small></div>
+                }
+                @if (specialReportColumns().length) {
+                  <div class="dynamic-report-table">
+                    <div class="dynamic-report-head">@for (column of specialReportColumns(); track column) {<span>{{ column }}</span>}</div>
+                    @for (row of specialReportPageRows(); track $index) {
+                      <div class="dynamic-report-row">@for (column of specialReportColumns(); track column) {<span>{{ displayValue(row[column]) }}</span>}</div>
+                    }
+                  </div>
+                  <div class="pagination"><span>{{ (specialReportPage() - 1) * pageSize + 1 }}–{{ pageEnd(specialReportPage(), specialReportRows().length) }} de {{ specialReportRows().length }}</span><div><button type="button" [disabled]="specialReportPage() === 1" (click)="changeSpecialReportPage(specialReportPage() - 1)">Anterior</button><b>Página {{ specialReportPage() }} de {{ totalPages(specialReportRows().length) }}</b><button type="button" [disabled]="specialReportPage() >= totalPages(specialReportRows().length)" (click)="changeSpecialReportPage(specialReportPage() + 1)">Siguiente</button></div></div>
+                } @else {
+                  <div class="empty-state">Seleccione y ejecute una consulta para visualizar sus resultados.</div>
+                }
+              </div>
+            </section>
           }
           @case ('configuracion') {
             <section class="panel configuration-form">
