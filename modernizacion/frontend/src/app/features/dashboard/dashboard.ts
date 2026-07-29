@@ -29,6 +29,10 @@ export class Dashboard implements OnInit {
   readonly peoplePage = signal(1);
   readonly peopleTotal = signal(0);
   readonly peopleSearch = signal('');
+  readonly personRegistrationOpen = signal(false);
+  readonly personRegistrationStep = signal(1);
+  readonly personRegistrationMessage = signal('');
+  readonly newPerson = signal<NewPersonForm>(emptyPersonForm());
   readonly personnelSection = signal('personas');
   readonly personnelAction = signal('cargar');
   readonly contact = signal<ContactInfo | null>(null);
@@ -157,10 +161,53 @@ export class Dashboard implements OnInit {
 
   closePerson(): void { this.selectedPerson.set(null); this.contact.set(null); }
 
+  openPersonRegistration(): void {
+    this.newPerson.set(emptyPersonForm());
+    this.personRegistrationStep.set(1);
+    this.personRegistrationMessage.set('');
+    this.personRegistrationOpen.set(true);
+    if (this.cities().length === 0) {
+      this.http.get<LookupItem[]>(`${environment.apiUrl}/base-configuration/cities`)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(value => this.cities.set(value));
+    }
+  }
+
+  closePersonRegistration(): void { this.personRegistrationOpen.set(false); }
+
+  nextPersonStep(): void {
+    const person = this.newPerson();
+    if (!person.identification.trim() || !person.firstName.trim() || !person.lastName.trim()) {
+      this.personRegistrationMessage.set('Complete identificación, primer nombre y primer apellido.');
+      return;
+    }
+    this.personRegistrationMessage.set('');
+    this.personRegistrationStep.set(2);
+  }
+
+  previousPersonStep(): void {
+    this.personRegistrationMessage.set('');
+    this.personRegistrationStep.set(1);
+  }
+
+  preparePersonRegistration(): void {
+    const person = this.newPerson();
+    if (!person.birthCityCode || !person.residenceCityCode) {
+      this.personRegistrationMessage.set('Seleccione ciudad de nacimiento y ciudad de residencia.');
+      return;
+    }
+    if (person.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(person.email)) {
+      this.personRegistrationMessage.set('El correo electrónico no tiene un formato válido.');
+      return;
+    }
+    this.personRegistrationMessage.set('Formulario validado. El registro está listo para enviarse al procedimiento de Personas.');
+  }
+
   selectPersonnelAction(group: string, action: string): void {
     this.personnelSection.set(group);
     this.personnelAction.set(action);
     if (action === 'cargar' || action === 'buscar') this.searchPeople('');
+    if (action === 'registrar' || action === 'registrar-basico') this.openPersonRegistration();
     const category: Record<string, string> = {
       examenes: 'medical-exams',
       covid: 'covid-surveys',
@@ -278,6 +325,21 @@ interface ContactInfo {
 }
 interface PersonnelGroup { key: string; name: string; actions: [string, string, number][]; }
 interface PagedResult<T> { items: T[]; total: number; page: number; pageSize: number; }
+interface NewPersonForm {
+  identificationType: string; identification: string; issueDate: string; issueCityCode: string | null;
+  firstName: string; middleName: string; lastName: string; secondLastName: string;
+  birthDate: string; birthCityCode: string | null; gender: string;
+  residenceCityCode: string | null; address: string; mobile: string; phone: string;
+  email: string; bloodType: string; employee: boolean; client: boolean; contractor: boolean;
+}
+function emptyPersonForm(): NewPersonForm {
+  return {
+    identificationType: 'CC', identification: '', issueDate: '', issueCityCode: null,
+    firstName: '', middleName: '', lastName: '', secondLastName: '', birthDate: '',
+    birthCityCode: null, gender: '', residenceCityCode: null, address: '', mobile: '',
+    phone: '', email: '', bloodType: 'SIN', employee: false, client: false, contractor: false
+  };
+}
 interface BaseConfiguration {
   baseId: number; contractCode: string | null; costCenterId: number | null; cityCode: string | null;
   qaqcCoordinatorId: number | null; hseCoordinatorId: number | null; doctorId: number | null;

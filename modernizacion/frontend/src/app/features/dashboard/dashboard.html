@@ -99,7 +99,7 @@
                       placeholder="Identificación, nombre o apellido"
                       (keyup.enter)="searchPeople(peopleSearch.value)"></label>
                     <button class="primary" type="button" (click)="searchPeople(peopleSearch.value)">Buscar</button>
-                    <button class="secondary" type="button" (click)="selectPersonnelAction('personas','registrar')">Registrar persona</button>
+                    <button class="secondary" type="button" (click)="openPersonRegistration()">Registrar persona</button>
                   </div>
                   <div class="people-table">
                     <div class="table-head"><span>Identificación</span><span>Nombre</span><span>Celular</span><span>Correo</span><span></span></div>
@@ -180,6 +180,82 @@
                       <div class="form-actions"><span>{{ contactMessage() }}</span><button class="primary" type="button" (click)="updateContact()">Actualizar contacto</button></div>
                     </div>
                   }
+                </section>
+              </div>
+            }
+            @if (personRegistrationOpen()) {
+              <div class="modal-backdrop" (click)="closePersonRegistration()">
+                <section class="registration-modal" role="dialog" aria-modal="true"
+                  aria-labelledby="register-person-title" (click)="$event.stopPropagation()">
+                  <header class="modal-header">
+                    <div class="modal-mark">PE</div>
+                    <div><p class="eyebrow">Módulo Personal</p><h2 id="register-person-title">Registrar persona</h2></div>
+                    <button class="modal-close" type="button" aria-label="Cerrar" (click)="closePersonRegistration()">×</button>
+                  </header>
+                  <div class="stepper">
+                    <span [class.active]="personRegistrationStep() === 1"><b>1</b> Identificación</span>
+                    <i></i>
+                    <span [class.active]="personRegistrationStep() === 2"><b>2</b> Contacto y ubicación</span>
+                  </div>
+
+                  <div class="modal-body">
+                    @if (personRegistrationStep() === 1) {
+                      <div class="form-section">
+                        <div class="form-section-title"><h3>Datos de identificación</h3><p>Los campos marcados con * son obligatorios.</p></div>
+                        <div class="registration-grid">
+                          <label><span>Tipo de identificación *</span><select [(ngModel)]="newPerson().identificationType"><option value="CC">Cédula de ciudadanía</option><option value="CE">Cédula de extranjería</option><option value="PA">Pasaporte</option><option value="TI">Tarjeta de identidad</option></select></label>
+                          <label><span>Número de identificación *</span><input [(ngModel)]="newPerson().identification" inputmode="numeric" placeholder="Sin puntos ni espacios"></label>
+                          <label><span>Fecha de expedición</span><input [(ngModel)]="newPerson().issueDate" type="date"></label>
+                          <label><span>Ciudad de expedición</span><select [(ngModel)]="newPerson().issueCityCode"><option [ngValue]="null">Seleccione</option>@for (city of cities(); track city.code) {<option [value]="city.code">{{ city.name }}</option>}</select></label>
+                        </div>
+                      </div>
+                      <div class="form-section">
+                        <div class="form-section-title"><h3>Nombres y nacimiento</h3></div>
+                        <div class="registration-grid">
+                          <label><span>Primer nombre *</span><input [(ngModel)]="newPerson().firstName" autocomplete="given-name"></label>
+                          <label><span>Segundo nombre</span><input [(ngModel)]="newPerson().middleName"></label>
+                          <label><span>Primer apellido *</span><input [(ngModel)]="newPerson().lastName" autocomplete="family-name"></label>
+                          <label><span>Segundo apellido</span><input [(ngModel)]="newPerson().secondLastName"></label>
+                          <label><span>Fecha de nacimiento</span><input [(ngModel)]="newPerson().birthDate" type="date"></label>
+                          <label><span>Ciudad de nacimiento *</span><select [(ngModel)]="newPerson().birthCityCode"><option [ngValue]="null">Seleccione</option>@for (city of cities(); track city.code) {<option [value]="city.code">{{ city.name }}</option>}</select></label>
+                          <label><span>Género</span><select [(ngModel)]="newPerson().gender"><option value="">Seleccione</option><option value="F">Femenino</option><option value="M">Masculino</option></select></label>
+                          <label><span>Grupo sanguíneo</span><select [(ngModel)]="newPerson().bloodType"><option>SIN</option><option>O+</option><option>O-</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option></select></label>
+                        </div>
+                      </div>
+                    } @else {
+                      <div class="form-section">
+                        <div class="form-section-title"><h3>Residencia y contacto</h3><p>Información utilizada por Personal y CU_Contacto.</p></div>
+                        <div class="registration-grid">
+                          <label><span>Ciudad de residencia *</span><select [(ngModel)]="newPerson().residenceCityCode"><option [ngValue]="null">Seleccione</option>@for (city of cities(); track city.code) {<option [value]="city.code">{{ city.name }}</option>}</select></label>
+                          <label class="span-two"><span>Dirección</span><input [(ngModel)]="newPerson().address" autocomplete="street-address"></label>
+                          <label><span>Teléfono móvil</span><input [(ngModel)]="newPerson().mobile" inputmode="tel"></label>
+                          <label><span>Teléfono fijo</span><input [(ngModel)]="newPerson().phone" inputmode="tel"></label>
+                          <label class="span-two"><span>Correo electrónico</span><input [(ngModel)]="newPerson().email" type="email" autocomplete="email"></label>
+                        </div>
+                      </div>
+                      <div class="form-section">
+                        <div class="form-section-title"><h3>Clasificación</h3><p>Seleccione las relaciones que correspondan.</p></div>
+                        <div class="classification-options">
+                          <label><input [(ngModel)]="newPerson().employee" type="checkbox"><span><b>Empleado</b><small>Personal vinculado a ISMOCOL</small></span></label>
+                          <label><input [(ngModel)]="newPerson().client" type="checkbox"><span><b>Cliente</b><small>Contacto asociado como cliente</small></span></label>
+                          <label><input [(ngModel)]="newPerson().contractor" type="checkbox"><span><b>Contratista o proveedor</b><small>Tercero relacionado comercialmente</small></span></label>
+                        </div>
+                      </div>
+                    }
+                  </div>
+
+                  <footer class="modal-footer">
+                    <span class="form-message">{{ personRegistrationMessage() }}</span>
+                    <div>
+                      <button class="secondary" type="button" (click)="closePersonRegistration()">Cancelar</button>
+                      @if (personRegistrationStep() === 2) {
+                        <button class="secondary" type="button" (click)="previousPersonStep()">Anterior</button>
+                        <button class="primary" type="button" (click)="preparePersonRegistration()">Validar registro</button>
+                      } @else {
+                        <button class="primary" type="button" (click)="nextPersonStep()">Continuar</button>
+                      }
+                    </div>
+                  </footer>
                 </section>
               </div>
             }
