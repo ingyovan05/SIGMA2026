@@ -24,7 +24,7 @@ public sealed class SystemController : ControllerBase
         new { key = "auditoria", name = "Auditoría", shortName = "AU", status = "planned", description = "Seguimiento y trazabilidad" },
         new { key = "siscontrol", name = "SisControl", shortName = "SC", status = "planned", description = "Control operativo" },
         new { key = "licitaciones", name = "Licitaciones", shortName = "LI", status = "planned", description = "Procesos de licitación" },
-        new { key = "articulos", name = "Artículos", shortName = "AR", status = "planned", description = "Catálogo de artículos" },
+        new { key = "articulos", name = "Artículos", shortName = "AR", status = "available", description = "Catálogo y clasificación de artículos" },
         new { key = "compras", name = "Compras", shortName = "CP", status = "planned", description = "Solicitudes y órdenes de compra" },
         new { key = "bodega", name = "Bodega", shortName = "BO", status = "planned", description = "Inventario y movimientos" },
         new { key = "activos-fijos", name = "Activos fijos", shortName = "AF", status = "planned", description = "Administración de activos" },

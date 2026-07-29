@@ -61,6 +61,14 @@ export class Dashboard implements OnInit {
   readonly configurationPeople = signal<PersonSummary[]>([]);
   readonly configuration = signal<BaseConfiguration>(emptyConfiguration());
   readonly configurationMessage = signal('');
+  readonly articleTree = signal<ArticleTreeNode[]>([]);
+  readonly expandedArticleNodes = signal<string[]>([]);
+  readonly selectedArticleNode = signal<ArticleTreeNode | null>(null);
+  readonly articles = signal<ArticleSummary[]>([]);
+  readonly articlesSearch = signal('');
+  readonly articlesPage = signal(1);
+  readonly articlesTotal = signal(0);
+  readonly articlesLoading = signal(false);
   readonly selectedModule = computed(() =>
     this.modules().find(module => module.key === this.selectedKey()));
 
@@ -76,7 +84,6 @@ export class Dashboard implements OnInit {
     { key: 'personas', name: 'Persona', actions: [
       ['cargar', 'Cargar personas', 560],
       ['registrar', 'Registrar persona', 39], ['registrar-basico', 'Registrar persona básico', 39],
-      ['buscar', 'Buscar persona', 555],
       ['formatos', 'Imprimir formatos', 45], ['contrato', 'Registrar contrato', 42],
       ['subir-hv', 'Subir validación hoja de vida', 883], ['ver-hv', 'Ver validación hoja de vida', 884]
     ]},
@@ -167,6 +174,47 @@ export class Dashboard implements OnInit {
 
   changeProcessPage(page: number): void {
     if (page >= 1 && page <= this.totalPages(this.processTotal())) this.loadProcess(this.processCategory(), page);
+  }
+
+  visibleArticleNodes(): ArticleTreeRow[] {
+    const expanded = new Set(this.expandedArticleNodes());
+    const rows: ArticleTreeRow[] = [];
+    const visit = (nodes: ArticleTreeNode[], depth: number) => nodes.forEach(node => {
+      rows.push({ node, depth });
+      if (expanded.has(node.id)) visit(node.children, depth + 1);
+    });
+    visit(this.articleTree(), 0);
+    return rows;
+  }
+
+  selectArticleNode(node: ArticleTreeNode): void {
+    if (node.children.length) {
+      this.expandedArticleNodes.update(ids =>
+        ids.includes(node.id) ? ids.filter(id => id !== node.id) : [...ids, node.id]);
+    }
+    this.selectedArticleNode.set(node);
+    this.loadArticles('', 1);
+  }
+
+  loadArticles(search = this.articlesSearch(), page = 1): void {
+    this.articlesSearch.set(search);
+    this.articlesPage.set(page);
+    this.articlesLoading.set(true);
+    this.http.get<PagedResult<ArticleSummary>>(`${environment.apiUrl}/articles`, {
+      params: { treeCode: this.selectedArticleNode()?.treeCode ?? '', search, page, pageSize: this.pageSize }
+    }).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: result => {
+        this.articles.set(result.items);
+        this.articlesTotal.set(result.total);
+        this.articlesPage.set(result.page);
+        this.articlesLoading.set(false);
+      },
+      error: () => this.articlesLoading.set(false)
+    });
+  }
+
+  changeArticlesPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages(this.articlesTotal())) this.loadArticles(this.articlesSearch(), page);
   }
 
   totalPages(total: number): number { return Math.max(1, Math.ceil(total / this.pageSize)); }
@@ -394,6 +442,13 @@ export class Dashboard implements OnInit {
 
   private loadWorkspace(): void {
     if (this.selectedKey() === 'personal' && this.people().length === 0) this.searchPeople('');
+    if (this.selectedKey() === 'articulos') {
+      if (this.articleTree().length === 0) {
+        this.http.get<ArticleTreeNode[]>(`${environment.apiUrl}/articles/classification-tree`)
+          .pipe(takeUntilDestroyed(this.destroyRef)).subscribe(nodes => this.articleTree.set(nodes));
+      }
+      this.loadArticles('', 1);
+    }
     if (this.selectedKey() === 'configuracion') this.loadConfiguration();
   }
 
@@ -466,6 +521,15 @@ interface ContactInfo {
 }
 interface PersonnelGroup { key: string; name: string; actions: [string, string, number][]; }
 interface PagedResult<T> { items: T[]; total: number; page: number; pageSize: number; }
+interface ArticleTreeNode {
+  id: string; level: string; code: string; treeCode: string; name: string; children: ArticleTreeNode[];
+}
+interface ArticleTreeRow { node: ArticleTreeNode; depth: number; }
+interface ArticleSummary {
+  id: number; treeCode: string | null; name: string | null; description: string | null;
+  unit: string | null; family: string | null; group: string | null; class: string | null;
+  barcode: string | null; reference: string | null;
+}
 interface NewPersonForm {
   identificationType: string; identification: string; issueDate: string; issueCityCode: string | null;
   firstName: string; middleName: string; lastName: string; secondLastName: string;

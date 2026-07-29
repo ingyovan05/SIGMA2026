@@ -381,6 +381,51 @@
               </div>
             }
           }
+          @case ('articulos') {
+            <div class="articles-workspace">
+              <aside class="article-tree-panel">
+                <div class="article-tree-title"><div><p class="eyebrow">Clasificación</p><h2>Árbol de artículos</h2></div><span>{{ articleTree().length }} familias</span></div>
+                <div class="article-tree">
+                  @for (row of visibleArticleNodes(); track row.node.id) {
+                    <button type="button" [class.active]="selectedArticleNode()?.id === row.node.id"
+                      [style.padding-left.rem]=".75 + row.depth * 1.05" (click)="selectArticleNode(row.node)">
+                      <i>{{ row.node.children.length ? (expandedArticleNodes().includes(row.node.id) ? '−' : '+') : '·' }}</i>
+                      <code>{{ row.node.code }}</code><span>{{ row.node.name }}</span>
+                    </button>
+                  } @empty {
+                    <div class="table-empty">Cargando clasificación...</div>
+                  }
+                </div>
+                <div class="tree-legend"><span><i>FA</i>Familia</span><span><i>GR</i>Grupo</span><span><i>CL</i>Clase</span><span><i>SC</i>Subclase</span></div>
+              </aside>
+              <section class="article-results">
+                <div class="people-toolbar">
+                  <label><span>Buscar artículo</span><input #articleSearch type="search" placeholder="Código, nombre, descripción, barras o referencia" [value]="articlesSearch()" (keyup.enter)="loadArticles(articleSearch.value, 1)"></label>
+                  <button class="primary" type="button" (click)="loadArticles(articleSearch.value, 1)">Buscar</button>
+                </div>
+                <div class="article-context">
+                  <div><small>Clasificación seleccionada</small><strong>{{ selectedArticleNode() ? selectedArticleNode()!.treeCode + ' · ' + selectedArticleNode()!.name : 'Todos los artículos' }}</strong></div>
+                  <span>{{ articlesTotal() }} registros</span>
+                </div>
+                <div class="articles-table">
+                  <div class="article-head"><span>ID</span><span>Código árbol</span><span>Artículo</span><span>Unidad</span><span>Referencia</span></div>
+                  @for (article of articles(); track article.id) {
+                    <div class="article-row">
+                      <code>{{ article.id }}</code><span>{{ article.treeCode || '—' }}</span>
+                      <span><strong>{{ article.name || 'Sin nombre' }}</strong><small>{{ article.description || (article.family + ' · ' + article.group + ' · ' + article.class) }}</small></span>
+                      <span>{{ article.unit || '—' }}</span><span>{{ article.reference || article.barcode || '—' }}</span>
+                    </div>
+                  } @empty {
+                    <div class="table-empty">{{ articlesLoading() ? 'Cargando artículos...' : 'No se encontraron artículos.' }}</div>
+                  }
+                </div>
+                <div class="pagination">
+                  <span>{{ articlesTotal() ? ((articlesPage() - 1) * pageSize + 1) : 0 }}–{{ pageEnd(articlesPage(), articlesTotal()) }} de {{ articlesTotal() }}</span>
+                  <div><button type="button" [disabled]="articlesPage() === 1" (click)="changeArticlesPage(articlesPage() - 1)">Anterior</button><b>Página {{ articlesPage() }} de {{ totalPages(articlesTotal()) }}</b><button type="button" [disabled]="articlesPage() >= totalPages(articlesTotal())" (click)="changeArticlesPage(articlesPage() + 1)">Siguiente</button></div>
+                </div>
+              </section>
+            </div>
+          }
           @case ('informes') {
             <div class="toolbar">
               <label><span>Buscar informe</span><input #search type="search" placeholder="Nombre, área o descripción"
