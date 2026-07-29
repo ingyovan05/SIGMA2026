@@ -393,7 +393,13 @@
                       <code>{{ row.node.code }}</code><span>{{ row.node.name }}</span>
                     </button>
                   } @empty {
-                    <div class="table-empty">Cargando clasificación...</div>
+                    @if (articleTreeLoading()) {
+                      <div class="tree-loading" role="status"><span class="loading-spinner"></span><strong>Cargando clasificación...</strong></div>
+                    } @else if (articleTreeError()) {
+                      <div class="tree-error"><span>{{ articleTreeError() }}</span><button type="button" (click)="loadArticleTree()">Reintentar</button></div>
+                    } @else {
+                      <div class="table-empty">No hay clasificaciones disponibles.</div>
+                    }
                   }
                 </div>
                 <div class="tree-legend"><span><i>FA</i>Familia</span><span><i>GR</i>Grupo</span><span><i>CL</i>Clase</span><span><i>SC</i>Subclase</span></div>
@@ -423,7 +429,7 @@
                       <span>{{ article.unit || '—' }}</span><span>{{ article.reference || article.barcode || '—' }}</span>
                     </div>
                   } @empty {
-                    <div class="table-empty">{{ articlesLoading() ? 'Cargando artículos...' : 'No se encontraron artículos.' }}</div>
+                    <div class="table-empty">{{ selectedArticleNode() ? 'No se encontraron artículos.' : 'Seleccione una clasificación del árbol para consultar sus artículos.' }}</div>
                   }
                 </div>
                 <div class="pagination">

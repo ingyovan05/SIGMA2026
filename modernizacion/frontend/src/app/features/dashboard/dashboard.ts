@@ -62,6 +62,8 @@ export class Dashboard implements OnInit {
   readonly configuration = signal<BaseConfiguration>(emptyConfiguration());
   readonly configurationMessage = signal('');
   readonly articleTree = signal<ArticleTreeNode[]>([]);
+  readonly articleTreeLoading = signal(false);
+  readonly articleTreeError = signal('');
   readonly expandedArticleNodes = signal<string[]>([]);
   readonly selectedArticleNode = signal<ArticleTreeNode | null>(null);
   readonly articles = signal<ArticleSummary[]>([]);
@@ -194,6 +196,22 @@ export class Dashboard implements OnInit {
     }
     this.selectedArticleNode.set(node);
     this.loadArticles('', 1);
+  }
+
+  loadArticleTree(): void {
+    this.articleTreeLoading.set(true);
+    this.articleTreeError.set('');
+    this.http.get<ArticleTreeNode[]>(`${environment.apiUrl}/articles/classification-tree`)
+      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+        next: nodes => {
+          this.articleTree.set(nodes);
+          this.articleTreeLoading.set(false);
+        },
+        error: () => {
+          this.articleTreeError.set('No fue posible cargar la clasificación.');
+          this.articleTreeLoading.set(false);
+        }
+      });
   }
 
   loadArticles(search = this.articlesSearch(), page = 1): void {
@@ -443,11 +461,9 @@ export class Dashboard implements OnInit {
   private loadWorkspace(): void {
     if (this.selectedKey() === 'personal' && this.people().length === 0) this.searchPeople('');
     if (this.selectedKey() === 'articulos') {
-      if (this.articleTree().length === 0) {
-        this.http.get<ArticleTreeNode[]>(`${environment.apiUrl}/articles/classification-tree`)
-          .pipe(takeUntilDestroyed(this.destroyRef)).subscribe(nodes => this.articleTree.set(nodes));
-      }
-      this.loadArticles('', 1);
+      if (this.articleTree().length === 0 && !this.articleTreeLoading()) this.loadArticleTree();
+      this.articles.set([]);
+      this.articlesTotal.set(0);
     }
     if (this.selectedKey() === 'configuracion') this.loadConfiguration();
   }
