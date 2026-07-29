@@ -30,6 +30,10 @@ export class Dashboard implements OnInit {
   readonly personnelAction = signal('cargar');
   readonly contact = signal<ContactInfo | null>(null);
   readonly contactMessage = signal('');
+  readonly processRecords = signal<Record<string, unknown>[]>([]);
+  readonly processColumns = signal<string[]>([]);
+  readonly processLoading = signal(false);
+  readonly processError = signal('');
   readonly cities = signal<LookupItem[]>([]);
   readonly configurationPeople = signal<PersonSummary[]>([]);
   readonly configuration = signal<BaseConfiguration>(emptyConfiguration());
@@ -131,6 +135,24 @@ export class Dashboard implements OnInit {
     this.personnelSection.set(group);
     this.personnelAction.set(action);
     if (action === 'cargar' || action === 'buscar') this.searchPeople('');
+    const category: Record<string, string> = {
+      examenes: 'medical-exams',
+      covid: 'covid-surveys',
+      calificacion: 'qualifications',
+      evaluacion: 'performance-evaluations'
+    };
+    if (category[group]) this.loadProcess(category[group]);
+  }
+
+  displayValue(value: unknown): string {
+    if (value === null || value === undefined || value === '') return '—';
+    if (typeof value === 'boolean') return value ? 'Sí' : 'No';
+    const text = String(value);
+    return /^\d{4}-\d{2}-\d{2}T/.test(text) ? text.slice(0, 10) : text;
+  }
+
+  personnelGroupName(): string {
+    return this.personnelGroups.find(group => group.key === this.personnelSection())?.name ?? 'Personal';
   }
 
   updateContact(): void {
@@ -164,6 +186,26 @@ export class Dashboard implements OnInit {
   private loadWorkspace(): void {
     if (this.selectedKey() === 'personal' && this.people().length === 0) this.searchPeople('');
     if (this.selectedKey() === 'configuracion') this.loadConfiguration();
+  }
+
+  private loadProcess(category: string): void {
+    this.processLoading.set(true);
+    this.processError.set('');
+    const baseId = this.auth.user()?.sisControl?.baseId ?? 0;
+    this.http.get<Record<string, unknown>[]>(`${environment.apiUrl}/personnel/processes/${category}`,
+      { params: { baseId, take: 100 } })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: records => {
+          this.processRecords.set(records);
+          this.processColumns.set(records.length ? Object.keys(records[0]).slice(0, 8) : []);
+          this.processLoading.set(false);
+        },
+        error: () => {
+          this.processError.set('No fue posible cargar la información de esta categoría.');
+          this.processLoading.set(false);
+        }
+      });
   }
 
   private loadConfiguration(): void {

@@ -93,24 +93,45 @@
                 }
               </aside>
               <div class="personnel-content">
-                <div class="people-toolbar">
-                  <label><span>Buscar persona</span><input #peopleSearch type="search"
-                    placeholder="Identificación, nombre o apellido"
-                    (keyup.enter)="searchPeople(peopleSearch.value)"></label>
-                  <button class="primary" type="button" (click)="searchPeople(peopleSearch.value)">Buscar</button>
-                  <button class="secondary" type="button" (click)="selectPersonnelAction('personas','registrar')">Registrar persona</button>
-                </div>
-                <div class="people-table">
-                  <div class="table-head"><span>Identificación</span><span>Nombre</span><span>Celular</span><span>Correo</span><span></span></div>
-                  @for (person of people(); track person.id) {
-                    <button class="person-row" type="button" (click)="openPerson(person.id)">
-                      <span>{{ person.identification }}</span><strong>{{ person.fullName }}</strong>
-                      <span>{{ person.mobile || '—' }}</span><span>{{ person.email || '—' }}</span><b>Ver →</b>
-                    </button>
-                  } @empty {
-                    <div class="table-empty">{{ peopleLoading() ? 'Cargando personas...' : 'No se encontraron registros.' }}</div>
-                  }
-                </div>
+                @if (personnelSection() === 'personas' || personnelSection() === 'estado') {
+                  <div class="people-toolbar">
+                    <label><span>Buscar persona</span><input #peopleSearch type="search"
+                      placeholder="Identificación, nombre o apellido"
+                      (keyup.enter)="searchPeople(peopleSearch.value)"></label>
+                    <button class="primary" type="button" (click)="searchPeople(peopleSearch.value)">Buscar</button>
+                    <button class="secondary" type="button" (click)="selectPersonnelAction('personas','registrar')">Registrar persona</button>
+                  </div>
+                  <div class="people-table">
+                    <div class="table-head"><span>Identificación</span><span>Nombre</span><span>Celular</span><span>Correo</span><span></span></div>
+                    @for (person of people(); track person.id) {
+                      <button class="person-row" type="button" (click)="openPerson(person.id)">
+                        <span>{{ person.identification }}</span><strong>{{ person.fullName }}</strong>
+                        <span>{{ person.mobile || '—' }}</span><span>{{ person.email || '—' }}</span><b>Ver →</b>
+                      </button>
+                    } @empty {
+                      <div class="table-empty">{{ peopleLoading() ? 'Cargando personas...' : 'No se encontraron registros.' }}</div>
+                    }
+                  </div>
+                } @else {
+                  <div class="process-heading">
+                    <div><p class="eyebrow">Personal</p><h2>{{ personnelGroupName() }}</h2></div>
+                    <button class="secondary" type="button" (click)="selectPersonnelAction(personnelSection(), personnelAction())">Actualizar</button>
+                  </div>
+                  <div class="process-table">
+                    @if (processColumns().length) {
+                      <div class="process-row process-head">
+                        @for (column of processColumns(); track column) { <span>{{ column }}</span> }
+                      </div>
+                      @for (record of processRecords(); track $index) {
+                        <div class="process-row">
+                          @for (column of processColumns(); track column) { <span>{{ displayValue(record[column]) }}</span> }
+                        </div>
+                      }
+                    } @else {
+                      <div class="table-empty">{{ processLoading() ? 'Cargando información...' : (processError() || 'No existen registros para esta consulta.') }}</div>
+                    }
+                  </div>
+                }
               </div>
             </div>
             @if (selectedPerson(); as person) {
